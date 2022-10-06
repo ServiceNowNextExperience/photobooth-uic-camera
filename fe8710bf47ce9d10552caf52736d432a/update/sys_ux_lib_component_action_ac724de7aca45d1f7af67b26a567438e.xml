@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_action">
+    <sys_ux_lib_component_action action="INSERT_OR_UPDATE">
+        <description>Dispatched when a photo is snapped.  Includes the image in the payload.</description>
+        <name/>
+        <publisher display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</publisher>
+        <sys_class_name>sys_ux_lib_component_action</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2022-09-30 20:41:16</sys_created_on>
+        <sys_id>ac724de7aca45d1f7af67b26a567438e</sys_id>
+        <sys_name/>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e</sys_update_name>
+    </sys_ux_lib_component_action>
+    <sys_translated_text action="delete_multiple" query="documentkey=ac724de7aca45d1f7af67b26a567438e"/>
+</record_update>
