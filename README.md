@@ -29,8 +29,8 @@ If you wish to modify the code of the component, first install the apps in your 
 4. That's it! You just need these two commands (executed from the root of your photobooth-uic-camera folder).
    Develop locally:
 
-   > `snc ui-component develop --open`
+   `snc ui-component develop --open`
 
    Deploy to your default instance:
 
-   > `snc ui-component deploy --force`
+   `snc ui-component deploy --force`
