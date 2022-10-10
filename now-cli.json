@@ -1,14 +1,23 @@
 {
   "development": {
     "proxy": {
-      "proxies": ["/api"]
+      "proxies": [
+        "/api"
+      ]
     }
   },
   "styles": {
-      "themes": [{
+    "themes": [
+      {
         "module": "@servicenow/sass-theme",
-        "main": ["theme.scss"],
-        "copyFiles": ["type/*", "*.scss"]
-      }]
+        "main": [
+          "theme.scss"
+        ],
+        "copyFiles": [
+          "type/*",
+          "*.scss"
+        ]
+      }
+    ]
   }
 }

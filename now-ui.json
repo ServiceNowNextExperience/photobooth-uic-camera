@@ -19,6 +19,22 @@
 					"description": "Whether or not the camera stream is enabled.",
 					"fieldType": "boolean",
 					"defaultValue": false
+				},
+				{
+					"defaultValue": "",
+					"description": "An object containing a timestamp that can be passed down to trigger a snap. Use script to set this value to an object such as {'timestamp' : Date.now()}",
+					"fieldType": "json",
+					"label": "Snap Requested",
+					"managed": false,
+					"name": "snapRequested",
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "object"
+						}
+					}
 				}
 			],
 			"actions": [

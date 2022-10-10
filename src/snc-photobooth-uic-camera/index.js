@@ -6,6 +6,7 @@ const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED } = actionTypes;
 
 const initialState = {
 	enabled: false,
+	snapRequested: "",
 };
 
 const initializeMedia = ({ video, enabled, updateState }) => {
@@ -45,7 +46,7 @@ const toggleTracks = ({ stream, enabled }) => {
 const actionHandlers = {
 	[COMPONENT_CONNECTED]: ({ host, state, updateState }) => {
 		debugger;
-		const { enabled } = state.properties;
+		const { enabled, snapRequested } = state.properties;
 
 		console.log(COMPONENT_CONNECTED);
 		console.log(state);
@@ -55,15 +56,31 @@ const actionHandlers = {
 		const canvas = host.shadowRoot.getElementById("canvas");
 		const context = canvas.getContext("2d");
 
-		updateState({ video: video, context: context, enabled: enabled });
+		updateState({
+			video: video,
+			context: context,
+			enabled: enabled,
+			snapRequested: snapRequested,
+		});
 
 		initializeMedia({ video, enabled, updateState });
 	},
-	[COMPONENT_PROPERTY_CHANGED]: ({ state, updateState }) => {
+	[COMPONENT_PROPERTY_CHANGED]: ({
+		state,
+		updateState,
+		properties,
+		updateProperties,
+		action,
+	}) => {
+		const { name, value, previousValue } = action.payload;
+		debugger;
 		console.log(COMPONENT_PROPERTY_CHANGED);
 		console.log(state);
+		console.log(name);
+		console.log("ACTION!");
+		console.log(action);
 
-		const { enabled } = state.properties;
+		const { enabled, snapRequested } = state.properties;
 		updateState({ enabled: enabled });
 
 		if (enabled === true) {
@@ -74,55 +91,48 @@ const actionHandlers = {
 	},
 };
 
-const view = (state, { updateState }) => {
+const snap = ({ context, video }) => {
+	let pos = 0;
+	//	const { context, video } = state;
+
+	const _snap = () => {
+		switch (pos) {
+			case 0:
+				context.drawImage(video, 0, 0, 320, 240);
+				pos = 1;
+				break;
+			case 1:
+				context.drawImage(video, 320, 0, 320, 240);
+				pos = 2;
+				break;
+			case 2:
+				context.drawImage(video, 0, 240, 320, 240);
+				pos = 3;
+				break;
+			case 3:
+				context.drawImage(video, 320, 240, 320, 240);
+				pos = 0;
+				break;
+		}
+		if (pos != 0) {
+			setTimeout(_snap, 500);
+		}
+	};
+
+	_snap();
+};
+
+const view = (state) => {
 	// Elements for taking the snapshot
 	// Trigger photo take
 	console.log("VIEW");
 	console.log(state);
 
-	const snap = () => {
-		let pos = 0;
-		const { context, video } = state;
-
-		const _snap = () => {
-			switch (pos) {
-				case 0:
-					context.drawImage(video, 0, 0, 320, 240);
-					pos = 1;
-					break;
-				case 1:
-					context.drawImage(video, 320, 0, 320, 240);
-					pos = 2;
-					break;
-				case 2:
-					context.drawImage(video, 0, 240, 320, 240);
-					pos = 3;
-					break;
-				case 3:
-					context.drawImage(video, 320, 240, 320, 240);
-					pos = 0;
-					break;
-			}
-			if (pos != 0) {
-				setTimeout(_snap, 500);
-			}
-		};
-
-		_snap();
-	};
-
 	return (
 		<div>
-			<div class={{ hello: true }}>Hello world!</div>
 			<video id="video" width="640" height="480" autoplay=""></video>
-			<button id="snap" on-click={() => snap()}>
+			<button id="snap" on-click={() => snap(state)}>
 				Snap Photo
-			</button>
-			<button id="stop" on-click={() => pauseTracks(state)}>
-				Pause
-			</button>
-			<button id="start" on-click={() => resumeTracks(state)}>
-				Resume
 			</button>
 			<canvas id="canvas" width="640" height="480"></canvas>
 		</div>
@@ -145,6 +155,26 @@ const properties = {
 	enabled: {
 		schema: { type: "boolean" },
 		default: false,
+	},
+
+	/**
+	 * Triggers a snapshot
+	 * Required: No
+	 *
+	 * @private
+	 * @type {{}}
+	 */
+	snapRequested: {
+		default: "",
+		schema: { type: "string" },
+		/*		onChange(newValue, oldValue, { dispatch }) {
+			debugger;
+			if (newValue.timestamp === oldValue.timestamp) return;
+
+			dispatch(PROPERTIES_SET, {
+				...LIST_PROP_RESET,
+			});
+		},*/
 	},
 };
 
