@@ -2,6 +2,7 @@ import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
+const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED } = actionTypes;
 
 const initialState = {};
@@ -62,21 +63,19 @@ const actionHandlers = {
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
 		action,
+		dispatch,
 		/*		updateState,
 		properties,
 		updateProperties,*/
 	}) => {
 		const { name, value, previousValue } = action.payload;
 		console.log(COMPONENT_PROPERTY_CHANGED);
-		console.log(state);
 		console.log(name);
-		console.log("ACTION!");
-		console.log(action);
 
 		switch (name) {
 			case "snapRequested":
 				if (value != previousValue) {
-					snap(state);
+					const imageData = snap(state, dispatch);
 				}
 				break;
 			case "enabled":
@@ -86,7 +85,7 @@ const actionHandlers = {
 	},
 };
 
-const snap = ({ context, video }) => {
+const snap = ({ context, video }, dispatch) => {
 	let pos = 0;
 	//	const { context, video } = state;
 
@@ -111,10 +110,16 @@ const snap = ({ context, video }) => {
 		}
 		if (pos != 0) {
 			setTimeout(_snap, 500);
+		} else {
+			const imageData = context.getImageData(0, 0, 640, 480);
+
+			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {
+				imageData: imageData,
+			});
 		}
 	};
 
-	_snap();
+	return _snap();
 };
 
 const view = (state) => {
@@ -141,7 +146,7 @@ const dispatches = {
 	 * Dispatched when a camera picture is snapped.
 	 * @type {{response:string}}
 	 */
-	"PHOTOBOOTH_CAMERA#SNAPPED": {},
+	PHOTOBOOTH_CAMERA_SNAPPED: {},
 };
 
 const properties = {

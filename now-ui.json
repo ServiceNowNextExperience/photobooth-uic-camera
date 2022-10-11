@@ -22,7 +22,7 @@
 				},
 				{
 					"defaultValue": "",
-					"description": "An object containing a timestamp that can be passed down to trigger a snap. Use script to set this value to an object such as {'timestamp' : Date.now()}",
+					"description": "A string containing timestamp that can be passed down to trigger a snap. Use script to set this value such as Date.now()",
 					"fieldType": "json",
 					"label": "Snap Requested",
 					"managed": false,
@@ -32,7 +32,7 @@
 					"selectable": false,
 					"typeMetadata": {
 						"schema": {
-							"type": "object"
+							"type": "string"
 						}
 					}
 				}
@@ -41,17 +41,13 @@
 				{
 					"action": "PHOTOBOOTH_CAMERA#SNAPPED",
 					"label": "Photo Snapped",
-					"description": "Dispatched when a photo is snapped.  Includes the image in the payload.",
+					"description": "Dispatched when a photo is snapped.  Includes the imageData in the payload.",
 					"payload": [
 						{
-							"name": "image",
-							"label": "Image",
-							"fieldType": "image",
-							"typeMetadata": {
-								"schema": {
-									"type": "image"
-								}
-							}
+							"name": "imageData",
+							"label": "Image Data",
+							"description": "The image data from the camera after the snap is completed",
+							"fieldType": "string"
 						}
 					]
 				}
