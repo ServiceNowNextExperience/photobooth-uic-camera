@@ -37,7 +37,7 @@ NOTE: The scope name must change unless you're a ServiceNow employee. You may se
 
 `snc ui-component project --name @snc/photobooth-uic-camera --description "Use the HTML5 camera in a photobooth app" --scope "x_snc_pb_camera" –offline`
 
-7. Don't forget to install the NPM dependencies (I always seem to):
+7. Don't forget to install the NPM dependencies (I always seem to miss this for some reason):
 
 `npm install`
 
