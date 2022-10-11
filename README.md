@@ -53,7 +53,7 @@ rm -rf temp
 
 `git stash`
 
-10. That's it! You should have the latest code locally. If you want to be sure you can always run "git pull" to be sure. Now you just need the following two commands, executed from the root of the "photobooth-uic-camera" folder as you develop the component:
+10. That's it! You should have the latest code locally. If you want to be sure you can always run `git pull` to be sure. Now you just need the following two commands, executed from the root of the "photobooth-uic-camera" folder as you develop the component:
 
     **Develop locally:**
     `snc ui-component develop --open`
