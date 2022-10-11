@@ -26,7 +26,7 @@ If you wish to modify the code of the component, first install the apps in your 
 
 Becuase we are hosting both the code and the "compiled" app scope in the same instance, we'll need to take a couple of extra steps to get started.
 
-NOTE: The scope name must change unless you're a ServiceNow employee. You may set that at the end of the "now-ui.json" file as well as with the "--scope" command when setting up your new project using SNC.
+NOTE: The scope name must change unless you're a ServiceNow employee. You may set that at the end of the "now-ui.json" file as well as with the "--scope" command when setting up your new project using SNC. See step 5 for mmore details below.
 
 1. Before you start custom component dev we need to address a bug in the current snc ui-component utility which causes references to dispatched and handled events to get overwritten each time you deploy the component. To resolve this first deploy the [UIC Event Fixer](https://github.com/ServiceNowNextExperience/uic-event-fixer) application into your DEV environment only.
 2. If you have not done so yet, configure your environment for ui-component dev by following the [ServiceNow CLI docs](https://docs.servicenow.com/bundle/tokyo-application-development/page/build/servicenow-cli/concept/servicenow-cli.html), being sure to also follow my pointers from my document's [ServiceNow Command Line Interface (CLI)](https://www.servicenow.com/community/next-experience-articles/cross-origin-resource-sharing-cors-in-ui-builder-uib/ta-p/2341273#toc-hId--1595374477) section.
