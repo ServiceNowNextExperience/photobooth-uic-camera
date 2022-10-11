@@ -43,9 +43,11 @@ NOTE: The scope name must change unless you're a ServiceNow employee. You may se
 
 8. You will need to connect this folder, which already has existing content, to git. The SNC tool won’t initialize a project in a non-empty folder and git has the same rule. To get around this we will clone our git repo into a temp folder then copy the ".git" folder from there to our project to tie it to git. (Steps from [Stack Overflow](https://stackoverflow.com/questions/5377960/git-whats-the-best-practice-to-git-clone-into-an-existing-folder))
 
-`git clone https://github.com/ServiceNowNextExperience/photobooth-uic-camera temp`
-`mv temp/.git photobooth-uic-camera/.git`
-`rm -rf temp`
+```
+git clone https://github.com/ServiceNowNextExperience/photobooth-uic-camera temp
+mv temp/.git photobooth-uic-camera/.git
+rm -rf temp
+```
 
 9. Return to “photobooth-uic-camera” folder. Git will be confused about the state of your app versus the server. The simple way to get around this is to just stash your current config with this command:
 
@@ -58,3 +60,7 @@ NOTE: The scope name must change unless you're a ServiceNow employee. You may se
 
     **Deploy to your default instance:**
     `snc ui-component deploy --force`
+
+```
+
+```
