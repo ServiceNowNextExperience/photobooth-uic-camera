@@ -2,11 +2,11 @@
 
 HTML5 component to use a camera with a ServiceNow Next Experience Framework Component.
 
-This repository hosts things:
+This repository hosts two things:
 
 1. **Custom Component Code**
    This is the source code for the photobooth-uic-component.
-2. **Photobooth UIC Component App Scope**
+2. **Photobooth UIC Component App**
    This is the application and scope to which the custom code is deployed. This scope is referenced when deploying changes to the component so it should be installed first. Also, it can be used independently if you do not need to make changes to the component's code.
 
 ## Usage Scenarios

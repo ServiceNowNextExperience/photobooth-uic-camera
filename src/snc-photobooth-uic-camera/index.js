@@ -4,10 +4,7 @@ import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED } = actionTypes;
 
-const initialState = {
-	enabled: false,
-	snapRequested: "",
-};
+const initialState = {};
 
 const initializeMedia = ({ video, enabled, updateState }) => {
 	// Get access to the camera!
@@ -20,7 +17,7 @@ const initializeMedia = ({ video, enabled, updateState }) => {
 				updateState({ stream: stream });
 				video.srcObject = stream;
 				video.play();
-				toggleTracks({ stream, enabled });
+				toggleTracks({ stream }, enabled);
 			});
 	}
 };
@@ -37,7 +34,7 @@ const pauseTracks = ({ stream }) => {
 	}
 };
 
-const toggleTracks = ({ stream, enabled }) => {
+const toggleTracks = ({ stream }, enabled) => {
 	if (stream) {
 		stream.getTracks().forEach((track) => (track.enabled = enabled));
 	}
@@ -45,7 +42,6 @@ const toggleTracks = ({ stream, enabled }) => {
 
 const actionHandlers = {
 	[COMPONENT_CONNECTED]: ({ host, state, updateState }) => {
-		debugger;
 		const { enabled, snapRequested } = state.properties;
 
 		console.log(COMPONENT_CONNECTED);
@@ -59,34 +55,33 @@ const actionHandlers = {
 		updateState({
 			video: video,
 			context: context,
-			enabled: enabled,
-			snapRequested: snapRequested,
 		});
 
 		initializeMedia({ video, enabled, updateState });
 	},
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
-		updateState,
-		properties,
-		updateProperties,
 		action,
+		/*		updateState,
+		properties,
+		updateProperties,*/
 	}) => {
 		const { name, value, previousValue } = action.payload;
-		debugger;
 		console.log(COMPONENT_PROPERTY_CHANGED);
 		console.log(state);
 		console.log(name);
 		console.log("ACTION!");
 		console.log(action);
 
-		const { enabled, snapRequested } = state.properties;
-		updateState({ enabled: enabled });
-
-		if (enabled === true) {
-			resumeTracks(state);
-		} else {
-			pauseTracks(state);
+		switch (name) {
+			case "snapRequested":
+				if (value != previousValue) {
+					snap(state);
+				}
+				break;
+			case "enabled":
+				toggleTracks(state, value);
+				break;
 		}
 	},
 };
@@ -128,12 +123,14 @@ const view = (state) => {
 	console.log("VIEW");
 	console.log(state);
 
+	/*	if(state.doSnap === true){
+		snap(state);
+
+	}*/
+
 	return (
 		<div>
 			<video id="video" width="640" height="480" autoplay=""></video>
-			<button id="snap" on-click={() => snap(state)}>
-				Snap Photo
-			</button>
 			<canvas id="canvas" width="640" height="480"></canvas>
 		</div>
 	);
@@ -141,7 +138,7 @@ const view = (state) => {
 
 const dispatches = {
 	/**
-	 * Dispatched when CORS request is started. Used to manage
+	 * Dispatched when a camera picture is snapped.
 	 * @type {{response:string}}
 	 */
 	"PHOTOBOOTH_CAMERA#SNAPPED": {},
@@ -166,15 +163,13 @@ const properties = {
 	 */
 	snapRequested: {
 		default: "",
-		schema: { type: "string" },
-		/*		onChange(newValue, oldValue, { dispatch }) {
+		schema: { type: "string" } /*
+		onChange(newValue, oldValue, { dispatch, updateState }) {
+			console.log("snapRequested onChange " + newValue);
 			debugger;
-			if (newValue.timestamp === oldValue.timestamp) return;
-
-			dispatch(PROPERTIES_SET, {
-				...LIST_PROP_RESET,
-			});
-		},*/
+			if (newValue === oldValue) return;
+			updateState({ doSnap: true });
+		},*/,
 	},
 };
 
