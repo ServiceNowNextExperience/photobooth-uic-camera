@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
     <sys_ux_event action="INSERT_OR_UPDATE">
         <description/>
-        <event_name>PHOTOBOOTH#SNAPPED</event_name>
+        <event_name>PHOTOBOOTH_CAMERA#SNAPPED</event_name>
         <interfaces/>
         <label>Photobooth Image Snapped</label>
         <props>[{&#13;
-	"name": "image",&#13;
-	"label": "Image",&#13;
-	"fieldType": "image",&#13;
-	"typeMetadata": {&#13;
-		"schema": {&#13;
-			"type": "image"&#13;
-		}&#13;
-	}&#13;
+	"name": "imageData",&#13;
+	"label": "Image Data",&#13;
+	"fieldType": "string"&#13;
 }]</props>
         <required_translations>[ {
-  "message" : "Image",
+  "message" : "Image Data",
   "comment" : ""
 } ]</required_translations>
         <schema_version>1.0.0</schema_version>
