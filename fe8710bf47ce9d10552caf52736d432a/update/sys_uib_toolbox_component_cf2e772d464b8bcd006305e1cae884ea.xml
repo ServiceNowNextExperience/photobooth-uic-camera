@@ -16,7 +16,7 @@
         <scripted_config_policy/>
         <sys_class_name>sys_uib_toolbox_component</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2022-09-30 20:41:19</sys_created_on>
+        <sys_created_on>2022-10-12 21:23:46</sys_created_on>
         <sys_id>cf2e772d464b8bcd006305e1cae884ea</sys_id>
         <sys_name>Photobooth Camera</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
