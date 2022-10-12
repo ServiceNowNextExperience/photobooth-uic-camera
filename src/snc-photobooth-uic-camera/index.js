@@ -56,6 +56,7 @@ const actionHandlers = {
 		updateState({
 			video: video,
 			context: context,
+			canvas: canvas,
 		});
 
 		initializeMedia({ video, enabled, updateState });
@@ -85,7 +86,7 @@ const actionHandlers = {
 	},
 };
 
-const snap = ({ context, video }, dispatch) => {
+const snap = ({ context, canvas, video }, dispatch) => {
 	let pos = 0;
 	//	const { context, video } = state;
 
@@ -111,7 +112,7 @@ const snap = ({ context, video }, dispatch) => {
 		if (pos != 0) {
 			setTimeout(_snap, 500);
 		} else {
-			const imageData = context.getImageData(0, 0, 640, 480);
+			const imageData = canvas.toDataURL("image/jpeg");
 
 			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {
 				imageData: imageData,

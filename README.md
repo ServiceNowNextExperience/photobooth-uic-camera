@@ -49,8 +49,7 @@ rm -rf temp
 ```
 
 8. Return to “photobooth-uic-camera” folder. Git will be confused about the state of your app versus the server. The simple way to get around this is to just stash your current config with this command:
-
-`git stash`
+   `git stash`
 
 9. That's it! You should have the latest code locally. If you want to be sure you can always run `git pull`. Now you just need the following two commands, executed from the root of the "photobooth-uic-camera" folder, as you develop the component:
 
