@@ -2,6 +2,8 @@
 
 HTML5 component to use a camera with a ServiceNow Next Experience Framework Component.
 
+**PRO TIP** Be sure to "Pull from repository" each time you start dev and it will make your life easier and you won't be having to stash all your changes every time I modify this readme before you check in.
+
 This repository hosts two things:
 
 1. **Custom Component Code**
