@@ -3,22 +3,31 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
-const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED } = actionTypes;
+const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
+	actionTypes;
 
 const initialState = {};
 
 const initializeMedia = ({ video, enabled, updateState }) => {
+	console.log("Initialize Media");
+	console.log(navigator.mediaDevices);
 	// Get access to the camera!
 	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		console.log("Media Devices available");
 		// Not adding `{ audio: true }` since we only want video now
 		navigator.mediaDevices
 			.getUserMedia({ video: true })
 			.then(function (stream) {
+				console.log("Got User Media!");
 				//video.src = window.URL.createObjectURL(stream);
 				updateState({ stream: stream });
 				video.srcObject = stream;
 				video.play();
 				toggleTracks({ stream }, enabled);
+			})
+			.catch((x) => {
+				console.log("Error Getting Media!");
+				console.log(x);
 			});
 	}
 };
@@ -42,11 +51,9 @@ const toggleTracks = ({ stream }, enabled) => {
 };
 
 const actionHandlers = {
-	[COMPONENT_CONNECTED]: ({ host, state, updateState }) => {
-		const { enabled, snapRequested } = state.properties;
-
-		console.log(COMPONENT_CONNECTED);
-		console.log(state);
+	[COMPONENT_DOM_READY]: ({ host, state, updateState }) => {
+		console.log("COMPONENT_DOM_READY");
+		const { enabled } = state.properties;
 
 		// Grab elements, create settings, etc.
 		const video = host.shadowRoot.getElementById("video");
@@ -60,6 +67,10 @@ const actionHandlers = {
 		});
 
 		initializeMedia({ video, enabled, updateState });
+	},
+	[COMPONENT_CONNECTED]: ({ host, state, updateState }) => {
+		console.log(COMPONENT_CONNECTED);
+		console.log(state);
 	},
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
