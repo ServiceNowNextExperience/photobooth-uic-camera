@@ -26,7 +26,7 @@ If you wish to use the photobooth UIC component from another app, follow these i
 
 If you wish to modify the code of the component, first install the apps in your instance as instructed above.
 
-Becuase we are hosting both the code and the "compiled" app scope in the same instance, we'll need to take a couple of extra steps to get started.
+Because we are hosting both the code and the "compiled" app scope in the same instance, we'll need to take a couple of extra steps to get started.
 
 1. Before you start custom component dev we need to address a bug in the current snc ui-component utility which causes references to events to get erased on the component each time you deploy. The [UIC Event Fixer](https://github.com/ServiceNowNextExperience/uic-event-fixer) application may be installed into your DEV environment to fix this.
 2. If you have not done so yet, configure your environment for ui-component dev by following the [ServiceNow CLI docs](https://docs.servicenow.com/bundle/tokyo-application-development/page/build/servicenow-cli/concept/servicenow-cli.html), being sure to also follow my pointers from my document's [ServiceNow Command Line Interface (CLI)](https://www.servicenow.com/community/next-experience-articles/cross-origin-resource-sharing-cors-in-ui-builder-uib/ta-p/2341273#toc-hId--1595374477) section.
