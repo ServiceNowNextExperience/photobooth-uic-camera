@@ -27,7 +27,7 @@
         <state_properties/>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2022-10-12 21:23:44</sys_created_on>
+        <sys_created_on>2022-10-13 22:08:08</sys_created_on>
         <sys_id>66bf07178bd1f7bc518fe0ee0c633a03</sys_id>
         <sys_name>Photobooth Camera</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
