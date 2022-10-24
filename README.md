@@ -22,7 +22,7 @@ If you wish to use the photobooth UIC component from another app, follow these i
 3. Use source control in your instance to install the **Photobooth Core** app: https://github.com/ServiceNowNextExperience/photobooth-core (this has the tables and flows)
 4. Open the Photobooth app in UI Builder to see how the component is referenced and configured. You may drag this Photobooth component into your own app as well.
 
-### Edit the component
+### Develop the component locally
 
 If you wish to modify the code of the component, first install the apps in your instance as instructed above.
 
