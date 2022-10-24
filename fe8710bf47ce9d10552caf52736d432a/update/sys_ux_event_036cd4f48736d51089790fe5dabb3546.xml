@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
     <sys_ux_event action="INSERT_OR_UPDATE">
         <description/>
-        <event_name>PHOTOBOOTH#SNAPPED</event_name>
+        <event_name>PHOTOBOOTH_CAMERA#SNAPPED</event_name>
         <interfaces/>
         <label>Photobooth Image Snapped</label>
         <props>[{&#13;
-	"name": "image",&#13;
-	"label": "Image",&#13;
-	"fieldType": "image",&#13;
-	"typeMetadata": {&#13;
-		"schema": {&#13;
-			"type": "image"&#13;
-		}&#13;
-	}&#13;
+	"name": "imageData",&#13;
+	"label": "Image Data",&#13;
+	"fieldType": "string"&#13;
 }]</props>
         <required_translations>[ {
-  "message" : "Image",
+  "message" : "Image Data",
   "comment" : ""
 } ]</required_translations>
         <schema_version>1.0.0</schema_version>
         <sys_class_name>sys_ux_event</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2022-09-27 17:06:21</sys_created_on>
-        <sys_id>b4120dc0479edd10552caf52736d432b</sys_id>
+        <sys_created_on>2022-10-24 18:46:56</sys_created_on>
+        <sys_id>036cd4f48736d51089790fe5dabb3546</sys_id>
         <sys_name>Photobooth Image Snapped</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
-        <sys_update_name>sys_ux_event_b4120dc0479edd10552caf52736d432b</sys_update_name>
+        <sys_update_name>sys_ux_event_036cd4f48736d51089790fe5dabb3546</sys_update_name>
     </sys_ux_event>
-    <sys_translated_text action="delete_multiple" query="documentkey=b4120dc0479edd10552caf52736d432b"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=036cd4f48736d51089790fe5dabb3546"/>
 </record_update>
