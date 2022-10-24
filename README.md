@@ -29,7 +29,7 @@ If you wish to modify the code of the component, first install the apps in your 
 Because we are hosting both the code and the "compiled" app scope in the same instance, we'll need to take a couple of extra steps to get started.
 
 1. Before you start custom component dev we need to address a bug in the current snc ui-component utility which causes references to events to get erased on the component each time you deploy. The [UIC Event Fixer](https://github.com/ServiceNowNextExperience/uic-event-fixer) application may be installed into your DEV environment to fix this.
-2. If you have not done so yet, configure your environment for ui-component dev by following the [Setting up the ServiceNow CLI](https://www.servicenow.com/community/next-experience-articles/setting-up-command-line-interface-cli-for-custom-component-dev/ta-p/2361588).
+2. If you have not done so yet, configure your computer for ui-component dev by following [Setting up the ServiceNow CLI](https://www.servicenow.com/community/next-experience-articles/setting-up-command-line-interface-cli-for-custom-component-dev/ta-p/2361588).
 3. Do not use the instructions in the previous step to create the Photobooth UIC Camera development configuration, but instead us it to create a "Hello World" component config to be sure that everything works before continuing to the next step.
 4. Create a new directory called “photobooth-uic-camera” for you project and change directory into it from the command line.
 5. Use the following command to configure the folder for local UI Component dev:
