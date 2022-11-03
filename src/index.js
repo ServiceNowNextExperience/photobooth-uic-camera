@@ -1,1 +1,1 @@
-import './snc-photobooth-uic-camera';
+import "./snc-photobooth-uic-camera";

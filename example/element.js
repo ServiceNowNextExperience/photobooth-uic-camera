@@ -6,39 +6,68 @@ import "../src/index.js";
 const view = (state, { updateState, dispatch }) => {
 	console.log("ELEMENT VIEW");
 	console.log(state);
-	const { enabled, snapRequested } = state;
+	const { enabled, snapRequested, countdownDurationSeconds, imageSize } = state;
 	const toggleEnabledExternally = () => {
 		console.log("TOGGLE ENABLED EXTERNALLY");
 		console.log(state);
 		updateState({ enabled: !enabled });
 	};
 
-	const requestSnap = () => {
+	const requestSnap = (countdownDurationSeconds) => {
 		console.log("REQUEST SNAP");
 		console.log(state);
-		updateState({ snapRequested: Date.now() });
+		updateState({
+			countdownDurationSeconds: countdownDurationSeconds || 0,
+		});
+		updateState({ snapRequested: Date.now() + "" });
 	};
 
 	return (
-		<div>
-			<div>
+		<div style={{ position: "relative" }}>
+			<div id="camera" style={{ position: "relative" }}>
 				<snc-photobooth-uic-camera
 					enabled={enabled}
 					snapRequested={snapRequested}
+					countdownDurationSeconds={countdownDurationSeconds}
+					imageSize={imageSize}
 				></snc-photobooth-uic-camera>
 			</div>
-			<div>
+			<div id="controls" style={{ position: "relative" }}>
 				<button on-click={() => toggleEnabledExternally()}>
-					Toggle Externally
+					Toggle Enabled
 				</button>
-				<button on-click={() => requestSnap()}>Snap!</button>
+				{enabled ? (
+					<span>
+						<button on-click={() => requestSnap()}>Snap!</button>
+						<button
+							on-click={() => {
+								requestSnap(5);
+							}}
+						>
+							Countdown
+						</button>
+					</span>
+				) : null}
+				{snapRequested ? (
+					<button
+						on-click={() => {
+							updateState({ snapRequested: "" });
+						}}
+					>
+						Reset
+					</button>
+				) : null}
 			</div>
 		</div>
 	);
 };
 
 createCustomElement("snc-photobooth-uic-camera-examples", {
-	initialState: { enabled: true },
+	initialState: {
+		enabled: true,
+		countdownDurationSeconds: 5,
+		imageSize: { width: 800, height: 600 },
+	},
 	renderer: { type: snabbdom },
 	view,
 });

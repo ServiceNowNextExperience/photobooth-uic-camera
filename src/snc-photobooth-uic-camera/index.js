@@ -1,12 +1,15 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
-import styles from "./styles.scss";
+import baseStyles from "./styles.scss";
+import animationStyles from "./animation1.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
-const initialState = {};
+const styles = baseStyles + "\n\n" + animationStyles;
+
+const initialState = { snapState: "idle" };
 
 const initializeMedia = ({ video, enabled, updateState }) => {
 	console.log("Initialize Media");
@@ -59,11 +62,13 @@ const actionHandlers = {
 		const video = host.shadowRoot.getElementById("video");
 		const canvas = host.shadowRoot.getElementById("canvas");
 		const context = canvas.getContext("2d");
+		const counter = host.shadowRoot.getElementById("counter");
 
 		updateState({
 			video: video,
 			context: context,
 			canvas: canvas,
+			counter: counter,
 		});
 
 		initializeMedia({ video, enabled, updateState });
@@ -76,53 +81,79 @@ const actionHandlers = {
 		state,
 		action,
 		dispatch,
+		updateState,
 		/*		updateState,
 		properties,
 		updateProperties,*/
 	}) => {
 		const { name, value, previousValue } = action.payload;
+		const { snapState } = state;
 		console.log(COMPONENT_PROPERTY_CHANGED);
 		console.log(name);
 
 		switch (name) {
 			case "snapRequested":
-				if (value != previousValue) {
-					const imageData = snap(state, dispatch);
+				if (value && value != previousValue) {
+					const imageData = snap(state, dispatch, updateState);
+				} else if (!value && snapState != "idle") {
+					// Reset if the value for snapRequested is empty
+					updateState({ snapState: "idle" });
 				}
 				break;
 			case "enabled":
 				toggleTracks(state, value);
+				updateState({ snapState: "idle" });
 				break;
 		}
 	},
 };
 
-const snap = ({ context, canvas, video }, dispatch) => {
+const snap = (
+	{
+		context,
+		canvas,
+		video,
+		properties: {
+			countdownDurationSeconds,
+			imageSize: { width, height },
+		},
+	},
+	dispatch,
+	updateState
+) => {
 	let pos = 0;
-	//	const { context, video } = state;
+	updateState({ snapState: "countdown" });
+
+	const hWidth = width / 2;
+	const hHeight = height / 2;
+
+	context.clearRect(0, 0, width, height);
 
 	const _snap = () => {
 		switch (pos) {
 			case 0:
-				context.drawImage(video, 0, 0, 320, 240);
+				updateState({ snapState: "snapping" });
+				context.drawImage(video, 0, 0, hWidth, hHeight);
 				pos = 1;
 				break;
 			case 1:
-				context.drawImage(video, 320, 0, 320, 240);
+				context.drawImage(video, hWidth, 0, hWidth, hHeight);
 				pos = 2;
 				break;
 			case 2:
-				context.drawImage(video, 0, 240, 320, 240);
+				context.drawImage(video, 0, hHeight, hWidth, hHeight);
 				pos = 3;
 				break;
 			case 3:
-				context.drawImage(video, 320, 240, 320, 240);
+				context.drawImage(video, hWidth, hHeight, hWidth, hHeight);
 				pos = 0;
 				break;
 		}
 		if (pos != 0) {
 			setTimeout(_snap, 500);
 		} else {
+			updateState({ snapState: "preview" });
+
 			const imageData = canvas.toDataURL("image/jpeg");
 
 			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {
@@ -131,24 +162,34 @@ const snap = ({ context, canvas, video }, dispatch) => {
 		}
 	};
 
-	return _snap();
+	setTimeout(_snap, countdownDurationSeconds * 1000);
 };
 
-const view = (state) => {
-	// Elements for taking the snapshot
-	// Trigger photo take
+const view = ({
+	snapState,
+	properties: {
+		imageSize: { width, height },
+		countdownDurationSeconds,
+	},
+}) => {
 	console.log("VIEW");
-	console.log(state);
-
-	/*	if(state.doSnap === true){
-		snap(state);
-
-	}*/
-
+	console.log(snapState);
+	console.log(`size: ${width}x${height}`);
+	console.log(countdownDurationSeconds);
 	return (
 		<div>
-			<video id="video" width="640" height="480" autoplay=""></video>
-			<canvas id="canvas" width="640" height="480"></canvas>
+			<div
+				id="container"
+				className={snapState}
+				style={{ width: `${width}px`, height: `${height}px` }}
+			>
+				<div id="content">
+					<video id="video" width={width} height={height} autoplay=""></video>
+					<canvas id="canvas" width={width} height={height}></canvas>
+				</div>
+				<div id="counter"></div>
+			</div>
+			<div>{snapState}</div>
 		</div>
 	);
 };
@@ -161,6 +202,9 @@ const dispatches = {
 	PHOTOBOOTH_CAMERA_SNAPPED: {},
 };
 
+// NOTES FROM JON
+// This is based on the standard JSON Schema
+// https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/type-schema
 const properties = {
 	/**
 	 * Camera is enabled
@@ -174,9 +218,6 @@ const properties = {
 	/**
 	 * Triggers a snapshot
 	 * Required: No
-	 *
-	 * @private
-	 * @type {{}}
 	 */
 	snapRequested: {
 		default: "",
@@ -187,6 +228,38 @@ const properties = {
 			if (newValue === oldValue) return;
 			updateState({ doSnap: true });
 		},*/,
+	},
+
+	/**
+	 * How long to wait after requesting a snap and beginning the shots.
+	 */
+	countdownDurationSeconds: {
+		default: 0,
+		schema: { type: "number" },
+	},
+
+	/**
+	 * Image width and height in pixels
+	 */
+	imageSize: {
+		default: { width: 640, height: 480 },
+		schema: {
+			type: "object",
+			properties: {
+				width: { type: "integer" },
+				height: { type: "integer" },
+			},
+			required: ["width", "height"],
+		},
+	},
+
+	/**
+	 * Countdown Animation CSS
+	 * If using the Countdown Duration property make sure that the animation matches.
+	 */
+	countdownAnimationCss: {
+		schema: { type: "string" },
+		default: "",
 	},
 };
 

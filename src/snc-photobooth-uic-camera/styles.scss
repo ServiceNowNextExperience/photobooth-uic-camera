@@ -1,5 +1,53 @@
 @import "@servicenow/sass-kit/host";
 
-.hello {
-  color: red;
+//@import "./animation1.scss";
+
+#container {
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  div {
+    position: absolute;
+  }
+}
+
+/* Waiting to take the snapshot */
+.idle {
+  #counter {
+    display: none;
+  }
+  #canvas {
+    display: none;
+  }
+}
+
+/* State while countdown is rendering */
+.countdown {
+  #canvas {
+    display: none;
+  }
+}
+
+/* State while taking the snapshot */
+.snapping {
+  #counter {
+    display: none;
+  }
+  #video {
+    display: none;
+  }
+}
+
+/* State when you are previewing the results of the snapshot */
+.preview {
+  #counter {
+    display: none;
+  }
+
+  #video {
+    display: none;
+  }
 }

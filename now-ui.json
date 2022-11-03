@@ -21,12 +21,64 @@
 					"defaultValue": false
 				},
 				{
+					"name": "snapRequested",
+					"label": "Snap Requested",
 					"defaultValue": "",
 					"description": "A string containing timestamp that can be passed down to trigger a snap. Use script to set this value such as Date.now()",
-					"fieldType": "json",
-					"label": "Snap Requested",
+					"fieldType": "string",
 					"managed": false,
-					"name": "snapRequested",
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				{
+					"name": "countdownDurationSeconds",
+					"label": "Countdown Duration Seconds",
+					"defaultValue": 0,
+					"description": "Number of seconds to wait after Snap Requested to take the shot",
+					"fieldType": "integer",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {}
+				},
+				{
+					"name": "imageSize",
+					"label": "Image Size",
+					"defaultValue": "{\"width\":640,\"height\":480}",
+					"description": "Width in pixels",
+					"fieldType": "json",
+					"managed": false,
+					"readOnly": false,
+					"required": true,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"width": {
+									"type": "integer"
+								},
+								"height": {
+									"type": "integer"
+								}
+							}
+						}
+					}
+				},
+				{
+					"name": "countdownAnimationCss",
+					"label": "Countdown Animation CSS",
+					"defaultValue": "",
+					"description": "Complete CSS to create the countdown animation.  Must target a div with the counter with id of 'counter' that overlays the main image panel.  Will pause when class 'disabled' is added to the counter div. Make sure that the duration matches the Countdown Duration Seconds property.",
+					"fieldType": "string",
+					"managed": false,
 					"readOnly": false,
 					"required": false,
 					"selectable": false,
