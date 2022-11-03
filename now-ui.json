@@ -76,7 +76,7 @@
 					"name": "countdownAnimationCss",
 					"label": "Countdown Animation CSS",
 					"defaultValue": "",
-					"description": "Complete CSS to create the countdown animation.  Must target a div with the counter with id of 'counter' that overlays the main image panel.  Will pause when class 'disabled' is added to the counter div. Make sure that the duration matches the Countdown Duration Seconds property.",
+					"description": "Complete CSS to create the countdown animation. Use with the Countdown Duration property and make sure that the animation duration matches. Should target divs with ids of 'content' (this is the main div to overlay the counter onto) and 'counter' (the div to put the counter into). Can be any CSS or SCSS but be sure to minify it first (remove whitespace). There are four classes used to represent state: 'idle', 'countdown', 'snapping' and 'preview'. Example https://github.com/ServiceNowNextExperience/photobooth-uic-camera/blob/main/src/snc-photobooth-uic-camera/animation1.scss",
 					"fieldType": "string",
 					"managed": false,
 					"readOnly": false,
