@@ -1,6 +1,6 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
-
+import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
 import "../src/index.js";
 
 const view = (state, { updateState, dispatch }) => {
@@ -30,6 +30,7 @@ const view = (state, { updateState, dispatch }) => {
 					snapRequested={snapRequested}
 					countdownDurationSeconds={countdownDurationSeconds}
 					imageSize={imageSize}
+					countdownAnimationCss={countdownAnimationCss}
 				></snc-photobooth-uic-camera>
 			</div>
 			<div id="controls" style={{ position: "relative" }}>

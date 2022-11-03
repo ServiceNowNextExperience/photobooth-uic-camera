@@ -1,17 +1,31 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import baseStyles from "./styles.scss";
-import animationStyles from "./animation1.scss";
+//import animationStyles from "./animation1.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
-const styles = baseStyles + "\n\n" + animationStyles;
+//const styles = baseStyles + "\n\n" + animationStyles;
+const styles = baseStyles;
 
 const initialState = { snapState: "idle" };
 
-const initializeMedia = ({ video, enabled, updateState }) => {
+const initializeMedia = ({ host, enabled, updateState }) => {
+	// Grab elements, create settings, etc.
+	const video = host.shadowRoot.getElementById("video");
+	const canvas = host.shadowRoot.getElementById("canvas");
+	const context = canvas.getContext("2d");
+	const counter = host.shadowRoot.getElementById("counter");
+
+	updateState({
+		video: video,
+		context: context,
+		canvas: canvas,
+		counter: counter,
+	});
+
 	console.log("Initialize Media");
 	console.log(navigator.mediaDevices);
 	// Get access to the camera!
@@ -54,28 +68,20 @@ const toggleTracks = ({ stream }, enabled) => {
 };
 
 const actionHandlers = {
-	[COMPONENT_DOM_READY]: ({ host, state, updateState }) => {
+	[COMPONENT_DOM_READY]: ({
+		host,
+		updateState,
+		state: {
+			properties: { enabled },
+		},
+	}) => {
 		console.log("COMPONENT_DOM_READY");
-		const { enabled } = state.properties;
+		//		const { enabled } = state.properties;
 
-		// Grab elements, create settings, etc.
-		const video = host.shadowRoot.getElementById("video");
-		const canvas = host.shadowRoot.getElementById("canvas");
-		const context = canvas.getContext("2d");
-		const counter = host.shadowRoot.getElementById("counter");
-
-		updateState({
-			video: video,
-			context: context,
-			canvas: canvas,
-			counter: counter,
-		});
-
-		initializeMedia({ video, enabled, updateState });
+		initializeMedia({ host, enabled, updateState });
 	},
-	[COMPONENT_CONNECTED]: ({ host, state, updateState }) => {
+	[COMPONENT_CONNECTED]: ({}) => {
 		console.log(COMPONENT_CONNECTED);
-		console.log(state);
 	},
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
@@ -170,6 +176,7 @@ const view = ({
 	properties: {
 		imageSize: { width, height },
 		countdownDurationSeconds,
+		countdownAnimationCss,
 	},
 }) => {
 	console.log("VIEW");
@@ -178,6 +185,7 @@ const view = ({
 	console.log(countdownDurationSeconds);
 	return (
 		<div>
+			<style>{countdownAnimationCss}</style>
 			<div
 				id="container"
 				className={snapState}
@@ -189,7 +197,6 @@ const view = ({
 				</div>
 				<div id="counter"></div>
 			</div>
-			<div>{snapState}</div>
 		</div>
 	);
 };
