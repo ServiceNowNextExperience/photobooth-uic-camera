@@ -42,7 +42,7 @@ const view = (state, { updateState, dispatch }) => {
 						<button on-click={() => requestSnap()}>Snap!</button>
 						<button
 							on-click={() => {
-								requestSnap(5);
+								requestSnap(countdownDurationSeconds);
 							}}
 						>
 							Countdown
@@ -66,8 +66,8 @@ const view = (state, { updateState, dispatch }) => {
 createCustomElement("snc-photobooth-uic-camera-examples", {
 	initialState: {
 		enabled: true,
-		countdownDurationSeconds: 5,
-		imageSize: { width: 800, height: 600 },
+		countdownDurationSeconds: 600,
+		imageSize: { width: 640, height: 480 },
 	},
 	renderer: { type: snabbdom },
 	view,

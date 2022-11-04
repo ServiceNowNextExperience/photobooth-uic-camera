@@ -1,14 +1,10 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
-import baseStyles from "./styles.scss";
-import animationStyles from "./animation1.scss";
+import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
-
-//const styles = baseStyles + "\n\n" + animationStyles;
-const styles = baseStyles;
 
 const initialState = { snapState: "idle" };
 
@@ -262,7 +258,11 @@ const properties = {
 
 	/**
 	 * Countdown Animation CSS
-	 * If using the Countdown Duration property make sure that the animation matches.
+	 * If using the Countdown Duration property make sure that the animation duration matches.
+	 * Should target divs with ids of "content" (the div to overlay the counter on)
+	 * and "counter" (the div to put the counter into).
+	 * Can be any CSS or SCSS but be sure to minify it first (remove whitespace).
+	 * Example https://github.com/ServiceNowNextExperience/photobooth-uic-camera/blob/main/src/snc-photobooth-uic-camera/animation1.scss
 	 */
 	countdownAnimationCss: {
 		schema: { type: "string" },

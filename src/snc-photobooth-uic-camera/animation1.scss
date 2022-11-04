@@ -2,12 +2,13 @@
  * https://codepen.io/matevegh/pen/GZVqLL
  */
 $timer_unit: 1s;
-$timer_length: 5;
+$timer_length: 600;
 $timer_delay: 1s;
 
 @mixin scale_timer($scale) {
   $x: $scale;
   width: 50vmin * $x;
+  @debug (vmin);
   height: 50vmin * $x;
   box-shadow: 0 0 0 (1.25vmin * $x),
     inset (2.5vmin * $x) (2.5vmin * $x) (5vmin * $x) rgba(black, 0.125),
@@ -40,7 +41,9 @@ $timer_delay: 1s;
 
   #counter {
     font-family: sans-serif;
-    @include scale_timer(1);
+    @include scale_timer(1.5);
+    width: 50%;
+    height: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
