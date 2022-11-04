@@ -66,8 +66,8 @@ const view = (state, { updateState, dispatch }) => {
 createCustomElement("snc-photobooth-uic-camera-examples", {
 	initialState: {
 		enabled: true,
-		countdownDurationSeconds: 600,
-		imageSize: { width: 640, height: 480 },
+		countdownDurationSeconds: 5,
+		imageSize: { width: 800, height: 600 },
 	},
 	renderer: { type: snabbdom },
 	view,
