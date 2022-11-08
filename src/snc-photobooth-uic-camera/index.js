@@ -3,10 +3,34 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
+import { watermark } from "./watermark";
+
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
-const initialState = { snapState: "idle" };
+const initialState = { snapState: "idle", watermarkImage: null };
+
+const initializeWatermark = ({
+	watermarkImageUrl,
+	watermarkImageScale,
+	updateState,
+}) => {
+	console.log("Initialize Watermark");
+	console.log(watermarkImageUrl);
+	let watermarkImg;
+
+	debugger;
+	if (watermarkImageUrl) {
+		watermarkImg = new Image();
+		watermarkImg.onload = ({ target: { width, height } }) => {
+			watermarkImg.width = width * watermarkImageScale;
+			watermarkImg.height = height * watermarkImageScale;
+			debugger;
+			updateState({ watermarkImage: watermarkImg });
+		};
+		watermarkImg.src = watermarkImageUrl;
+	}
+};
 
 const initializeMedia = ({ host, enabled, updateState }) => {
 	// Grab elements, create settings, etc.
@@ -66,15 +90,20 @@ const toggleTracks = ({ stream }, enabled) => {
 const actionHandlers = {
 	[COMPONENT_DOM_READY]: ({
 		host,
-		updateState,
 		state: {
-			properties: { enabled },
+			properties: { enabled, watermarkImageUrl, watermarkImageScale },
 		},
+		updateState,
 	}) => {
 		console.log("COMPONENT_DOM_READY");
-		//		const { enabled } = state.properties;
 
 		initializeMedia({ host, enabled, updateState });
+
+		initializeWatermark({
+			watermarkImageUrl,
+			watermarkImageScale,
+			updateState,
+		});
 	},
 	[COMPONENT_CONNECTED]: ({}) => {
 		console.log(COMPONENT_CONNECTED);
@@ -110,19 +139,46 @@ const actionHandlers = {
 	},
 };
 
-const snap = (
+const drawImage = (
+	x,
+	y,
 	{
+		context,
+		video,
+		watermarkImage,
+		properties: {
+			imageSize: { width, height },
+		},
+	}
+) => {
+	const hWidth = width / 2;
+	const hHeight = height / 2;
+
+	context.drawImage(video, x, y, hWidth, hHeight);
+
+	if (watermarkImage) {
+		context.drawImage(
+			watermarkImage,
+			x,
+			y,
+			watermarkImage.width / 2,
+			watermarkImage.height / 2
+		);
+	}
+};
+
+const snap = (state, dispatch, updateState) => {
+	const {
 		context,
 		canvas,
 		video,
+		watermarkImage,
 		properties: {
 			countdownDurationSeconds,
 			imageSize: { width, height },
 		},
-	},
-	dispatch,
-	updateState
-) => {
+	} = state;
+
 	let pos = 0;
 	updateState({ snapState: "countdown" });
 
@@ -135,19 +191,23 @@ const snap = (
 		switch (pos) {
 			case 0:
 				updateState({ snapState: "snapping" });
-				context.drawImage(video, 0, 0, hWidth, hHeight);
+				drawImage(0, 0, state);
+				//				context.drawImage(video, 0, 0, hWidth, hHeight);
 				pos = 1;
 				break;
 			case 1:
-				context.drawImage(video, hWidth, 0, hWidth, hHeight);
+				drawImage(hWidth, 0, state);
+				//				context.drawImage(video, hWidth, 0, hWidth, hHeight);
 				pos = 2;
 				break;
 			case 2:
-				context.drawImage(video, 0, hHeight, hWidth, hHeight);
+				drawImage(0, hHeight, state);
+				//				context.drawImage(video, 0, hHeight, hWidth, hHeight);
 				pos = 3;
 				break;
 			case 3:
-				context.drawImage(video, hWidth, hHeight, hWidth, hHeight);
+				drawImage(hWidth, hHeight, state);
+				//				context.drawImage(video, hWidth, hHeight, hWidth, hHeight);
 				pos = 0;
 				break;
 		}
@@ -173,12 +233,17 @@ const view = ({
 		imageSize: { width, height },
 		countdownDurationSeconds,
 		countdownAnimationCss,
+		watermarkImageUrl,
+		watermarkImageScale = 1,
+		watermarkImageSize,
 	},
+	updateState,
 }) => {
 	console.log("VIEW");
 	console.log(snapState);
 	console.log(`size: ${width}x${height}`);
 	console.log(countdownDurationSeconds);
+
 	return (
 		<div>
 			<style>{countdownAnimationCss}</style>
@@ -267,6 +332,33 @@ const properties = {
 	countdownAnimationCss: {
 		schema: { type: "string" },
 		default: "",
+	},
+
+	watermarkImageUrl: {
+		schema: { type: "string" },
+		default: "",
+	},
+
+	watermarkImagePosition: {
+		schema: { type: "string" },
+		default: "center",
+		enum: [
+			"top-left",
+			"top-center",
+			"top-right",
+			"bottom-left",
+			"bottom-center",
+			"bottom-right",
+			"center",
+		],
+	},
+
+	/**
+	 * Number representing the scale of the watermark image from 0 to 1 (100%)
+	 */
+	watermarkImageScale: {
+		schema: { type: "number" },
+		default: 1,
 	},
 };
 
