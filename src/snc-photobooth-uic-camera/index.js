@@ -3,7 +3,7 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
-import { watermark } from "./watermark";
+import { watermark, getCoordinates } from "./watermark";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
@@ -19,13 +19,11 @@ const initializeWatermark = ({
 	console.log(watermarkImageUrl);
 	let watermarkImg;
 
-	debugger;
 	if (watermarkImageUrl) {
 		watermarkImg = new Image();
 		watermarkImg.onload = ({ target: { width, height } }) => {
 			watermarkImg.width = width * watermarkImageScale;
 			watermarkImg.height = height * watermarkImageScale;
-			debugger;
 			updateState({ watermarkImage: watermarkImg });
 		};
 		watermarkImg.src = watermarkImageUrl;
@@ -148,6 +146,7 @@ const drawImage = (
 		watermarkImage,
 		properties: {
 			imageSize: { width, height },
+			watermarkImagePosition,
 		},
 	}
 ) => {
@@ -157,10 +156,19 @@ const drawImage = (
 	context.drawImage(video, x, y, hWidth, hHeight);
 
 	if (watermarkImage) {
+		const [watermarkX, watermarkY] = getCoordinates(
+			watermarkImagePosition,
+			watermarkImage.width,
+			watermarkImage.height,
+			hWidth,
+			hHeight,
+			[x, y]
+		);
+
 		context.drawImage(
 			watermarkImage,
-			x,
-			y,
+			watermarkX,
+			watermarkY,
 			watermarkImage.width / 2,
 			watermarkImage.height / 2
 		);
@@ -180,7 +188,10 @@ const snap = (state, dispatch, updateState) => {
 	} = state;
 
 	let pos = 0;
-	updateState({ snapState: "countdown" });
+	debugger;
+	if (countdownDurationSeconds > 0) {
+		updateState({ snapState: "countdown" });
+	}
 
 	const hWidth = width / 2;
 	const hHeight = height / 2;

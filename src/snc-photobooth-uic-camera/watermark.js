@@ -49,29 +49,38 @@ const getCoordinates = (
 	imageWidth,
 	imageHeight,
 	canvasWidth,
-	canvasHeight
+	canvasHeight,
+	offset
 ) => {
+	const [offsetX = 0, offsetY = 0] = offset;
+
 	const xCenter = canvasWidth / 2 - imageWidth / 2;
 	const yCenter = canvasHeight / 2 - imageHeight / 2;
 	switch (position) {
 		case "top-left":
-			return [0, 0];
+			return [0 + offsetX, 0 + offsetY];
 		case "top-center":
-			return [xCenter, 0];
+			return [xCenter, 0 + offsetY];
 		case "top-right":
-			return [canvasWidth - imageWidth, 0];
+			return [canvasWidth - imageWidth + offsetX, 0 + offsetY];
 		case "bottom-left":
-			return [0, canvasHeight - imageHeight];
+			return [0 + offsetX, canvasHeight - imageHeight + offsetY];
 		case "bottom-center":
-			return [xCenter, canvasHeight - imageHeight];
+			return [xCenter + offsetX, canvasHeight - imageHeight + offsetY];
 		case "bottom-right":
-			return [canvasWidth - imageWidth, canvasHeight - imageHeight];
+			return [
+				canvasWidth - imageWidth + offsetX,
+				canvasHeight - imageHeight + offsetY,
+			];
 		case "center":
-			return [xCenter, yCenter];
+			return [xCenter + offsetX, yCenter + offsetY];
 		default:
 			return [0, 0];
 	}
 };
+
+export { getCoordinates };
+
 const updateImageSizeValueDOM = (image, widthInput, heightInput) => {
 	widthInput.value = image.width;
 	heightInput.value = image.height;

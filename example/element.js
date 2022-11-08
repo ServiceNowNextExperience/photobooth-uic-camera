@@ -7,10 +7,9 @@ const initialState = {
 	enabled: true,
 	countdownDurationSeconds: 5,
 	imageSize: { width: 800, height: 600 },
-	watermarkImageUrl:
-		"https://1000logos.net/wp-content/uploads/2021/09/ServiceNow-Logo.png",
-	watermarkImageScale: 0.25,
-	watermarkImagePosition: "bottom-center",
+	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
+	watermarkImageScale: 0.4,
+	watermarkImagePosition: "top-left",
 };
 
 const view = (state, { updateState, dispatch }) => {
@@ -34,8 +33,8 @@ const view = (state, { updateState, dispatch }) => {
 		console.log("REQUEST SNAP");
 		updateState({
 			countdownDurationSeconds: countdownDurationSeconds || 0,
+			snapRequested: Date.now() + "",
 		});
-		updateState({ snapRequested: Date.now() + "" });
 	};
 
 	return (
@@ -61,7 +60,7 @@ const view = (state, { updateState, dispatch }) => {
 						<button on-click={() => requestSnap()}>Snap!</button>
 						<button
 							on-click={() => {
-								requestSnap(countdownDurationSeconds);
+								requestSnap(5);
 							}}
 						>
 							Countdown
