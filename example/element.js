@@ -5,7 +5,7 @@ import "../src/index.js";
 
 const initialState = {
 	enabled: true,
-	countdownDurationSeconds: 5,
+	countdownDurationSeconds: 0,
 	imageSize: { width: 800, height: 600 },
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
 	watermarkImageScale: 0.4,
@@ -57,7 +57,7 @@ const view = (state, { updateState, dispatch }) => {
 				</button>
 				{enabled ? (
 					<span>
-						<button on-click={() => requestSnap()}>Snap!</button>
+						<button on-click={() => requestSnap(0)}>Snap!</button>
 						<button
 							on-click={() => {
 								requestSnap(5);

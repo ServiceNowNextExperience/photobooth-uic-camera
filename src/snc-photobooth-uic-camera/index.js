@@ -351,17 +351,19 @@ const properties = {
 	},
 
 	watermarkImagePosition: {
-		schema: { type: "string" },
+		schema: {
+			type: "string",
+			enum: [
+				"top-left",
+				"top-center",
+				"top-right",
+				"bottom-left",
+				"bottom-center",
+				"bottom-right",
+				"center",
+			],
+		},
 		default: "center",
-		enum: [
-			"top-left",
-			"top-center",
-			"top-right",
-			"bottom-left",
-			"bottom-center",
-			"bottom-right",
-			"center",
-		],
 	},
 
 	/**
