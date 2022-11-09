@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_action">
+    <sys_ux_lib_component_action action="DELETE">
+        <description>Dispatched when a photo is snapped.  Includes the imageData in the payload.</description>
+        <name/>
+        <publisher display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</publisher>
+        <sys_class_name>sys_ux_lib_component_action</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2022-11-04 21:11:45</sys_created_on>
+        <sys_id>ac724de7aca45d1f7af67b26a567438e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2022-11-04 21:11:45</sys_updated_on>
+    </sys_ux_lib_component_action>
+    <sys_translated_text action="DELETE" query="documentkey=ac724de7aca45d1f7af67b26a567438e"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
+        <file_path/>
+        <instance_id>634887c3db11915c8aea21c4059619b9</instance_id>
+        <instance_name>tennis</instance_name>
+        <name>sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_action"><sys_ux_lib_component_action action="INSERT_OR_UPDATE"><description>Dispatched when a photo is snapped.  Includes the imageData in the payload.</description><name/><publisher display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</publisher><sys_class_name>sys_ux_lib_component_action</sys_class_name><sys_created_by>jon.lind</sys_created_by><sys_created_on>2022-11-04 21:11:45</sys_created_on><sys_id>ac724de7aca45d1f7af67b26a567438e</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package><sys_policy/><sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope><sys_update_name>sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e</sys_update_name><sys_updated_by>jon.lind</sys_updated_by><sys_updated_on>2022-11-04 21:11:45</sys_updated_on></sys_ux_lib_component_action><sys_translated_text action="delete_multiple" query="documentkey=ac724de7aca45d1f7af67b26a567438e"/></record_update>]]></payload>
+        <payload_hash>-1312945640</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>09f0e5d487c3951089790fe5dabb35e9</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2022-11-04 21:11:45</sys_created_on>
+        <sys_id>8627e95847c3d510552caf52736d4329</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>184447c45fa0000001</sys_recorded_at>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2022-11-04 21:11:45</sys_updated_on>
+        <type>Component Action</type>
+        <update_guid>ce27e95846c3d510f92e529265617a28</update_guid>
+        <update_guid_history>ce27e95846c3d510f92e529265617a28:-1312945640,5317a958a8c3d510b8b59eb31f73174b:1879262393,b735e1d855c39510b0173736132866fb:-1312945640,4725611884c3d510f1dadf808dd4ea98:-1364301428,50e4ad9809c39510aee2cb818bb6ac79:0,b2a2ed1855c395101a43857a36ffb834:-1312945640,09532958b9c395105b068e085fa50499:0,b2a2ed1855c395101a43857a36ffb834:-1312945640,e9dc3c8063c75510472a348d9421104a:-1364301428,c7f029d4acc39510dec458d272efd4de:0,7aecf84444479510adea66c0b800201a:-1312945640,e9dc3c8063c75510472a348d9421104a:-1364301428,626a30405ac755103fb047a7b5278333:-1312945640,495a300076c75510ee74714772b6297d:-1364301428,3269bc80fc479510f343c8d89038fdcc:-1312945640,0959f88c3b87551066b3e260fa7d14bf:2044636523,ecd7384000479510e8f3227584853bd3:-1312945640,7cc7b88cab87551095688084fbdbcdce:-1364301428,a1e1b088da8755107a0eff93cce21f98:-1312945640,c7c1780cc007951068cf7395ef6112da:-1364301428,472663a7283a15105ca34f4c36869c93:-1312945640,8616e32f74365510663165937c69fe29:-1364301428,bed3a727263a1510c663e8d64845bc84:-1312945640,f7b36727de3a15102a5643c3bd09e093:-1364301428,10ea57e3013655101c913f47081fa2c5:-1312945640,20ba17e3ab365510e22986968541d1b8:-1364301428,eeb060f85f36d510c244181010aec953:-1312945640,a6a0e0b05e3a5910ba6e6c3d71ae6957:-1364301428,1d11e85128ea1d109562df7138eecf42:-1312945640,0811e8557c26dd103482684ab87def28:1885848925,2b7b94515a26dd10593f5101e5a7c146:-1312945640,067b9c5defaa1d109f9d7604c55504dc:-1308945477,389753f46b269d107f99b4e24f9f6c86:-1312945640,e38753f47c269d10030d22f204f33901:26010592,785d8f7c60e29d1030dfa5c21ad264c2:-1312945640,6f4d4f7caee29d10835e4304933850c0:-1169436458,d55c0b3c28e29d103743ef6715c0e8dd:0,4807cfb45be29d107c269ed285129155:-1312945640,daf64730356ed91087fe74fa473bffe1:605001182,5b830eec48ee99103506766d478bee64:-1312945640,2183cae841e25d1056a61cfbfa9adb6b:-1364301428,53c14aac86ee9910a0d7c092ab409ca6:-1312945640,79c146a851e25d1046d92700d289028f:-1364301428,3bfd75e4dce25d101e18d0030546c278:-1312945640,eafd39e8a9ee9910902d460257517ff7:-1302272531,2a0db5e8b1ee9910e51923cb8cdfa6c6:-1312945640,240dfd241ee25d10e3a9df661e2f49c8:-950909492,a6ac35a430e25d104e411b9872388a25:-1312945640,d9acf1a4dee25d1018d227042a31e87e:-381407504,ac38fd6016e25d108cf76456daa3c5ec:-1312945640,cb2871288bee99107870b2dbadf87c84:-413526150,7c3399e016625d10324474cdd662015c:1364824098,6f2399e090625d105511a8f040d24257:790033890,a76bcc1ce722991003727e27c1603d49:1364824098,e66b001c03229910646caaad5359c0f7:242788711,dc4340d067621d10b0cff0bc0514f74f:1364824098,5b3340d0eb621d100c516e6de09f674a:-1995835093,33aa3780f622991001fa8808ac5fe302:1364824098,feaaf3804b229910d683756cd8718add:-1188951817,9a8015c9ed5e51108bd4b793d40a3a12:1364824098,048015c94a5e5110ed652a4d1ce15954:-1649686122,6a9dca90d45211109f8c00fddf41e3be:1364824098,a19dca90e3521110e97852335a3ce3b9:-857938748,96fa22ccdb1e5d10d64efa6906dbff6f:1364824098,a4fa6a8454d21150f3177acb7e1f83f4:-1649686122,9e993100a0da5d10c14aa83d736591c8:1364824098,ad997d4c0212115093b03c4e95bd3634:-1649686122,fba5394c4a121150014a9601fe87e301:1364824098,3aa5f54c5c121150acbd60b78bacd8fc:-964299368,09844d0c3a1a5d103895ca28e9f2777f:1364824098,0c844d0ce91a5d106c51dab2b8c5fc6b:1724961251,7eb3c1447d9edd1018dd8cdf186940f3:1364824098,fdb3050cf81a5d106cb9ff0a020a944f:-931571182,c6314d80119edd10b77594565c0b5829:1364824098</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2022-11-08 22:57:47</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_lib_component_action">sys_ux_lib_component_action</sys_db_object>
+        <sys_id>3d49c2a7bf2b470cbf53291e1241b9c4</sys_id>
+        <sys_metadata>ac724de7aca45d1f7af67b26a567438e</sys_metadata>
+        <sys_name/>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
+        <sys_update_name>sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e</sys_update_name>
+        <sys_update_version display_value="sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e">8627e95847c3d510552caf52736d4329</sys_update_version>
+    </sys_metadata_delete>
+</record_update>
