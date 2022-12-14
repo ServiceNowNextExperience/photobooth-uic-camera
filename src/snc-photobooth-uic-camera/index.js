@@ -2,9 +2,12 @@ import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
-import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events";
+//import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events.js";
 import { watermark, getCoordinates } from "./watermark";
 import { getConnectedDevices } from "./media";
+
+const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
+const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED = "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
@@ -47,7 +50,7 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 	});
 
 	getConnectedDevices('videoinput', (cameras) => {
-		console.log('Cameras found', cameras);
+		cameras.forEach(camera => camera.id = camera.deviceId);
 
 		const updatedCameras = { selectedCameraDeviceId: null, cameras, cameraDeviceIdFound: false, boundCameraDeviceId: cameraDeviceId };
 
@@ -66,9 +69,8 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 			console.log("List of Cameras", cameras);
 		}
 
-		if (updatedCameras.selectedCameraDeviceId != cameraDeviceId) {
-			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
-		}
+		console.log(`DISPATCHING: ${PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED}`, updatedCameras);
+		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 	});
 
 	switchMediaDevice({ video, cameraDeviceId, enabled, updateState });

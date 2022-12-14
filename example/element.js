@@ -1,9 +1,11 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
-import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "../src/snc-photobooth-uic-camera/events.js";
+//import { PHOTOBOOTH_CAMERA_SNAPPED } from "../src/snc-photobooth-uic-camera/events.js";
 import "../src/index.js";
-const PROPERTIES_SET = 'PROPERTIES_SET';
+
+const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
+const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED = "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
 
 const CameraIds = {
 	"Logitech": "644262d6a368b96fd5559264b8580146071ed811c0c00380d4d14f4645776ca3",

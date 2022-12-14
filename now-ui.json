@@ -76,7 +76,7 @@
 					"name": "cameraDeviceId",
 					"label": "Camera Device ID",
 					"defaultValue": "",
-					"description": "The device id of the preferred camera.  If only one camera is available it will always be used. If the device id is not found the nearest available camera will be used.",
+					"description": "The device id of the preferred camera.  If only one camera is available it will override this setting if different. If the device id is not found the nearest available camera will be used. Get list from PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED event.",
 					"fieldType": "string",
 					"managed": false,
 					"readOnly": false,
@@ -173,10 +173,43 @@
 					"description": "Dispatched when the available cameras are updated.",
 					"payload": [
 						{
-							"name": "cameraDeviceIdSelected",
-							"label": "Camera Device ID Selected",
-							"description": "Boolean specifying whether the passe in device ID was precisely matched with an actual camera",
-							"fieldType": "boolean"
+							"selectedCameraDeviceId": {
+								"type": "string"
+							},
+							"cameras": {
+								"type": "array",
+								"items": [
+									{
+										"type": "object",
+										"properties": {
+											"deviceId": {
+												"type": "string"
+											},
+											"kind": {
+												"type": "string"
+											},
+											"label": {
+												"type": "string"
+											},
+											"groupId": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"deviceId",
+											"kind",
+											"label",
+											"groupId"
+										]
+									}
+								]
+							},
+							"cameraDeviceIdFound": {
+								"type": "boolean"
+							},
+							"boundCameraDeviceId": {
+								"type": "string"
+							}
 						}
 					]
 				}
