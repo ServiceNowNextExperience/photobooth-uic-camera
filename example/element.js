@@ -1,7 +1,16 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
+import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "../src/snc-photobooth-uic-camera/events.js";
 import "../src/index.js";
+const PROPERTIES_SET = 'PROPERTIES_SET';
+
+const CameraIds = {
+	"Logitech": "644262d6a368b96fd5559264b8580146071ed811c0c00380d4d14f4645776ca3",
+	"Facetime": "82d655a55ce60865695b37097d36cf8d21553d59d20e226bcd372c41d80b60f2"
+}
+
+let localUpdateState = null;
 
 const initialState = {
 	enabled: true,
@@ -10,9 +19,13 @@ const initialState = {
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
 	watermarkImageScale: 0.4,
 	watermarkImagePosition: "top-left",
+	cameraDeviceId: CameraIds.Logitech,
+	localPhotoSnappedImg: "",
+	localCameras: []
 };
 
-const view = (state, { updateState, dispatch }) => {
+const view = (state, { updateState }) => {
+	localUpdateState = updateState;
 	console.log("ELEMENT VIEW");
 	console.log(state);
 	const {
@@ -23,6 +36,9 @@ const view = (state, { updateState, dispatch }) => {
 		watermarkImageUrl,
 		watermarkImageScale,
 		watermarkImagePosition,
+		cameraDeviceId,
+		localPhotoSnappedImg,
+		localCameras
 	} = state;
 	const toggleEnabledExternally = () => {
 		console.log("TOGGLE ENABLED EXTERNALLY");
@@ -49,6 +65,7 @@ const view = (state, { updateState, dispatch }) => {
 					watermarkImageUrl={watermarkImageUrl}
 					watermarkImageScale={watermarkImageScale}
 					watermarkImagePosition={watermarkImagePosition}
+					cameraDeviceId={cameraDeviceId}
 				></snc-photobooth-uic-camera>
 			</div>
 			<div id="controls" style={{ position: "relative" }}>
@@ -77,6 +94,20 @@ const view = (state, { updateState, dispatch }) => {
 					</button>
 				) : null}
 			</div>
+			<div id="outputs">
+				<div id="photoSnappedImg">
+					Photo Snapped: {localPhotoSnappedImg}
+				</div>
+				<div id="availableCameras">
+					Available Cameras:
+					<ol>
+						{localCameras.map(({ label, deviceId }) => {
+							console.log("LABEL");
+							return (<li on-click={() => { updateState({ cameraDeviceId: deviceId }) }}>{label} : {deviceId}</li>);
+						})}
+					</ol>
+				</div>
+			</div>
 		</div>
 	);
 };
@@ -85,6 +116,27 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 	initialState: initialState,
 	renderer: { type: snabbdom },
 	view,
+	actionHandlers: {
+		[PHOTOBOOTH_CAMERA_SNAPPED]: {
+			effect: ({ state, action: { payload: { imageData } } }) => {
+				console.log(
+					'PHOTOBOOTH CAMERA SNAPPED YO!',
+					state,
+					imageData
+				);
+				localUpdateState({ localPhotoSnappedImg: imageData });
+			}
+		},
+		[PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED]: {
+			effect: ({ action: { payload: { cameras } } }) => {
+				console.log(
+					"PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED",
+					cameras
+				);
+				localUpdateState({ localCameras: cameras });
+			}
+		},
+	},
 });
 
 const el = document.createElement("main");

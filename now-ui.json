@@ -73,6 +73,22 @@
 					}
 				},
 				{
+					"name": "cameraDeviceId",
+					"label": "Camera Device ID",
+					"defaultValue": "",
+					"description": "The device id of the preferred camera.  If only one camera is available it will always be used. If the device id is not found the nearest available camera will be used.",
+					"fieldType": "string",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				{
 					"name": "countdownAnimationCss",
 					"label": "Countdown Animation CSS",
 					"defaultValue": "",
@@ -148,6 +164,19 @@
 							"label": "Image Data",
 							"description": "The image data from the camera after the snap is completed",
 							"fieldType": "string"
+						}
+					]
+				},
+				{
+					"action": "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED",
+					"label": "Photobooth Available Cameras Updated",
+					"description": "Dispatched when the available cameras are updated.",
+					"payload": [
+						{
+							"name": "cameraDeviceIdSelected",
+							"label": "Camera Device ID Selected",
+							"description": "Boolean specifying whether the passe in device ID was precisely matched with an actual camera",
+							"fieldType": "boolean"
 						}
 					]
 				}

@@ -2,8 +2,9 @@ import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
-const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
+import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events";
 import { watermark, getCoordinates } from "./watermark";
+import { getConnectedDevices } from "./media";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
@@ -15,8 +16,8 @@ const initializeWatermark = ({
 	watermarkImageScale,
 	updateState,
 }) => {
-	console.log("Initialize Watermark");
-	console.log(watermarkImageUrl);
+	console.log("Initialize Watermark", watermarkImageUrl);
+
 	let watermarkImg;
 
 	if (watermarkImageUrl) {
@@ -30,7 +31,8 @@ const initializeWatermark = ({
 	}
 };
 
-const initializeMedia = ({ host, enabled, updateState }) => {
+const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch }) => {
+	console.log('INITIALIZE MEDIA!', `Enabled? ${enabled}`);
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
 	const canvas = host.shadowRoot.getElementById("canvas");
@@ -44,30 +46,59 @@ const initializeMedia = ({ host, enabled, updateState }) => {
 		counter: counter,
 	});
 
-	console.log("Initialize Media");
-	console.log(navigator.mediaDevices);
-	// Get access to the camera!
-	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-		console.log("Media Devices available");
-		// Not adding `{ audio: true }` since we only want video now
-		navigator.mediaDevices
-			.getUserMedia({ video: true })
-			.then(function (stream) {
-				console.log("Got User Media!");
-				//video.src = window.URL.createObjectURL(stream);
-				updateState({ stream: stream });
-				video.srcObject = stream;
-				video.play();
-				toggleTracks({ stream }, enabled);
-			})
-			.catch((x) => {
-				console.log("Error Getting Media!");
-				console.log(x);
-			});
-	}
+	getConnectedDevices('videoinput', (cameras) => {
+		console.log('Cameras found', cameras);
+
+		const updatedCameras = { selectedCameraDeviceId: null, cameras, cameraDeviceIdFound: false, boundCameraDeviceId: cameraDeviceId };
+
+		if (cameras.filter((camera) => camera.deviceId === cameraDeviceId).length == 1) {
+			updatedCameras.selectedDeviceIdFound = true;
+		}
+		if (cameras.length === 1) {
+			const selectedCameraDeviceId = cameras[0].deviceId;
+			updatedCameras.cameraDeviceIdFound = (selectedCameraDeviceId === cameraDeviceId);
+			updatedCameras.selectedCameraDeviceId = selectedCameraDeviceId;
+			// If there is only one camera attached, just ignore the deviceId and use that one
+			updateState({ cameraDeviceId: selectedCameraDeviceId });
+		} else if (cameras.length === 0) {
+			throw "No cameras found so unable to initialize photobooth";
+		} else {
+			console.log("List of Cameras", cameras);
+		}
+
+		if (updatedCameras.selectedCameraDeviceId != cameraDeviceId) {
+			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
+		}
+	});
+
+	switchMediaDevice({ video, cameraDeviceId, enabled, updateState });
 };
 
-const resumeTracks = ({ stream }) => {
+const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState }) => {
+	console.log("switchMediaDevice", video, cameraDeviceId, enabled, updateState);
+	// Get access to the camera!
+	navigator.mediaDevices
+		.getUserMedia({ video: { deviceId: cameraDeviceId } })
+		.then(function (stream) {
+			console.log("Got User Media!", video, cameraDeviceId);
+			if (video.srcObject) {
+				video.srcObject.getTracks().forEach(track => {
+					track.stop();
+				});
+			}
+			video.srcObject = stream;
+			toggleTracks({ video, enabled });
+			video.play();
+			updateState({ stream: stream });
+		})
+		.catch((x) => {
+			console.log("Error Getting Media!");
+			console.log(x);
+		});
+
+};
+
+const resumeTracks = ({ video: { srcObject: stream } }) => {
 	if (stream) {
 		stream.getTracks().forEach((track) => (track.enabled = true));
 	}
@@ -79,7 +110,7 @@ const pauseTracks = ({ stream }) => {
 	}
 };
 
-const toggleTracks = ({ stream }, enabled) => {
+const toggleTracks = ({ video: { srcObject: stream }, enabled }) => {
 	if (stream) {
 		stream.getTracks().forEach((track) => (track.enabled = enabled));
 	}
@@ -89,13 +120,15 @@ const actionHandlers = {
 	[COMPONENT_DOM_READY]: ({
 		host,
 		state: {
-			properties: { enabled, watermarkImageUrl, watermarkImageScale },
+			properties: { enabled, watermarkImageUrl, watermarkImageScale, cameraDeviceId },
 		},
 		updateState,
+		dispatch,
+		video
 	}) => {
 		console.log("COMPONENT_DOM_READY");
 
-		initializeMedia({ host, enabled, updateState });
+		initializeMedia({ host, enabled, updateState, cameraDeviceId, dispatch });
 
 		initializeWatermark({
 			watermarkImageUrl,
@@ -103,37 +136,37 @@ const actionHandlers = {
 			updateState,
 		});
 	},
-	[COMPONENT_CONNECTED]: ({}) => {
+	[COMPONENT_CONNECTED]: ({ }) => {
 		console.log(COMPONENT_CONNECTED);
 	},
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
-		action,
+		action: { payload: { name, value, previousValue } },
 		dispatch,
-		updateState,
-		/*		updateState,
-		properties,
-		updateProperties,*/
+		updateState
 	}) => {
-		const { name, value, previousValue } = action.payload;
-		const { snapState } = state;
-		console.log(COMPONENT_PROPERTY_CHANGED);
-		console.log(name);
+		console.log(COMPONENT_PROPERTY_CHANGED, name);
+		const { snapState, video, properties: { enabled } } = state;
 
-		switch (name) {
-			case "snapRequested":
+		({
+			snapRequested: () => {
 				if (value && value != previousValue) {
 					const imageData = snap(state, dispatch, updateState);
 				} else if (!value && snapState != "idle") {
 					// Reset if the value for snapRequested is empty
 					updateState({ snapState: "idle" });
 				}
-				break;
-			case "enabled":
-				toggleTracks(state, value);
+			},
+			enabled: () => {
+				toggleTracks({ video, enabled: value });
 				updateState({ snapState: "idle" });
-				break;
-		}
+			},
+			cameraDeviceId: () => {
+				const cameraDeviceId = value;
+				switchMediaDevice({ video, cameraDeviceId, enabled, updateState });
+				updateState({ cameraDeviceId });
+			}
+		})[name]();
 	},
 };
 
@@ -179,8 +212,6 @@ const snap = (state, dispatch, updateState) => {
 	const {
 		context,
 		canvas,
-		video,
-		watermarkImage,
 		properties: {
 			countdownDurationSeconds,
 			imageSize: { width, height },
@@ -188,7 +219,7 @@ const snap = (state, dispatch, updateState) => {
 	} = state;
 
 	let pos = 0;
-	debugger;
+
 	if (countdownDurationSeconds > 0) {
 		updateState({ snapState: "countdown" });
 	}
@@ -243,17 +274,11 @@ const view = ({
 	properties: {
 		imageSize: { width, height },
 		countdownDurationSeconds,
-		countdownAnimationCss,
-		watermarkImageUrl,
-		watermarkImageScale = 1,
-		watermarkImageSize,
+		countdownAnimationCss
 	},
 	updateState,
 }) => {
-	console.log("VIEW");
-	console.log(snapState);
-	console.log(`size: ${width}x${height}`);
-	console.log(countdownDurationSeconds);
+	console.log("VIEW", snapState, `size: ${width}x${height}`, `countdown duration:${countdownDurationSeconds}`);
 
 	return (
 		<div>
@@ -279,6 +304,12 @@ const dispatches = {
 	 * @type {{response:string}}
 	 */
 	PHOTOBOOTH_CAMERA_SNAPPED: {},
+
+	/**
+	 * Dispatched when the available cameras change
+	 * @type {{response:array}}
+	 */
+	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED: {},
 };
 
 // NOTES FROM JON
@@ -330,6 +361,14 @@ const properties = {
 			},
 			required: ["width", "height"],
 		},
+	},
+
+	/*
+	* Specify which camera to default to. If only one camera is available this will be ignored and the available camera used.
+	*/
+	cameraDeviceId: {
+		default: "",
+		schema: { type: "string" }
 	},
 
 	/**
