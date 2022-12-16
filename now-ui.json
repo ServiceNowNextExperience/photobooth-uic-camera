@@ -173,43 +173,52 @@
 					"description": "Dispatched when the available cameras are updated.",
 					"payload": [
 						{
-							"selectedCameraDeviceId": {
-								"type": "string"
-							},
-							"cameras": {
-								"type": "array",
-								"items": [
-									{
-										"type": "object",
-										"properties": {
-											"deviceId": {
-												"type": "string"
-											},
-											"kind": {
-												"type": "string"
-											},
-											"label": {
-												"type": "string"
-											},
-											"groupId": {
-												"type": "string"
+							"name": "selectedCameraDeviceId",
+							"label": "Selected Camera Device ID",
+							"description": "",
+							"fieldType": "string"
+						},
+						{
+							"name": "cameras",
+							"label": "Cameras",
+							"description": "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+							"fieldType": "json",
+							"typeMetadata": {
+								"schema": {
+									"type": "array",
+									"items": [
+										{
+											"type": "object",
+											"properties": {
+												"deviceId": {
+													"type": "string"
+												},
+												"kind": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												},
+												"groupId": {
+													"type": "string"
+												}
 											}
-										},
-										"required": [
-											"deviceId",
-											"kind",
-											"label",
-											"groupId"
-										]
-									}
-								]
-							},
-							"cameraDeviceIdFound": {
-								"type": "boolean"
-							},
-							"boundCameraDeviceId": {
-								"type": "string"
+										}
+									]
+								}
 							}
+						},
+						{
+							"name": "cameraDeviceIdFound",
+							"label": "Camera Device ID was Found",
+							"description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+							"fieldType": "boolean"
+						},
+						{
+							"name": "boundCameraDeviceId",
+							"label": "Actual Camera Device ID",
+							"description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+							"fieldType": "string"
 						}
 					]
 				}

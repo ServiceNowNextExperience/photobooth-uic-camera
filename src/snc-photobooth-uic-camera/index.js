@@ -35,7 +35,7 @@ const initializeWatermark = ({
 };
 
 const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch }) => {
-	console.log('INITIALIZE MEDIA!', `Enabled? ${enabled}`);
+	console.log('INITIALIZE MEDIA!');
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
 	const canvas = host.shadowRoot.getElementById("canvas");
@@ -49,27 +49,25 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 		counter: counter,
 	});
 
+	// This is done purely to return a list of devices to the client so that they can
+	// offer a selection to the user. It does not impact initializing the camera functionality.
 	getConnectedDevices('videoinput', (cameras) => {
 		cameras.forEach(camera => camera.id = camera.deviceId);
-
-		const updatedCameras = { selectedCameraDeviceId: null, cameras, cameraDeviceIdFound: false, boundCameraDeviceId: cameraDeviceId };
+		const updatedCameras = { selectedCameraDeviceId: cameraDeviceId, cameras, cameraDeviceIdFound: false, boundCameraDeviceId: null };
 
 		if (cameras.filter((camera) => camera.deviceId === cameraDeviceId).length == 1) {
 			updatedCameras.selectedDeviceIdFound = true;
-		}
-		if (cameras.length === 1) {
+			updatedCameras.boundCameraDeviceId = cameraDeviceId;
+		} else if (cameras.length === 1) {
+			// If there is only one camera attached, just ignore the deviceId and use that one
 			const selectedCameraDeviceId = cameras[0].deviceId;
 			updatedCameras.cameraDeviceIdFound = (selectedCameraDeviceId === cameraDeviceId);
-			updatedCameras.selectedCameraDeviceId = selectedCameraDeviceId;
-			// If there is only one camera attached, just ignore the deviceId and use that one
+			updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
 			updateState({ cameraDeviceId: selectedCameraDeviceId });
 		} else if (cameras.length === 0) {
 			throw "No cameras found so unable to initialize photobooth";
-		} else {
-			console.log("List of Cameras", cameras);
 		}
 
-		console.log(`DISPATCHING: ${PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED}`, updatedCameras);
 		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 	});
 
@@ -77,7 +75,7 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 };
 
 const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState }) => {
-	console.log("switchMediaDevice", video, cameraDeviceId, enabled, updateState);
+	console.log("SWITCH MEDIA DEVICE", "Device ID:", cameraDeviceId, "Enabled?", enabled);
 	// Get access to the camera!
 	navigator.mediaDevices
 		.getUserMedia({ video: { deviceId: cameraDeviceId } })
@@ -94,8 +92,7 @@ const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState }) => {
 			updateState({ stream: stream });
 		})
 		.catch((x) => {
-			console.log("Error Getting Media!");
-			console.log(x);
+			console.log("Error Getting Media!", x);
 		});
 
 };
@@ -147,10 +144,10 @@ const actionHandlers = {
 		dispatch,
 		updateState
 	}) => {
-		console.log(COMPONENT_PROPERTY_CHANGED, name);
+		console.log(COMPONENT_PROPERTY_CHANGED, name, value);
 		const { snapState, video, properties: { enabled } } = state;
 
-		({
+		const propertyHandlers = ({
 			snapRequested: () => {
 				if (value && value != previousValue) {
 					const imageData = snap(state, dispatch, updateState);
@@ -168,7 +165,9 @@ const actionHandlers = {
 				switchMediaDevice({ video, cameraDeviceId, enabled, updateState });
 				updateState({ cameraDeviceId });
 			}
-		})[name]();
+		});
+
+		if (propertyHandlers[name]) { propertyHandlers[name]() }
 	},
 };
 
@@ -275,13 +274,10 @@ const view = ({
 	snapState,
 	properties: {
 		imageSize: { width, height },
-		countdownDurationSeconds,
 		countdownAnimationCss
 	},
 	updateState,
 }) => {
-	console.log("VIEW", snapState, `size: ${width}x${height}`, `countdown duration:${countdownDurationSeconds}`);
-
 	return (
 		<div>
 			<style>{countdownAnimationCss}</style>
@@ -309,9 +305,9 @@ const dispatches = {
 
 	/**
 	 * Dispatched when the available cameras change
-	 * @type {{response:array}}
+	 * @type {{response:object}}
 	 */
-	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED: {},
+	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED: {}
 };
 
 // NOTES FROM JON

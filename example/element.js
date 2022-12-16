@@ -8,8 +8,9 @@ const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED = "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
 
 const CameraIds = {
-	"Logitech": "644262d6a368b96fd5559264b8580146071ed811c0c00380d4d14f4645776ca3",
-	"Facetime": "82d655a55ce60865695b37097d36cf8d21553d59d20e226bcd372c41d80b60f2"
+	"Logitech": "aaadfd301a109346b3393ce9b1abe3eab71f9e72607d70a0e1f98c288c5916d5",
+	"Facetime": "82d655a55ce60865695b37097d36cf8d21553d59d20e226bcd372c41d80b60f2",
+	"Empty": ""
 }
 
 let localUpdateState = null;
@@ -21,7 +22,7 @@ const initialState = {
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
 	watermarkImageScale: 0.4,
 	watermarkImagePosition: "top-left",
-	cameraDeviceId: CameraIds.Logitech,
+	cameraDeviceId: CameraIds.Empty,
 	localPhotoSnappedImg: "",
 	localCameras: []
 };
@@ -130,11 +131,9 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 			}
 		},
 		[PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED]: {
-			effect: ({ action: { payload: { cameras } } }) => {
-				console.log(
-					"PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED",
-					cameras
-				);
+			effect: ({ action: { payload } }) => {
+				const { selectedCameraDeviceId, cameras } = payload;
+				console.log("XX", "B", "SET AVAILABLE CAMERAS", payload, "Selected Camera:", payload.selectedCameraDeviceId);
 				localUpdateState({ localCameras: cameras });
 			}
 		},
