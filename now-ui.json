@@ -209,8 +209,8 @@
 							}
 						},
 						{
-							"name": "cameraDeviceIdFound",
-							"label": "Camera Device ID was Found",
+							"name": "selectedDeviceIdFound",
+							"label": "Selected Device ID was Found",
 							"description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
 							"fieldType": "boolean"
 						},

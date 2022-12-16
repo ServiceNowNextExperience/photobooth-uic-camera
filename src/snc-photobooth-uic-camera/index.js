@@ -8,6 +8,7 @@ import { getConnectedDevices } from "./media";
 
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED = "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
+//const PHOTOBOOTH_MEDIA_DEVICE_SELECTED = "PHOTOBOOTH_CAMERA#MEDIA_DEVICE_SELECTED";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
@@ -49,11 +50,17 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 		counter: counter,
 	});
 
+	switchMediaDevice({ video, cameraDeviceId, enabled, updateState, dispatch });
+};
+
+const dispatchConnectedDevices = ({ cameraDeviceId, dispatch }) => {
+	console.log("DISPATCH CONNECTED DEVICES", cameraDeviceId);
+
 	// This is done purely to return a list of devices to the client so that they can
 	// offer a selection to the user. It does not impact initializing the camera functionality.
 	getConnectedDevices('videoinput', (cameras) => {
 		cameras.forEach(camera => camera.id = camera.deviceId);
-		const updatedCameras = { selectedCameraDeviceId: cameraDeviceId, cameras, cameraDeviceIdFound: false, boundCameraDeviceId: null };
+		const updatedCameras = { selectedCameraDeviceId: cameraDeviceId, cameras, selectedDeviceIdFound: false, boundCameraDeviceId: null };
 
 		if (cameras.filter((camera) => camera.deviceId === cameraDeviceId).length == 1) {
 			updatedCameras.selectedDeviceIdFound = true;
@@ -61,20 +68,16 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 		} else if (cameras.length === 1) {
 			// If there is only one camera attached, just ignore the deviceId and use that one
 			const selectedCameraDeviceId = cameras[0].deviceId;
-			updatedCameras.cameraDeviceIdFound = (selectedCameraDeviceId === cameraDeviceId);
+			updatedCameras.selectedDeviceIdFound = (selectedCameraDeviceId === cameraDeviceId);
 			updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
-			updateState({ cameraDeviceId: selectedCameraDeviceId });
-		} else if (cameras.length === 0) {
-			throw "No cameras found so unable to initialize photobooth";
 		}
 
 		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 	});
 
-	switchMediaDevice({ video, cameraDeviceId, enabled, updateState });
 };
 
-const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState }) => {
+const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState, dispatch }) => {
 	console.log("SWITCH MEDIA DEVICE", "Device ID:", cameraDeviceId, "Enabled?", enabled);
 	// Get access to the camera!
 	navigator.mediaDevices
@@ -90,9 +93,12 @@ const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState }) => {
 			toggleTracks({ video, enabled });
 			video.play();
 			updateState({ stream: stream });
+
+			dispatchConnectedDevices({ cameraDeviceId, dispatch });
 		})
 		.catch((x) => {
 			console.log("Error Getting Media!", x);
+			throw x;
 		});
 
 };
@@ -162,7 +168,7 @@ const actionHandlers = {
 			},
 			cameraDeviceId: () => {
 				const cameraDeviceId = value;
-				switchMediaDevice({ video, cameraDeviceId, enabled, updateState });
+				switchMediaDevice({ video, cameraDeviceId, enabled, updateState, dispatch });
 				updateState({ cameraDeviceId });
 			}
 		});
@@ -307,7 +313,14 @@ const dispatches = {
 	 * Dispatched when the available cameras change
 	 * @type {{response:object}}
 	 */
-	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED: {}
+	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED: {},
+
+	/**
+	 * Dispatched when the camera is selected
+	 * @type {{response:object}}
+	 */
+	//	PHOTOBOOTH_MEDIA_DEVICE_SELECTED: {},
+
 };
 
 // NOTES FROM JON
