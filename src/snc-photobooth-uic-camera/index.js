@@ -54,7 +54,7 @@ const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch 
 };
 
 const dispatchConnectedDevices = ({ cameraDeviceId, dispatch }) => {
-	console.log("DISPATCH CONNECTED DEVICES", cameraDeviceId);
+	console.log("DISPATCH CONNECTED DEVICES");
 
 	// This is done purely to return a list of devices to the client so that they can
 	// offer a selection to the user. It does not impact initializing the camera functionality.
