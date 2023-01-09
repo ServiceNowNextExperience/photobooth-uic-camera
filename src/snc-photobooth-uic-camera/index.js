@@ -142,7 +142,6 @@ const actionHandlers = {
 		});
 	},
 	[COMPONENT_CONNECTED]: ({ }) => {
-		console.log(COMPONENT_CONNECTED);
 	},
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
