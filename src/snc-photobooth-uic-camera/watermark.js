@@ -41,41 +41,87 @@ const changeImageHeight = (image, height, aspectRatio, maintainAspectRatio) => {
 	}
 };
 
+const initializeWatermark = ({
+	watermarkImageUrl,
+	watermarkImageScale,
+	onload = () => {}
+}) => {
+	console.log("Initialize Watermark", watermarkImageUrl);
+
+	if (watermarkImageUrl) {
+		const watermarkImage = new Image();
+		watermarkImage.onload = ({ target : { width, height } }) => {
+			watermarkImage.width = width * watermarkImageScale;
+			watermarkImage.height = height * watermarkImageScale;
+
+			onload({ watermarkImage});
+		};
+		watermarkImage.src = watermarkImageUrl;
+	}
+};
+
+export { initializeWatermark };
+
+const applyWatermark = ({ watermarkImage, watermarkImagePosition, gap, offset, context, canvas }) => {
+	console.log("applyWatermark", watermarkImage);
+	const [watermarkX, watermarkY] = getCoordinates({
+		watermarkImagePosition,
+		imageWidth : watermarkImage.width,
+		imageHeight : watermarkImage.height,
+		canvas,
+		offset,
+		gap
+	});
+
+	context.drawImage(
+		watermarkImage,
+		watermarkX,
+		watermarkY,
+		watermarkImage.width,
+		watermarkImage.height
+	);
+
+}
+
+export { applyWatermark };
+
 const isChecked = (checkbox) => {
 	return checkbox.checked === true;
 };
-const getCoordinates = (
-	position,
+const getCoordinates = ({
+	watermarkImagePosition,
 	imageWidth,
 	imageHeight,
-	canvasWidth,
-	canvasHeight,
-	offset
-) => {
-	const [offsetX = 0, offsetY = 0] = offset;
+	canvas : {width : canvasWidth, height : canvasHeight},
+	offset = [0,0], /* Offset is the "margin" */
+	gap = 0
+}) => {
+	const [offsetX, offsetY] = offset;
 
 	const xCenter = canvasWidth / 2 - imageWidth / 2;
 	const yCenter = canvasHeight / 2 - imageHeight / 2;
-	switch (position) {
+	const xLeft = 0 + offsetX;
+	const yTop = 0 + offsetY;
+	const xRight = canvasWidth - imageWidth - offsetX;
+	const yBottom = canvasHeight - imageHeight - offsetY;
+	console.log({watermarkImagePosition, imageWidth, imageHeight, canvasWidth, canvasHeight, offset, xRight});
+	switch (watermarkImagePosition) {
 		case "top-left":
-			return [0 + offsetX, 0 + offsetY];
+			return [xLeft, yTop];
 		case "top-center":
-			return [xCenter, 0 + offsetY];
+			return [xCenter, yTop];
 		case "top-right":
-			return [canvasWidth - imageWidth + offsetX, 0 + offsetY];
+			return [xRight, yTop];
 		case "bottom-left":
-			return [0 + offsetX, canvasHeight - imageHeight + offsetY];
+			return [xLeft, yBottom];
 		case "bottom-center":
-			return [xCenter + offsetX, canvasHeight - imageHeight + offsetY];
+			return [xCenter, yBottom];
 		case "bottom-right":
-			return [
-				canvasWidth - imageWidth + offsetX,
-				canvasHeight - imageHeight + offsetY,
-			];
+			return [xRight, yBottom];
 		case "center":
-			return [xCenter + offsetX, yCenter + offsetY];
+			return [xCenter, yCenter];
 		default:
-			return [0, 0];
+			return [0 + gap, 0 + gap];
 	}
 };
 

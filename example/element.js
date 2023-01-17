@@ -19,9 +19,10 @@ const initialState = {
 	enabled: true,
 	countdownDurationSeconds: 0,
 	imageSize: { width: 800, height: 600 },
+	canvasConfig : {gap: 10, chin: 50, fillStyle : "lightgreen"},
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
-	watermarkImageScale: 0.4,
-	watermarkImagePosition: "top-left",
+	watermarkImageScale: 0.3,
+	watermarkImagePosition: "bottom-right",
 	cameraDeviceId: CameraIds.Empty,
 	localPhotoSnappedImg: "",
 	localCameras: []
@@ -41,7 +42,8 @@ const view = (state, { updateState }) => {
 		watermarkImagePosition,
 		cameraDeviceId,
 		localPhotoSnappedImg,
-		localCameras
+		localCameras,
+		canvasConfig
 	} = state;
 	const toggleEnabledExternally = () => {
 		console.log("TOGGLE ENABLED EXTERNALLY");
@@ -69,6 +71,7 @@ const view = (state, { updateState }) => {
 					watermarkImageScale={watermarkImageScale}
 					watermarkImagePosition={watermarkImagePosition}
 					cameraDeviceId={cameraDeviceId}
+					canvasConfig={canvasConfig}
 				></snc-photobooth-uic-camera>
 			</div>
 			<div id="controls" style={{ position: "relative" }}>
@@ -100,6 +103,8 @@ const view = (state, { updateState }) => {
 			<div id="outputs">
 				<div id="photoSnappedImg">
 					Photo Snapped: {localPhotoSnappedImg}
+					<img src={localPhotoSnappedImg} />
+
 				</div>
 				<div id="availableCameras">
 					Available Cameras:
@@ -111,7 +116,7 @@ const view = (state, { updateState }) => {
 					</ol>
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 };
 

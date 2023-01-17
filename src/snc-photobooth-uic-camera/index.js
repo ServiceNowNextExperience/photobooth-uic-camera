@@ -3,44 +3,50 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { actionTypes } from "@servicenow/ui-core";
 //import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events.js";
-import { watermark, getCoordinates } from "./watermark";
+import { applyWatermark, initializeWatermark } from "./watermark";
 import { getConnectedDevices } from "./media";
 
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
 const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED = "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
-//const PHOTOBOOTH_MEDIA_DEVICE_SELECTED = "PHOTOBOOTH_CAMERA#MEDIA_DEVICE_SELECTED";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
 const initialState = { snapState: "idle", watermarkImage: null };
+console.log("initialState", initialState);
 
-const initializeWatermark = ({
-	watermarkImageUrl,
-	watermarkImageScale,
-	updateState,
-}) => {
-	console.log("Initialize Watermark", watermarkImageUrl);
+const initializeMedia = ({ host, updateState, dispatch, properties: { enabled, cameraDeviceId, imageSize,
+	watermarkImageUrl, watermarkImageScale, watermarkImagePosition, canvasConfig: { gap, chin, fillStyle } } }) => {
 
-	let watermarkImg;
-
-	if (watermarkImageUrl) {
-		watermarkImg = new Image();
-		watermarkImg.onload = ({ target: { width, height } }) => {
-			watermarkImg.width = width * watermarkImageScale;
-			watermarkImg.height = height * watermarkImageScale;
-			updateState({ watermarkImage: watermarkImg });
-		};
-		watermarkImg.src = watermarkImageUrl;
-	}
-};
-
-const initializeMedia = ({ host, enabled, updateState, cameraDeviceId, dispatch }) => {
 	console.log('INITIALIZE MEDIA!');
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
-	const canvas = host.shadowRoot.getElementById("canvas");
+	const canvas = host.shadowRoot.ownerDocument.createElement("canvas");
+
+	// Add room for gaps above, between and below images
+	canvas.width = imageSize.width + (gap * 3);
+	canvas.height = imageSize.height + (gap * 3) + chin;
+
 	const context = canvas.getContext("2d");
+	context.fillStyle = fillStyle;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+
+
+	if (watermarkImageUrl) {
+		initializeWatermark({
+			watermarkImageUrl,
+			watermarkImageScale,
+			watermarkImagePosition,
+			gap,
+			canvas,
+			context,
+			onload: ({watermarkImage}) => {
+				applyWatermark({ watermarkImage, watermarkImagePosition, gap, offset : [gap, gap], context, canvas });
+			}
+		});
+	}
+
+
 	const counter = host.shadowRoot.getElementById("counter");
 
 	updateState({
@@ -124,22 +130,15 @@ const toggleTracks = ({ video: { srcObject: stream }, enabled }) => {
 const actionHandlers = {
 	[COMPONENT_DOM_READY]: ({
 		host,
-		state: {
-			properties: { enabled, watermarkImageUrl, watermarkImageScale, cameraDeviceId },
-		},
+		state: { properties },
 		updateState,
-		dispatch,
-		video
+		dispatch
 	}) => {
 		console.log("COMPONENT_DOM_READY");
 
-		initializeMedia({ host, enabled, updateState, cameraDeviceId, dispatch });
+		const { watermarkImageUrl, watermarkImageScale } = properties;
 
-		initializeWatermark({
-			watermarkImageUrl,
-			watermarkImageScale,
-			updateState,
-		});
+		initializeMedia({ host, properties, dispatch, updateState });
 	},
 	[COMPONENT_CONNECTED]: ({ }) => {
 	},
@@ -177,89 +176,55 @@ const actionHandlers = {
 };
 
 const drawImage = (
-	x,
-	y,
+	pos,
 	{
 		context,
 		video,
-		watermarkImage,
 		properties: {
 			imageSize: { width, height },
-			watermarkImagePosition,
+			canvasConfig: { gap },
 		},
 	}
 ) => {
 	const hWidth = width / 2;
 	const hHeight = height / 2;
 
+	// Define where the first, second, third and fourth images appear
+	// in the grid
+	const posMap = {
+		1: { x: gap, y: gap },
+		2: { x: hWidth + (gap * 2), y: gap },
+		3: { x: gap, y: hHeight + (gap * 2) },
+		4: { x: hWidth + (gap * 2), y: hHeight + (gap * 2) }
+	};
+
+	const { x, y } = posMap[pos];
+
 	context.drawImage(video, x, y, hWidth, hHeight);
-
-	if (watermarkImage) {
-		const [watermarkX, watermarkY] = getCoordinates(
-			watermarkImagePosition,
-			watermarkImage.width,
-			watermarkImage.height,
-			hWidth,
-			hHeight,
-			[x, y]
-		);
-
-		context.drawImage(
-			watermarkImage,
-			watermarkX,
-			watermarkY,
-			watermarkImage.width / 2,
-			watermarkImage.height / 2
-		);
-	}
 };
 
 const snap = (state, dispatch, updateState) => {
 	const {
-		context,
 		canvas,
 		properties: {
 			countdownDurationSeconds,
-			imageSize: { width, height },
 		},
 	} = state;
 
-	let pos = 0;
+	let pos = 1;
 
 	if (countdownDurationSeconds > 0) {
 		updateState({ snapState: "countdown" });
 	}
 
-	const hWidth = width / 2;
-	const hHeight = height / 2;
-
-	context.clearRect(0, 0, width, height);
+	//context.clearRect(0, 0, width, height);
 
 	const _snap = () => {
-		switch (pos) {
-			case 0:
-				updateState({ snapState: "snapping" });
-				drawImage(0, 0, state);
-				//				context.drawImage(video, 0, 0, hWidth, hHeight);
-				pos = 1;
-				break;
-			case 1:
-				drawImage(hWidth, 0, state);
-				//				context.drawImage(video, hWidth, 0, hWidth, hHeight);
-				pos = 2;
-				break;
-			case 2:
-				drawImage(0, hHeight, state);
-				//				context.drawImage(video, 0, hHeight, hWidth, hHeight);
-				pos = 3;
-				break;
-			case 3:
-				drawImage(hWidth, hHeight, state);
-				//				context.drawImage(video, hWidth, hHeight, hWidth, hHeight);
-				pos = 0;
-				break;
-		}
-		if (pos != 0) {
+		updateState({ snapState: "snapping" });
+		drawImage(pos, state);
+
+		if (pos < 4) {
+			pos++;
 			setTimeout(_snap, 500);
 		} else {
 			updateState({ snapState: "preview" });
@@ -281,7 +246,6 @@ const view = ({
 		imageSize: { width, height },
 		countdownAnimationCss
 	},
-	updateState,
 }) => {
 	return (
 		<div>
@@ -293,7 +257,6 @@ const view = ({
 			>
 				<div id="content">
 					<video id="video" width={width} height={height} autoplay=""></video>
-					<canvas id="canvas" width={width} height={height}></canvas>
 				</div>
 				<div id="counter"></div>
 			</div>
@@ -341,13 +304,7 @@ const properties = {
 	 */
 	snapRequested: {
 		default: "",
-		schema: { type: "string" } /*
-		onChange(newValue, oldValue, { dispatch, updateState }) {
-			console.log("snapRequested onChange " + newValue);
-			debugger;
-			if (newValue === oldValue) return;
-			updateState({ doSnap: true });
-		},*/,
+		schema: { type: "string" },
 	},
 
 	/**
@@ -362,7 +319,7 @@ const properties = {
 	 * Image width and height in pixels
 	 */
 	imageSize: {
-		default: { width: 640, height: 480 },
+		default: { width: 800, height: 600 },
 		schema: {
 			type: "object",
 			properties: {
@@ -371,6 +328,19 @@ const properties = {
 			},
 			required: ["width", "height"],
 		},
+	},
+
+	canvasConfig: {
+		default: { gap: 10, chin: 40, fillStyle: "green" },
+		schema: {
+			type: "object",
+			properties: {
+				gap: { type: "integer" },
+				chin: { type: "integer" },
+				fillStyle: { type: "string" }
+			},
+			required: ["gap", "chin"],
+		}
 	},
 
 	/*

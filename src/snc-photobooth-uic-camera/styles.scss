@@ -20,24 +20,27 @@
     display: none;
   }
   #canvas {
-    display: none;
+    /*    display: none;*/
   }
 }
 
 /* State while countdown is rendering */
 .countdown {
-  #canvas {
+  #counter {
     display: none;
+  }
+  #canvas {
+    /*    display: none;*/
   }
 }
 
 /* State while taking the snapshot */
 .snapping {
-  #counter {
-    display: none;
-  }
   #video {
-    display: none;
+    /*    display: none;*/
+  }
+  #counter {
+    display: default;
   }
 }
 
@@ -48,6 +51,6 @@
   }
 
   #video {
-    display: none;
+    /*    display: none;*/
   }
 }
