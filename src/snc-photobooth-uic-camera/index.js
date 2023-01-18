@@ -31,7 +31,9 @@ const initializeMedia = ({ host, updateState, dispatch, properties: { enabled, c
 	context.fillStyle = fillStyle;
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-
+/* ({watermarkImage}) => {
+				updateState({watermarkImage});
+			}*/
 	if (watermarkImageUrl) {
 		initializeWatermark({
 			watermarkImageUrl,
@@ -40,9 +42,7 @@ const initializeMedia = ({ host, updateState, dispatch, properties: { enabled, c
 			gap,
 			canvas,
 			context,
-			onload: ({watermarkImage}) => {
-				applyWatermark({ watermarkImage, watermarkImagePosition, gap, offset : [gap, gap], context, canvas });
-			}
+			onload: updateState
 		});
 	}
 
@@ -229,6 +229,9 @@ const snap = (state, dispatch, updateState) => {
 		} else {
 			updateState({ snapState: "preview" });
 
+			debugger;
+			applyWatermark(state);
+			
 			const imageData = canvas.toDataURL("image/jpeg");
 
 			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {

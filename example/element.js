@@ -1,7 +1,6 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
-//import { PHOTOBOOTH_CAMERA_SNAPPED } from "../src/snc-photobooth-uic-camera/events.js";
 import "../src/index.js";
 
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";

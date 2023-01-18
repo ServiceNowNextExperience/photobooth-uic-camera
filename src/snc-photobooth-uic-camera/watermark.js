@@ -62,14 +62,15 @@ const initializeWatermark = ({
 
 export { initializeWatermark };
 
-const applyWatermark = ({ watermarkImage, watermarkImagePosition, gap, offset, context, canvas }) => {
+// applyWatermark({ watermarkImage, watermarkImagePosition, gap, offset : [gap, gap], context, canvas });
+
+const applyWatermark = ({ watermarkImage, context, canvas, properties : { watermarkImagePosition, canvasConfig: { gap } } }) => {
 	console.log("applyWatermark", watermarkImage);
 	const [watermarkX, watermarkY] = getCoordinates({
 		watermarkImagePosition,
 		imageWidth : watermarkImage.width,
 		imageHeight : watermarkImage.height,
 		canvas,
-		offset,
 		gap
 	});
 
@@ -93,10 +94,10 @@ const getCoordinates = ({
 	imageWidth,
 	imageHeight,
 	canvas : {width : canvasWidth, height : canvasHeight},
-	offset = [0,0], /* Offset is the "margin" */
 	gap = 0
 }) => {
-	const [offsetX, offsetY] = offset;
+	// Offset is the margin--if the gap is 10px start 10 from the top/left
+	const [offsetX, offsetY] = [gap, gap];
 
 	const xCenter = canvasWidth / 2 - imageWidth / 2;
 	const yCenter = canvasHeight / 2 - imageHeight / 2;
@@ -104,7 +105,7 @@ const getCoordinates = ({
 	const yTop = 0 + offsetY;
 	const xRight = canvasWidth - imageWidth - offsetX;
 	const yBottom = canvasHeight - imageHeight - offsetY;
-	console.log({watermarkImagePosition, imageWidth, imageHeight, canvasWidth, canvasHeight, offset, xRight});
+	console.log({watermarkImagePosition, imageWidth, imageHeight, canvasWidth, canvasHeight, offsetX, offsetY, xRight});
 	switch (watermarkImagePosition) {
 		case "top-left":
 			return [xLeft, yTop];
