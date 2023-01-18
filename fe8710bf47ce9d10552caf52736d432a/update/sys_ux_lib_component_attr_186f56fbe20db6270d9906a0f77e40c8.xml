@@ -13,7 +13,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>Image Size</column_label>
+        <column_label>imageSize</column_label>
         <comments/>
         <create_roles/>
         <default_value>{"width":640,"height":480}</default_value>
@@ -58,7 +58,7 @@
         <staged>false</staged>
         <sys_class_name>sys_ux_lib_component_attr</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-12 18:56:10</sys_created_on>
+        <sys_created_on>2023-01-18 23:07:52</sys_created_on>
         <sys_name>Image Size</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
