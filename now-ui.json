@@ -50,9 +50,9 @@
 				},
 				{
 					"name": "imageSize",
-					"label": "Image Size",
+					"label": "Output Image Size",
 					"defaultValue": "{\"width\":640,\"height\":480}",
-					"description": "Width and Height in pixels",
+					"description": "Width and Height of the result (not the video panel) in pixels",
 					"fieldType": "json",
 					"managed": false,
 					"readOnly": false,
@@ -141,6 +141,54 @@
 					"label": "Watermark Image Position",
 					"defaultValue": "top-left",
 					"description": "Where to place the watermark relative to the image being watermarked.  Must be one of top-left, top-center, top-right, bottom-left, bottom-center, bottom-right, center",
+					"fieldType": "string",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				{
+					"name": "gap",
+					"label": "Gap in pixels",
+					"defaultValue": 10,
+					"description": "Gap, in pixels, between each snapshot and around the margins.",
+					"fieldType": "number",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "number"
+						}
+					}
+				},
+				{
+					"name": "chin",
+					"label": "Chin height in pixels",
+					"defaultValue": 50,
+					"description": "Number of pixels height for the 'chin' beneath the snapshots",
+					"fieldType": "number",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "number"
+						}
+					}
+				},
+				{
+					"name": "fillStyle",
+					"label": "Fill style of background",
+					"defaultValue": "lightgreen",
+					"description": "The canvas fill style to specify the background color. See https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle",
 					"fieldType": "string",
 					"managed": false,
 					"readOnly": false,

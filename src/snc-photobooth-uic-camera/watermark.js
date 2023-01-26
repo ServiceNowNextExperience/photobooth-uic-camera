@@ -64,8 +64,9 @@ export { initializeWatermark };
 
 // applyWatermark({ watermarkImage, watermarkImagePosition, gap, offset : [gap, gap], context, canvas });
 
-const applyWatermark = ({ watermarkImage, context, canvas, properties : { watermarkImagePosition, canvasConfig: { gap } } }) => {
+const applyWatermark = ({ watermarkImage, context, canvas, properties : { watermarkImagePosition, gap } }) => {
 	console.log("applyWatermark", watermarkImage);
+	if(!watermarkImage){ return; }
 	const [watermarkX, watermarkY] = getCoordinates({
 		watermarkImagePosition,
 		imageWidth : watermarkImage.width,

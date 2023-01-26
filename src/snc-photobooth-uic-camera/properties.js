@@ -1,0 +1,122 @@
+// NOTES FROM JON
+// This is based on the standard JSON Schema
+// https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/type-schema
+export const properties = {
+	/**
+	 * Camera is enabled
+	 * @type {boolean}
+	 */
+	enabled: {
+		schema: { type: "boolean" },
+		default: false,
+	},
+
+	/**
+	 * Triggers a snapshot
+	 * Required: No
+	 */
+	snapRequested: {
+		default: "",
+		schema: { type: "string" },
+	},
+
+	/**
+	 * How long to wait after requesting a snap and beginning the shots.
+	 */
+	countdownDurationSeconds: {
+		default: 0,
+		schema: { type: "number" },
+	},
+
+	/**
+	 * How long to pause between each snap in seconds.
+	 */
+	pauseDurationSeconds : {
+		default: 1,
+		schema: {type: "number"}
+	},
+
+	/**
+	 * Output Image width and height in pixels (not the size of the video stream)
+	 */
+	imageSize: {
+		default: { width: 800, height: 600 },
+		schema: {
+			type: "object",
+			properties: {
+				width: { type: "integer" },
+				height: { type: "integer" },
+			},
+			required: ["width", "height"],
+		},
+	},
+
+	// Gap between snapshots in pixels
+	gap : {
+		default : 10,
+		schema : { type : "number" }
+	},
+
+	// Height of chin below snapshots in pixels
+	chin : {
+		default : 50,
+		schema : { type : "number" }
+	},
+
+	// Set the background color of the snaps.
+	// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle
+	fillStyle : {
+		default : "lightgreen",
+		schema : { type : "string" }
+	},
+
+	/*
+	* Specify which camera to default to. If only one camera is available this will be ignored and the available camera used.
+	*/
+	cameraDeviceId: {
+		default: "",
+		schema: { type: "string" }
+	},
+
+	/**
+	 * Countdown Animation CSS
+	 * If using the Countdown Duration property make sure that the animation duration matches.
+	 * Should target divs with ids of "content" (the div to overlay the counter on)
+	 * and "counter" (the div to put the counter into).
+	 * Can be any CSS or SCSS but be sure to minify it first (remove whitespace).
+	 * Example https://github.com/ServiceNowNextExperience/photobooth-uic-camera/blob/main/src/snc-photobooth-uic-camera/animation1.scss
+	 */
+	countdownAnimationCss: {
+		schema: { type: "string" },
+		default: "",
+	},
+
+	watermarkImageUrl: {
+		schema: { type: "string" },
+		default: "",
+	},
+
+	watermarkImagePosition: {
+		schema: {
+			type: "string",
+			enum: [
+				"top-left",
+				"top-center",
+				"top-right",
+				"bottom-left",
+				"bottom-center",
+				"bottom-right",
+				"center",
+			],
+		},
+		default: "center",
+	},
+
+	/**
+	 * Number representing the scale of the watermark image from 0 to 1 (100%)
+	 */
+	watermarkImageScale: {
+		schema: { type: "number" },
+		default: 1,
+	},
+};

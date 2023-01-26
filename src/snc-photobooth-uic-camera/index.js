@@ -1,6 +1,7 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
+import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
 //import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events.js";
 import { applyWatermark, initializeWatermark } from "./watermark";
@@ -13,10 +14,11 @@ const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
 const initialState = { snapState: "idle", watermarkImage: null };
+
 console.log("initialState", initialState);
 
-const initializeMedia = ({ host, updateState, dispatch, properties: { enabled, cameraDeviceId, imageSize,
-	watermarkImageUrl, watermarkImageScale, watermarkImagePosition, canvasConfig: { gap, chin, fillStyle } } }) => {
+const initializeMedia = ({ host, updateState, dispatch, 
+	properties: { enabled, cameraDeviceId, imageSize, watermarkImageUrl, watermarkImageScale, watermarkImagePosition, gap, chin, fillStyle } }) => {
 
 	console.log('INITIALIZE MEDIA!');
 	// Grab elements, create settings, etc.
@@ -31,9 +33,6 @@ const initializeMedia = ({ host, updateState, dispatch, properties: { enabled, c
 	context.fillStyle = fillStyle;
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-/* ({watermarkImage}) => {
-				updateState({watermarkImage});
-			}*/
 	if (watermarkImageUrl) {
 		initializeWatermark({
 			watermarkImageUrl,
@@ -154,7 +153,7 @@ const actionHandlers = {
 		const propertyHandlers = ({
 			snapRequested: () => {
 				if (value && value != previousValue) {
-					const imageData = snap(state, dispatch, updateState);
+					const imageData = snap({state, dispatch, updateState});
 				} else if (!value && snapState != "idle") {
 					// Reset if the value for snapRequested is empty
 					updateState({ snapState: "idle" });
@@ -171,7 +170,9 @@ const actionHandlers = {
 			}
 		});
 
-		if (propertyHandlers[name]) { propertyHandlers[name]() }
+		if (propertyHandlers[name]) { 
+			propertyHandlers[name]() 
+		}
 	},
 };
 
@@ -182,7 +183,7 @@ const drawImage = (
 		video,
 		properties: {
 			imageSize: { width, height },
-			canvasConfig: { gap },
+			gap,
 		},
 	}
 ) => {
@@ -203,11 +204,16 @@ const drawImage = (
 	context.drawImage(video, x, y, hWidth, hHeight);
 };
 
-const snap = (state, dispatch, updateState) => {
+// Passing in "state" instead of destructuring it in place
+// becuase drawImage needs a lot of values from state
+// and I don't want to have to call them out twice
+const snap = ({state, dispatch, updateState}) => {
 	const {
 		canvas,
 		properties: {
 			countdownDurationSeconds,
+			pauseDurationSeconds,
+			pauseDurationMilliseconds = pauseDurationSeconds * 1000
 		},
 	} = state;
 
@@ -217,19 +223,17 @@ const snap = (state, dispatch, updateState) => {
 		updateState({ snapState: "countdown" });
 	}
 
-	//context.clearRect(0, 0, width, height);
-
 	const _snap = () => {
 		updateState({ snapState: "snapping" });
+
 		drawImage(pos, state);
 
 		if (pos < 4) {
 			pos++;
-			setTimeout(_snap, 500);
+			setTimeout(_snap, pauseDurationMilliseconds);
 		} else {
 			updateState({ snapState: "preview" });
 
-			debugger;
 			applyWatermark(state);
 			
 			const imageData = canvas.toDataURL("image/jpeg");
@@ -240,14 +244,16 @@ const snap = (state, dispatch, updateState) => {
 		}
 	};
 
+	//setTimeout(()=>{}, )
 	setTimeout(_snap, countdownDurationSeconds * 1000);
 };
 
 const view = ({
 	snapState,
 	properties: {
-		imageSize: { width, height },
-		countdownAnimationCss
+		countdownAnimationCss,
+		pauseDurationSeconds,
+		animationDuration = pauseDurationSeconds + "s"
 	},
 }) => {
 	return (
@@ -256,11 +262,9 @@ const view = ({
 			<div
 				id="container"
 				className={snapState}
-				style={{ width: `${width}px`, height: `${height}px` }}
 			>
-				<div id="content">
-					<video id="video" width={width} height={height} autoplay=""></video>
-				</div>
+				<div id="flash" style={{"animation-iteration-count":4, "animation-duration":animationDuration}}></div>
+				<video id="video" autoplay="" style={{width:"100%"}}></video>
 				<div id="counter"></div>
 			</div>
 		</div>
@@ -286,115 +290,6 @@ const dispatches = {
 	 */
 	//	PHOTOBOOTH_MEDIA_DEVICE_SELECTED: {},
 
-};
-
-// NOTES FROM JON
-// This is based on the standard JSON Schema
-// https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/type-schema
-const properties = {
-	/**
-	 * Camera is enabled
-	 * @type {boolean}
-	 */
-	enabled: {
-		schema: { type: "boolean" },
-		default: false,
-	},
-
-	/**
-	 * Triggers a snapshot
-	 * Required: No
-	 */
-	snapRequested: {
-		default: "",
-		schema: { type: "string" },
-	},
-
-	/**
-	 * How long to wait after requesting a snap and beginning the shots.
-	 */
-	countdownDurationSeconds: {
-		default: 0,
-		schema: { type: "number" },
-	},
-
-	/**
-	 * Image width and height in pixels
-	 */
-	imageSize: {
-		default: { width: 800, height: 600 },
-		schema: {
-			type: "object",
-			properties: {
-				width: { type: "integer" },
-				height: { type: "integer" },
-			},
-			required: ["width", "height"],
-		},
-	},
-
-	canvasConfig: {
-		default: { gap: 10, chin: 40, fillStyle: "green" },
-		schema: {
-			type: "object",
-			properties: {
-				gap: { type: "integer" },
-				chin: { type: "integer" },
-				fillStyle: { type: "string" }
-			},
-			required: ["gap", "chin"],
-		}
-	},
-
-	/*
-	* Specify which camera to default to. If only one camera is available this will be ignored and the available camera used.
-	*/
-	cameraDeviceId: {
-		default: "",
-		schema: { type: "string" }
-	},
-
-	/**
-	 * Countdown Animation CSS
-	 * If using the Countdown Duration property make sure that the animation duration matches.
-	 * Should target divs with ids of "content" (the div to overlay the counter on)
-	 * and "counter" (the div to put the counter into).
-	 * Can be any CSS or SCSS but be sure to minify it first (remove whitespace).
-	 * Example https://github.com/ServiceNowNextExperience/photobooth-uic-camera/blob/main/src/snc-photobooth-uic-camera/animation1.scss
-	 */
-	countdownAnimationCss: {
-		schema: { type: "string" },
-		default: "",
-	},
-
-	watermarkImageUrl: {
-		schema: { type: "string" },
-		default: "",
-	},
-
-	watermarkImagePosition: {
-		schema: {
-			type: "string",
-			enum: [
-				"top-left",
-				"top-center",
-				"top-right",
-				"bottom-left",
-				"bottom-center",
-				"bottom-right",
-				"center",
-			],
-		},
-		default: "center",
-	},
-
-	/**
-	 * Number representing the scale of the watermark image from 0 to 1 (100%)
-	 */
-	watermarkImageScale: {
-		schema: { type: "number" },
-		default: 1,
-	},
 };
 
 createCustomElement("snc-photobooth-uic-camera", {
