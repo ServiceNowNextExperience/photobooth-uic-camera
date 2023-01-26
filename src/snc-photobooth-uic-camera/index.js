@@ -3,7 +3,6 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import styles from "./styles.scss";
 import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
-//import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events.js";
 import { applyWatermark, initializeWatermark } from "./watermark";
 import { getConnectedDevices } from "./media";
 
@@ -73,6 +72,7 @@ const dispatchConnectedDevices = ({ cameraDeviceId, dispatch }) => {
 			updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
 		}
 
+		console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 	});
 
