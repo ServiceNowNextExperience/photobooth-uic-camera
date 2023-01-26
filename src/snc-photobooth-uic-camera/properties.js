@@ -29,7 +29,7 @@ export const properties = {
 	},
 
 	/**
-	 * How long to pause between each snap in seconds.
+	 * Number of seconds to pause between each snap.
 	 */
 	pauseDurationSeconds : {
 		default: 1,
@@ -57,7 +57,7 @@ export const properties = {
 		schema : { type : "number" }
 	},
 
-	// Height of chin below snapshots in pixels
+	// Height of chin below snapshots in pixels. Use the same value as "gap" to make no chin.
 	chin : {
 		default : 50,
 		schema : { type : "number" }

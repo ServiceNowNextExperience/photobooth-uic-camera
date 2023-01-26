@@ -3,17 +3,13 @@
 		"snc-photobooth-uic-camera": {
 			"innerComponents": [],
 			"uiBuilder": {
-				"associatedTypes": [
-					"global.core",
-					"global.landing-page"
-				],
+				"associatedTypes": ["global.core", "global.landing-page"],
 				"label": "Photobooth Camera",
 				"icon": "camera-outline",
 				"description": "Photobooth component to take snapshots from a connected camera",
 				"category": "primitives"
 			},
-			"properties": [
-				{
+			"properties": [{
 					"name": "enabled",
 					"label": "Enabled",
 					"description": "Whether or not the camera stream is enabled.",
@@ -46,7 +42,27 @@
 					"readOnly": false,
 					"required": false,
 					"selectable": false,
-					"typeMetadata": {}
+					"typeMetadata" : {
+						"schema" : {
+							"type" : "number"
+						}
+					}
+				},
+				{
+					"name": "pauseDurationSeconds",
+					"label": "Pause Between Snap Seconds",
+					"defaultValue" : 1,
+					"description" : "How long to pause between each snap in seconds.",
+					"fieldType" : "number",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata" : {
+						"schema" : {
+							"type" : "number"
+						}
+					}
 				},
 				{
 					"name": "imageSize",
@@ -201,26 +217,22 @@
 					}
 				}
 			],
-			"actions": [
-				{
+			"actions": [{
 					"action": "PHOTOBOOTH_CAMERA#SNAPPED",
 					"label": "Photo Snapped",
 					"description": "Dispatched when a photo is snapped.  Includes the imageData in the payload.",
-					"payload": [
-						{
-							"name": "imageData",
-							"label": "Image Data",
-							"description": "The image data from the camera after the snap is completed",
-							"fieldType": "string"
-						}
-					]
+					"payload": [{
+						"name": "imageData",
+						"label": "Image Data",
+						"description": "The image data from the camera after the snap is completed",
+						"fieldType": "string"
+					}]
 				},
 				{
 					"action": "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED",
 					"label": "Photobooth Available Cameras Updated",
 					"description": "Dispatched when the available cameras are updated.",
-					"payload": [
-						{
+					"payload": [{
 							"name": "selectedCameraDeviceId",
 							"label": "Selected Camera Device ID",
 							"description": "",
@@ -234,25 +246,23 @@
 							"typeMetadata": {
 								"schema": {
 									"type": "array",
-									"items": [
-										{
-											"type": "object",
-											"properties": {
-												"deviceId": {
-													"type": "string"
-												},
-												"kind": {
-													"type": "string"
-												},
-												"label": {
-													"type": "string"
-												},
-												"groupId": {
-													"type": "string"
-												}
+									"items": [{
+										"type": "object",
+										"properties": {
+											"deviceId": {
+												"type": "string"
+											},
+											"kind": {
+												"type": "string"
+											},
+											"label": {
+												"type": "string"
+											},
+											"groupId": {
+												"type": "string"
 											}
 										}
-									]
+									}]
 								}
 							}
 						},

@@ -7,6 +7,10 @@
     background-color: #FFF;
   }
 
+  25% {
+    background-color: #FFF;
+  }
+
   100% {
     background-color: none;
   }
@@ -19,7 +23,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index:1000;
 }
 
 .snapping #flash {

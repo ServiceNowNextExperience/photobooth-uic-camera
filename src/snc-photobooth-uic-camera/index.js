@@ -15,8 +15,6 @@ const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 
 const initialState = { snapState: "idle", watermarkImage: null };
 
-console.log("initialState", initialState);
-
 const initializeMedia = ({ host, updateState, dispatch, 
 	properties: { enabled, cameraDeviceId, imageSize, watermarkImageUrl, watermarkImageScale, watermarkImagePosition, gap, chin, fillStyle } }) => {
 
@@ -59,8 +57,6 @@ const initializeMedia = ({ host, updateState, dispatch,
 };
 
 const dispatchConnectedDevices = ({ cameraDeviceId, dispatch }) => {
-	console.log("DISPATCH CONNECTED DEVICES");
-
 	// This is done purely to return a list of devices to the client so that they can
 	// offer a selection to the user. It does not impact initializing the camera functionality.
 	getConnectedDevices('videoinput', (cameras) => {
@@ -83,12 +79,12 @@ const dispatchConnectedDevices = ({ cameraDeviceId, dispatch }) => {
 };
 
 const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState, dispatch }) => {
-	console.log("SWITCH MEDIA DEVICE", "Device ID:", cameraDeviceId, "Enabled?", enabled);
+	console.log("SWITCH MEDIA DEVICE", {cameraDeviceId, enabled});
 	// Get access to the camera!
 	navigator.mediaDevices
 		.getUserMedia({ video: { deviceId: cameraDeviceId } })
 		.then(function (stream) {
-			console.log("Got User Media!", video, cameraDeviceId);
+			console.log("Got User Media!", {video, cameraDeviceId});
 			if (video.srcObject) {
 				video.srcObject.getTracks().forEach(track => {
 					track.stop();
@@ -133,21 +129,19 @@ const actionHandlers = {
 		updateState,
 		dispatch
 	}) => {
-		console.log("COMPONENT_DOM_READY");
-
-		const { watermarkImageUrl, watermarkImageScale } = properties;
-
 		initializeMedia({ host, properties, dispatch, updateState });
 	},
+
 	[COMPONENT_CONNECTED]: ({ }) => {
 	},
+
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
 		action: { payload: { name, value, previousValue } },
 		dispatch,
 		updateState
 	}) => {
-		console.log(COMPONENT_PROPERTY_CHANGED, name, value);
+		console.log(COMPONENT_PROPERTY_CHANGED, {name, value});
 		const { snapState, video, properties: { enabled } } = state;
 
 		const propertyHandlers = ({
@@ -224,6 +218,7 @@ const snap = ({state, dispatch, updateState}) => {
 	}
 
 	const _snap = () => {
+		console.log("_snap", pos);
 		updateState({ snapState: "snapping" });
 
 		drawImage(pos, state);
