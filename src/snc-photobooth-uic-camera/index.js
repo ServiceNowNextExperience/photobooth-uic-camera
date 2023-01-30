@@ -43,13 +43,10 @@ const initializeMedia = ({ host, updateState, dispatch,
 	}
 
 
-	const counter = host.shadowRoot.getElementById("counter");
-
 	updateState({
-		video: video,
-		context: context,
-		canvas: canvas,
-		counter: counter,
+		video,
+		context,
+		canvas
 	});
 
 	switchMediaDevice({ video, cameraDeviceId, enabled, updateState, dispatch });
@@ -260,7 +257,6 @@ const view = ({
 			>
 				<div id="flash" style={{"animation-iteration-count":4, "animation-duration":animationDuration}}></div>
 				<video id="video" autoplay="" style={{width:"100%"}}></video>
-				<div id="counter"></div>
 			</div>
 		</div>
 	);
