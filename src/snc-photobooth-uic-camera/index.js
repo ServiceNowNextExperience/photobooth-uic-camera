@@ -7,24 +7,39 @@ import { applyWatermark, initializeWatermark } from "./watermark";
 import { getConnectedDevices } from "./media";
 
 const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
-const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED = "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
+const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED =
+	"PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
 const initialState = { snapState: "idle", watermarkImage: null };
 
-const initializeMedia = ({ host, updateState, dispatch, 
-	properties: { enabled, cameraDeviceId, imageSize, watermarkImageUrl, watermarkImageScale, watermarkImagePosition, gap, chin, fillStyle } }) => {
-
-	console.log('INITIALIZE MEDIA!');
+const initializeMedia = ({
+	host,
+	updateState,
+	dispatch,
+	properties: {
+		enabled,
+		cameraDeviceId,
+		imageSize,
+		watermarkImageUrl,
+		watermarkImageScale,
+		watermarkImagePosition,
+		gap,
+		chin,
+		fillStyle,
+		shutterSoundFile,
+	},
+}) => {
+	console.log("INITIALIZE MEDIA!");
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
 	const canvas = host.shadowRoot.ownerDocument.createElement("canvas");
 
 	// Add room for gaps above, between and below images
-	canvas.width = imageSize.width + (gap * 3);
-	canvas.height = imageSize.height + (gap * 3) + chin;
+	canvas.width = imageSize.width + gap * 3;
+	canvas.height = imageSize.height + gap * 3 + chin;
 
 	const context = canvas.getContext("2d");
 	context.fillStyle = fillStyle;
@@ -38,15 +53,18 @@ const initializeMedia = ({ host, updateState, dispatch,
 			gap,
 			canvas,
 			context,
-			onload: updateState
+			onload: updateState,
 		});
 	}
 
+	// Initialize shutter sound
+	var shutterSound = new Audio(shutterSoundFile);
 
 	updateState({
 		video,
 		context,
-		canvas
+		canvas,
+		shutterSound,
 	});
 
 	switchMediaDevice({ video, cameraDeviceId, enabled, updateState, dispatch });
@@ -55,35 +73,48 @@ const initializeMedia = ({ host, updateState, dispatch,
 const dispatchConnectedDevices = ({ cameraDeviceId, dispatch }) => {
 	// This is done purely to return a list of devices to the client so that they can
 	// offer a selection to the user. It does not impact initializing the camera functionality.
-	getConnectedDevices('videoinput', (cameras) => {
-		cameras.forEach(camera => camera.id = camera.deviceId);
-		const updatedCameras = { selectedCameraDeviceId: cameraDeviceId, cameras, selectedDeviceIdFound: false, boundCameraDeviceId: null };
+	getConnectedDevices("videoinput", (cameras) => {
+		cameras.forEach((camera) => (camera.id = camera.deviceId));
+		const updatedCameras = {
+			selectedCameraDeviceId: cameraDeviceId,
+			cameras,
+			selectedDeviceIdFound: false,
+			boundCameraDeviceId: null,
+		};
 
-		if (cameras.filter((camera) => camera.deviceId === cameraDeviceId).length == 1) {
+		if (
+			cameras.filter((camera) => camera.deviceId === cameraDeviceId).length == 1
+		) {
 			updatedCameras.selectedDeviceIdFound = true;
 			updatedCameras.boundCameraDeviceId = cameraDeviceId;
 		} else if (cameras.length === 1) {
 			// If there is only one camera attached, just ignore the deviceId and use that one
 			const selectedCameraDeviceId = cameras[0].deviceId;
-			updatedCameras.selectedDeviceIdFound = (selectedCameraDeviceId === cameraDeviceId);
+			updatedCameras.selectedDeviceIdFound =
+				selectedCameraDeviceId === cameraDeviceId;
 			updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
 		}
 
 		console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, updatedCameras);
 	});
-
 };
 
-const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState, dispatch }) => {
-	console.log("SWITCH MEDIA DEVICE", {cameraDeviceId, enabled});
+const switchMediaDevice = ({
+	video,
+	cameraDeviceId,
+	enabled,
+	updateState,
+	dispatch,
+}) => {
+	console.log("SWITCH MEDIA DEVICE", { cameraDeviceId, enabled });
 	// Get access to the camera!
 	navigator.mediaDevices
 		.getUserMedia({ video: { deviceId: cameraDeviceId } })
 		.then(function (stream) {
-			console.log("Got User Media!", {video, cameraDeviceId});
+			console.log("Got User Media!", { video, cameraDeviceId });
 			if (video.srcObject) {
-				video.srcObject.getTracks().forEach(track => {
+				video.srcObject.getTracks().forEach((track) => {
 					track.stop();
 				});
 			}
@@ -98,7 +129,6 @@ const switchMediaDevice = ({ video, cameraDeviceId, enabled, updateState, dispat
 			console.log("Error Getting Media!", x);
 			throw x;
 		});
-
 };
 
 const resumeTracks = ({ video: { srcObject: stream } }) => {
@@ -124,27 +154,32 @@ const actionHandlers = {
 		host,
 		state: { properties },
 		updateState,
-		dispatch
+		dispatch,
 	}) => {
 		initializeMedia({ host, properties, dispatch, updateState });
 	},
 
-	[COMPONENT_CONNECTED]: ({ }) => {
-	},
+	[COMPONENT_CONNECTED]: ({}) => {},
 
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
-		action: { payload: { name, value, previousValue } },
+		action: {
+			payload: { name, value, previousValue },
+		},
 		dispatch,
-		updateState
+		updateState,
 	}) => {
-		console.log(COMPONENT_PROPERTY_CHANGED, {name, value});
-		const { snapState, video, properties: { enabled } } = state;
+		console.log(COMPONENT_PROPERTY_CHANGED, { name, value });
+		const {
+			snapState,
+			video,
+			properties: { enabled },
+		} = state;
 
-		const propertyHandlers = ({
+		const propertyHandlers = {
 			snapRequested: () => {
 				if (value && value != previousValue) {
-					const imageData = snap({state, dispatch, updateState});
+					const imageData = snap({ state, dispatch, updateState });
 				} else if (!value && snapState != "idle") {
 					// Reset if the value for snapRequested is empty
 					updateState({ snapState: "idle" });
@@ -156,13 +191,19 @@ const actionHandlers = {
 			},
 			cameraDeviceId: () => {
 				const cameraDeviceId = value;
-				switchMediaDevice({ video, cameraDeviceId, enabled, updateState, dispatch });
+				switchMediaDevice({
+					video,
+					cameraDeviceId,
+					enabled,
+					updateState,
+					dispatch,
+				});
 				updateState({ cameraDeviceId });
-			}
-		});
+			},
+		};
 
-		if (propertyHandlers[name]) { 
-			propertyHandlers[name]() 
+		if (propertyHandlers[name]) {
+			propertyHandlers[name]();
 		}
 	},
 };
@@ -185,9 +226,9 @@ const drawImage = (
 	// in the grid
 	const posMap = {
 		1: { x: gap, y: gap },
-		2: { x: hWidth + (gap * 2), y: gap },
-		3: { x: gap, y: hHeight + (gap * 2) },
-		4: { x: hWidth + (gap * 2), y: hHeight + (gap * 2) }
+		2: { x: hWidth + gap * 2, y: gap },
+		3: { x: gap, y: hHeight + gap * 2 },
+		4: { x: hWidth + gap * 2, y: hHeight + gap * 2 },
 	};
 
 	const { x, y } = posMap[pos];
@@ -198,14 +239,15 @@ const drawImage = (
 // Passing in "state" instead of destructuring it in place
 // becuase drawImage needs a lot of values from state
 // and I don't want to have to call them out twice
-const snap = ({state, dispatch, updateState}) => {
+const snap = ({ state, dispatch, updateState }) => {
 	const {
 		canvas,
 		properties: {
 			countdownDurationSeconds,
 			pauseDurationSeconds,
-			pauseDurationMilliseconds = pauseDurationSeconds * 1000
+			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
 		},
+		shutterSound,
 	} = state;
 
 	let pos = 1;
@@ -220,6 +262,8 @@ const snap = ({state, dispatch, updateState}) => {
 
 		drawImage(pos, state);
 
+		shutterSound.play();
+
 		if (pos < 4) {
 			pos++;
 			setTimeout(_snap, pauseDurationMilliseconds);
@@ -227,7 +271,7 @@ const snap = ({state, dispatch, updateState}) => {
 			updateState({ snapState: "preview" });
 
 			applyWatermark(state);
-			
+
 			const imageData = canvas.toDataURL("image/jpeg");
 
 			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {
@@ -245,18 +289,21 @@ const view = ({
 	properties: {
 		countdownAnimationCss,
 		pauseDurationSeconds,
-		animationDuration = pauseDurationSeconds + "s"
+		animationDuration = pauseDurationSeconds + "s",
 	},
 }) => {
 	return (
 		<div>
 			<style>{countdownAnimationCss}</style>
-			<div
-				id="container"
-				className={snapState}
-			>
-				<div id="flash" style={{"animation-iteration-count":4, "animation-duration":animationDuration}}></div>
-				<video id="video" autoplay="" style={{width:"100%"}}></video>
+			<div id="container" className={snapState}>
+				<div
+					id="flash"
+					style={{
+						"animation-iteration-count": 4,
+						"animation-duration": animationDuration,
+					}}
+				></div>
+				<video id="video" autoplay="" style={{ width: "100%" }}></video>
 			</div>
 		</div>
 	);
@@ -280,7 +327,6 @@ const dispatches = {
 	 * @type {{response:object}}
 	 */
 	//	PHOTOBOOTH_MEDIA_DEVICE_SELECTED: {},
-
 };
 
 createCustomElement("snc-photobooth-uic-camera", {

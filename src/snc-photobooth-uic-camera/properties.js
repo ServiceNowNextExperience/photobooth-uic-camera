@@ -31,9 +31,9 @@ export const properties = {
 	/**
 	 * Number of seconds to pause between each snap.
 	 */
-	pauseDurationSeconds : {
+	pauseDurationSeconds: {
 		default: 1,
-		schema: {type: "number"}
+		schema: { type: "number" },
 	},
 
 	/**
@@ -52,30 +52,30 @@ export const properties = {
 	},
 
 	// Gap between snapshots in pixels
-	gap : {
-		default : 10,
-		schema : { type : "number" }
+	gap: {
+		default: 10,
+		schema: { type: "number" },
 	},
 
 	// Height of chin below snapshots in pixels. Use the same value as "gap" to make no chin.
-	chin : {
-		default : 50,
-		schema : { type : "number" }
+	chin: {
+		default: 50,
+		schema: { type: "number" },
 	},
 
 	// Set the background color of the snaps.
 	// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle
-	fillStyle : {
-		default : "lightgreen",
-		schema : { type : "string" }
+	fillStyle: {
+		default: "lightgreen",
+		schema: { type: "string" },
 	},
 
 	/*
-	* Specify which camera to default to. If only one camera is available this will be ignored and the available camera used.
-	*/
+	 * Specify which camera to default to. If only one camera is available this will be ignored and the available camera used.
+	 */
 	cameraDeviceId: {
 		default: "",
-		schema: { type: "string" }
+		schema: { type: "string" },
 	},
 
 	/**
@@ -118,5 +118,10 @@ export const properties = {
 	watermarkImageScale: {
 		schema: { type: "number" },
 		default: 1,
+	},
+
+	shutterSoundFile: {
+		schema: { type: "string" },
+		default: "",
 	},
 };
