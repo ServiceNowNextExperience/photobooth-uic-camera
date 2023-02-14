@@ -18,7 +18,7 @@ let localUpdateState = null;
 const initialState = {
 	enabled: true,
 	countdownDurationSeconds: 0,
-	pauseDurationSeconds : 1,
+	pauseDurationSeconds: 1,
 	imageSize: { width: 800, height: 600 },
 	canvasConfig: { gap: 10, chin: 50, fillStyle: "lightgreen" },
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
@@ -27,6 +27,7 @@ const initialState = {
 	cameraDeviceId: CameraIds.Empty,
 	localPhotoSnappedImg: "",
 	localCameras: [],
+	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
 };
 
 const view = (state, { updateState }) => {
@@ -46,6 +47,7 @@ const view = (state, { updateState }) => {
 		localPhotoSnappedImg,
 		localCameras,
 		canvasConfig: { gap, chin, fillStyle },
+		shutterSoundFile,
 	} = state;
 	const toggleEnabledExternally = () => {
 		console.log("TOGGLE ENABLED EXTERNALLY");
@@ -78,6 +80,7 @@ const view = (state, { updateState }) => {
 						gap={gap}
 						chin={chin}
 						fillStyle={fillStyle}
+						shutterSoundFile={shutterSoundFile}
 					></snc-photobooth-uic-camera>
 				</div>
 				<div id="outputs" style={{ flex: 1 }}>
