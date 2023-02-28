@@ -4,11 +4,9 @@ import styles from "./styles.scss";
 import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
-import { switchMediaDevice, drawImage, toggleTracks, getConnectedDevices } from "./media";
+import { switchMediaDevice, drawImage, toggleTracks, getConnectedDevices, initializeCanvas } from "./media";
 
-const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
-const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED =
-	"PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
+import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events";
 
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
@@ -20,59 +18,38 @@ const initializeMedia = ({
 	host,
 	updateState,
 	dispatch,
-	properties: {
-		enabled,
-		cameraDeviceId,
-		imageSize,
-		watermarkImageUrl,
-		watermarkImageScale,
-		watermarkImagePosition,
-		gap,
-		chin,
-		fillStyle,
-		shutterSoundFile,
-	},
+	properties,
 }) => {
 	console.log("INITIALIZE MEDIA!");
+
+	const {
+		enabled,
+		cameraDeviceId,
+		shutterSoundFile
+	} = properties;
+
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
 	const canvas = host.shadowRoot.ownerDocument.createElement("canvas");
-
-	// Add room for gaps above, between and below images
-	canvas.width = imageSize.width + gap * 3;
-	canvas.height = imageSize.height + gap * 3 + chin;
-
 	const context = canvas.getContext("2d");
-	context.fillStyle = fillStyle;
-	context.fillRect(0, 0, canvas.width, canvas.height);
+	const shutterSound = new Audio(shutterSoundFile);
 
-	if (watermarkImageUrl) {
-		initializeWatermark({
-			watermarkImageUrl,
-			watermarkImageScale,
-			watermarkImagePosition,
-			gap,
-			canvas,
-			context,
-			onload: updateState,
-		});
-	}
+	initializeCanvas({context, ...properties});
 
-	// Initialize shutter sound
-	var shutterSound = new Audio(shutterSoundFile);
+	initializeWatermark(properties).then(updateState);
+
+	switchMediaDevice({ video, cameraDeviceId, enabled });
+
+	getConnectedDevices({cameraDeviceId}).then((cameras) => {
+		console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+	});
 
 	updateState({
 		video,
 		context,
-		canvas,
 		shutterSound,
 	});
-
-	switchMediaDevice({ video, cameraDeviceId, enabled, updateState, dispatch });
-	getConnectedDevices({cameraDeviceId}).then((cameras) => {
-		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
-	});
-
 };
 
 const actionHandlers = {
@@ -120,9 +97,7 @@ const actionHandlers = {
 				switchMediaDevice({
 					video,
 					cameraDeviceId,
-					enabled,
-					updateState,
-					dispatch,
+					enabled
 				});
 				updateState({ cameraDeviceId });
 			},
@@ -139,13 +114,19 @@ const actionHandlers = {
 // and I don't want to have to call them out twice
 const snap = ({ state, dispatch, updateState }) => {
 	const {
-		canvas,
+		video,
+		context,
+		watermarkImage,
+		shutterSound,
 		properties: {
 			countdownDurationSeconds,
 			pauseDurationSeconds,
 			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
+			imageSize,
+			gap,
+			chin,
+			watermarkImagePosition
 		},
-		shutterSound,
 	} = state;
 
 	let pos = 1;
@@ -155,10 +136,10 @@ const snap = ({ state, dispatch, updateState }) => {
 	}
 
 	const _snap = () => {
-		console.log("_snap", pos);
+		console.log("_snap", pos, context);
 		updateState({ snapState: "snapping" });
 
-		drawImage(pos, state);
+		drawImage({pos, context, video, imageSize, gap, chin});
 
 		shutterSound.play();
 
@@ -168,9 +149,9 @@ const snap = ({ state, dispatch, updateState }) => {
 		} else {
 			updateState({ snapState: "preview" });
 
-			applyWatermark(state);
+			applyWatermark({ watermarkImage, context, watermarkImagePosition, gap });
 
-			const imageData = canvas.toDataURL("image/jpeg");
+			const imageData = context.canvas.toDataURL("image/jpeg");
 
 			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {
 				imageData: imageData,
