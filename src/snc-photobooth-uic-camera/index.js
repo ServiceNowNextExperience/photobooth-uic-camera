@@ -4,7 +4,7 @@ import styles from "./styles.scss";
 import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
-import { switchMediaDevice, drawImage, toggleTracks, getConnectedDevices, initializeCanvas } from "./media";
+import { selectMediaDevice, drawImage, toggleTracks, getConnectedDevices, initializeCanvas } from "./media";
 
 import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events";
 
@@ -38,7 +38,7 @@ const initializeMedia = ({
 
 	initializeWatermark(properties).then(updateState);
 
-	switchMediaDevice({ video, cameraDeviceId, enabled });
+	selectMediaDevice({ video, cameraDeviceId, enabled });
 
 	getConnectedDevices({cameraDeviceId}).then((cameras) => {
 		console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
@@ -94,7 +94,7 @@ const actionHandlers = {
 			},
 			cameraDeviceId: () => {
 				const cameraDeviceId = value;
-				switchMediaDevice({
+				selectMediaDevice({
 					video,
 					cameraDeviceId,
 					enabled
