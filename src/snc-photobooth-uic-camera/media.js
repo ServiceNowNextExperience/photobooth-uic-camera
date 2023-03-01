@@ -1,30 +1,28 @@
-export function selectMediaDevice({
-	video,
-	cameraDeviceId = "",
-	enabled
-}) {
+import { applyWatermark } from "./watermark";
+
+export function selectMediaDevice({ video, cameraDeviceId = "", enabled }) {
 	console.log("SWITCH MEDIA DEVICE", { cameraDeviceId, enabled });
 	// Get access to the camera!
 	return new Promise((resolve, reject) => {
-        navigator.mediaDevices
-		.getUserMedia({ video: { deviceId: cameraDeviceId } })
-		.then(function (stream) {
-			console.log("Got User Media!", { video, cameraDeviceId });
-			if (video.srcObject) {
-				video.srcObject.getTracks().forEach((track) => {
-					track.stop();
-				});
-			}
-			video.srcObject = stream;
-			toggleTracks({ video, enabled });
-			video.play();
-            resolve();
-		})
-		.catch((exc) => {
-			console.log("Error Getting Media!", exc);
-			reject({exc});
-		});
-    });
+		navigator.mediaDevices
+			.getUserMedia({ video: { deviceId: cameraDeviceId } })
+			.then(function (stream) {
+				console.log("Got User Media!", { video, cameraDeviceId });
+				if (video.srcObject) {
+					video.srcObject.getTracks().forEach((track) => {
+						track.stop();
+					});
+				}
+				video.srcObject = stream;
+				toggleTracks({ video, enabled });
+				video.play();
+				resolve();
+			})
+			.catch((exc) => {
+				console.log("Error Getting Media!", exc);
+				reject({ exc });
+			});
+	});
 }
 
 export function toggleTracks({ video: { srcObject: stream }, enabled }) {
@@ -35,41 +33,48 @@ export function toggleTracks({ video: { srcObject: stream }, enabled }) {
 
 export function getConnectedDevices({
 	deviceType = "videoinput",
-	cameraDeviceId
+	cameraDeviceId,
 }) {
 	// This is done purely to return a list of devices to the client so that they can
 	// offer a selection to the user. It does not impact initializing the camera functionality.
 	return new Promise((resolver) => {
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-            const cameras = devices.filter((device) => device.kind === deviceType);
-            cameras.forEach((camera) => (camera.id = camera.deviceId));
-            const updatedCameras = {
-                selectedCameraDeviceId: cameraDeviceId,
-                cameras,
-                selectedDeviceIdFound: false,
-                boundCameraDeviceId: null,
-            };
-    
-            if (
-                cameras.filter((camera) => camera.deviceId === cameraDeviceId).length == 1
-            ) {
-                updatedCameras.selectedDeviceIdFound = true;
-                updatedCameras.boundCameraDeviceId = cameraDeviceId;
-            } else if (cameras.length === 1) {
-                // If there is only one camera attached, just ignore the deviceId and use that one
-                const selectedCameraDeviceId = cameras[0].deviceId;
-                updatedCameras.selectedDeviceIdFound =
-                    selectedCameraDeviceId === cameraDeviceId;
-                updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
-            }
-            resolver(updatedCameras);
-        });
-    });
+		navigator.mediaDevices.enumerateDevices().then((devices) => {
+			const cameras = devices.filter((device) => device.kind === deviceType);
+			cameras.forEach((camera) => (camera.id = camera.deviceId));
+			const updatedCameras = {
+				selectedCameraDeviceId: cameraDeviceId,
+				cameras,
+				selectedDeviceIdFound: false,
+				boundCameraDeviceId: null,
+			};
+
+			if (
+				cameras.filter((camera) => camera.deviceId === cameraDeviceId).length ==
+				1
+			) {
+				updatedCameras.selectedDeviceIdFound = true;
+				updatedCameras.boundCameraDeviceId = cameraDeviceId;
+			} else if (cameras.length === 1) {
+				// If there is only one camera attached, just ignore the deviceId and use that one
+				const selectedCameraDeviceId = cameras[0].deviceId;
+				updatedCameras.selectedDeviceIdFound =
+					selectedCameraDeviceId === cameraDeviceId;
+				updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
+			}
+			resolver(updatedCameras);
+		});
+	});
 }
 
-export function initializeCanvas({context, imageSize = { width: 800, height: 600}, gap = 10, chin = 50, fillStyle}){
-	const {canvas} = context;
-    // Add room for gaps above, between and below images
+export function initializeCanvas({
+	context,
+	imageSize = { width: 800, height: 600 },
+	gap = 10,
+	chin = 50,
+	fillStyle,
+}) {
+	const { canvas } = context;
+	// Add room for gaps above, between and below images
 	canvas.width = imageSize.width;
 	canvas.height = imageSize.height;
 
@@ -77,17 +82,13 @@ export function initializeCanvas({context, imageSize = { width: 800, height: 600
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-export function drawImage({
-	pos,
-	context,
-	video,
-	gap,
-	chin
-}) {
-	const { canvas : {width, height} } = context;
+export function drawImage({ pos, context, video, gap, chin }) {
+	const {
+		canvas: { width, height },
+	} = context;
 	// Make the shots slightly smaller to accomodate the gap/chin
-	const hWidth = (width / 2) - ((gap * 3) / 2);
-	const hHeight = ((height - chin) / 2) - (gap * 2);
+	const hWidth = width / 2 - (gap * 3) / 2;
+	const hHeight = (height - chin) / 2 - gap * 2;
 
 	// Define where the first, second, third and fourth images appear
 	// in the grid
@@ -101,4 +102,62 @@ export function drawImage({
 	const { x, y } = posMap[pos];
 
 	context.drawImage(video, x, y, hWidth, hHeight);
+}
+
+// Passing in "state" instead of destructuring it in place
+// becuase drawImage needs a lot of values from state
+// and I don't want to have to call them out twice
+export function snap({ state, dispatch, updateState }) {
+	const {
+		video,
+		context,
+		watermarkImage,
+		shutterSound,
+		properties: {
+			countdownDurationSeconds,
+			pauseDurationSeconds,
+			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
+			imageSize,
+			gap,
+			chin,
+			watermarkImagePosition,
+		},
+	} = state;
+
+	let pos = 1;
+
+	if (countdownDurationSeconds > 0) {
+		updateState({ snapState: "countdown" });
+	}
+
+	return new Promise((resolve) => {
+		const _snap = () => {
+			console.log("_snap", pos, context);
+			updateState({ snapState: "snapping" });
+
+			drawImage({ pos, context, video, imageSize, gap, chin });
+
+			shutterSound.play();
+
+			if (pos < 4) {
+				pos++;
+				setTimeout(_snap, pauseDurationMilliseconds);
+			} else {
+				updateState({ snapState: "preview" });
+
+				applyWatermark({
+					watermarkImage,
+					context,
+					watermarkImagePosition,
+					gap,
+				});
+
+				const imageData = context.canvas.toDataURL("image/jpeg");
+
+				resolve({ imageData });
+			}
+		};
+
+		setTimeout(_snap, countdownDurationSeconds * 1000);
+	});
 }

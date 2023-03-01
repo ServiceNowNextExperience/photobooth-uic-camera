@@ -4,7 +4,7 @@ import styles from "./styles.scss";
 import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
-import { selectMediaDevice, drawImage, toggleTracks, getConnectedDevices, initializeCanvas } from "./media";
+import { selectMediaDevice, toggleTracks, getConnectedDevices, initializeCanvas, snap } from "./media";
 
 import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events";
 
@@ -82,7 +82,9 @@ const actionHandlers = {
 		const propertyHandlers = {
 			snapRequested: () => {
 				if (value && value != previousValue) {
-					snap({ state, dispatch, updateState });
+					snap({ state, dispatch, updateState }).then((imageData) => {
+						dispatch(PHOTOBOOTH_CAMERA_SNAPPED, imageData);
+					});
 				} else if (!value && snapState != "idle") {
 					// Reset if the value for snapRequested is empty
 					updateState({ snapState: "idle" });
@@ -107,59 +109,6 @@ const actionHandlers = {
 			propertyHandlers[name]();
 		}
 	},
-};
-
-// Passing in "state" instead of destructuring it in place
-// becuase drawImage needs a lot of values from state
-// and I don't want to have to call them out twice
-const snap = ({ state, dispatch, updateState }) => {
-	const {
-		video,
-		context,
-		watermarkImage,
-		shutterSound,
-		properties: {
-			countdownDurationSeconds,
-			pauseDurationSeconds,
-			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
-			imageSize,
-			gap,
-			chin,
-			watermarkImagePosition
-		},
-	} = state;
-
-	let pos = 1;
-
-	if (countdownDurationSeconds > 0) {
-		updateState({ snapState: "countdown" });
-	}
-
-	const _snap = () => {
-		console.log("_snap", pos, context);
-		updateState({ snapState: "snapping" });
-
-		drawImage({pos, context, video, imageSize, gap, chin});
-
-		shutterSound.play();
-
-		if (pos < 4) {
-			pos++;
-			setTimeout(_snap, pauseDurationMilliseconds);
-		} else {
-			updateState({ snapState: "preview" });
-
-			applyWatermark({ watermarkImage, context, watermarkImagePosition, gap });
-
-			const imageData = context.canvas.toDataURL("image/jpeg");
-
-			dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {
-				imageData: imageData,
-			});
-		}
-	};
-
-	setTimeout(_snap, countdownDurationSeconds * 1000);
 };
 
 const view = ({
