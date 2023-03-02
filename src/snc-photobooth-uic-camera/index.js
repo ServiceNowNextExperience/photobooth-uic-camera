@@ -6,7 +6,7 @@ import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
 import { selectMediaDevice, toggleTracks, getConnectedDevices, initializeCanvas, snap } from "./media";
 
-import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED } from "./events";
+import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, PHOTOBOOTH_CAMERA_SINGLE_SNAPPED } from "./events";
 
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
@@ -59,10 +59,11 @@ const actionHandlers = {
 		updateState,
 		dispatch,
 	}) => {
+		console.log(COMPONENT_DOM_READY, host, properties);
 		initializeMedia({ host, properties, dispatch, updateState });
 	},
 
-	[COMPONENT_CONNECTED]: ({}) => {},
+	[COMPONENT_CONNECTED]: ({properties}) => { console.log(COMPONENT_CONNECTED, properties)},
 
 	[COMPONENT_PROPERTY_CHANGED]: ({
 		state,
@@ -76,14 +77,23 @@ const actionHandlers = {
 		const {
 			snapState,
 			video,
-			properties: { enabled },
+			watermarkImage,
+			properties: { enabled, watermarkImagePosition, gap },
 		} = state;
 
 		const propertyHandlers = {
 			snapRequested: () => {
 				if (value && value != previousValue) {
-					snap({ state, dispatch, updateState }).then((imageData) => {
-						dispatch(PHOTOBOOTH_CAMERA_SNAPPED, imageData);
+					const onIndividualSnap = ({imageData}) => { 
+						console.log(PHOTOBOOTH_CAMERA_SINGLE_SNAPPED, {imageData})
+						dispatch(PHOTOBOOTH_CAMERA_SINGLE_SNAPPED, {imageData})
+					};
+					snap({ state, updateState, onIndividualSnap }).then(({context}) => {
+						console.log("SNAP COMPLETED", context);
+						applyWatermark({context, watermarkImage, watermarkImagePosition, gap});
+		
+						const imageData = context.canvas.toDataURL("image/jpeg");
+						dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {imageData});
 					});
 				} else if (!value && snapState != "idle") {
 					// Reset if the value for snapRequested is empty

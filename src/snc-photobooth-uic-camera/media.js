@@ -1,7 +1,5 @@
-import { applyWatermark } from "./watermark";
-
 export function selectMediaDevice({ video, cameraDeviceId = "", enabled }) {
-	console.log("SWITCH MEDIA DEVICE", { cameraDeviceId, enabled });
+	console.log("SELECT MEDIA DEVICE", { cameraDeviceId, enabled });
 	// Get access to the camera!
 	return new Promise((resolve, reject) => {
 		navigator.mediaDevices
@@ -69,11 +67,10 @@ export function getConnectedDevices({
 export function initializeCanvas({
 	context,
 	imageSize = { width: 800, height: 600 },
-	gap = 10,
-	chin = 50,
 	fillStyle,
 }) {
 	const { canvas } = context;
+	console.log("Initialize Canvas", canvas, imageSize, fillStyle);
 	// Add room for gaps above, between and below images
 	canvas.width = imageSize.width;
 	canvas.height = imageSize.height;
@@ -82,16 +79,16 @@ export function initializeCanvas({
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-export function drawImage({ pos, context, video, gap, chin }) {
+export function drawImage({ pos, context, video, gap = 10, chin = 0 }) {
 	const {
 		canvas: { width, height },
 	} = context;
 	// Make the shots slightly smaller to accomodate the gap/chin
-	const hWidth = width / 2 - (gap * 3) / 2;
-	const hHeight = (height - chin) / 2 - gap * 2;
+	const hWidth = (width / 2) - (gap * 3) / 2;
+	const hHeight = ((height - chin) / 2) - (gap * 3) / 2;
 
 	// Define where the first, second, third and fourth images appear
-	// in the grid
+	// in the grid, taking into account offsets from the gap
 	const posMap = {
 		1: { x: gap, y: gap },
 		2: { x: hWidth + gap * 2, y: gap },
@@ -107,20 +104,17 @@ export function drawImage({ pos, context, video, gap, chin }) {
 // Passing in "state" instead of destructuring it in place
 // becuase drawImage needs a lot of values from state
 // and I don't want to have to call them out twice
-export function snap({ state, dispatch, updateState }) {
+export function snap({ state, updateState, onIndividualSnap }) {
 	const {
 		video,
 		context,
-		watermarkImage,
 		shutterSound,
 		properties: {
 			countdownDurationSeconds,
-			pauseDurationSeconds,
+			pauseDurationSeconds = 1,
 			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
-			imageSize,
 			gap,
-			chin,
-			watermarkImagePosition,
+			chin
 		},
 	} = state;
 
@@ -135,9 +129,16 @@ export function snap({ state, dispatch, updateState }) {
 			console.log("_snap", pos, context);
 			updateState({ snapState: "snapping" });
 
-			drawImage({ pos, context, video, imageSize, gap, chin });
+			drawImage({ pos, context, video, gap, chin });
 
-			shutterSound.play();
+			if(shutterSound){
+				shutterSound.play();
+			}
+
+			if(onIndividualSnap){
+				const imageData = context.canvas.toDataURL("image/jpeg");
+				onIndividualSnap({imageData});
+			}
 
 			if (pos < 4) {
 				pos++;
@@ -145,16 +146,7 @@ export function snap({ state, dispatch, updateState }) {
 			} else {
 				updateState({ snapState: "preview" });
 
-				applyWatermark({
-					watermarkImage,
-					context,
-					watermarkImagePosition,
-					gap,
-				});
-
-				const imageData = context.canvas.toDataURL("image/jpeg");
-
-				resolve({ imageData });
+				resolve({context});
 			}
 		};
 

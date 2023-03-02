@@ -1,7 +1,5 @@
 @import "@servicenow/sass-kit/host";
 
-//@import "./animation1.scss";
-
 @keyframes flasher {
   0% {
     background-color: #FFF;
@@ -48,9 +46,6 @@
   #flash, #counter {
     display: none;
   }
-  #canvas {
-    /*    display: none;*/
-  }
 }
 
 /* State while countdown is rendering */
@@ -58,16 +53,10 @@
   #flash, #counter {
     display: none;
   }
-  #canvas {
-    /*    display: none;*/
-  }
 }
 
 /* State while taking the snapshot */
 .snapping {
-  #video {
-    /*    display: none;*/
-  }
   #flash, #counter {
     display: default;
   }
@@ -77,9 +66,5 @@
 .preview {
   #counter {
     display: none;
-  }
-
-  #video {
-    /*    display: none;*/
   }
 }

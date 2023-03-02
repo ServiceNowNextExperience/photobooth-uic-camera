@@ -3,9 +3,7 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
 import "../src/index.js";
 
-const PHOTOBOOTH_CAMERA_SNAPPED = "PHOTOBOOTH_CAMERA#SNAPPED";
-const PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED =
-	"PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED";
+import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, PHOTOBOOTH_CAMERA_SINGLE_SNAPPED } from "../src/snc-photobooth-uic-camera/events"
 
 const CameraIds = {
 	Logitech: "aaadfd301a109346b3393ce9b1abe3eab71f9e72607d70a0e1f98c288c5916d5",
@@ -26,6 +24,7 @@ const initialState = {
 	watermarkImagePosition: "bottom-right",
 	cameraDeviceId: CameraIds.Empty,
 	localPhotoSnappedImg: "",
+	localIndividualImages: [],
 	localCameras: [],
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
 };
@@ -45,6 +44,7 @@ const view = (state, { updateState }) => {
 		watermarkImagePosition,
 		cameraDeviceId,
 		localPhotoSnappedImg,
+		localIndividualImages,
 		localCameras,
 		canvasConfig: { gap, chin, fillStyle },
 		shutterSoundFile,
@@ -88,6 +88,16 @@ const view = (state, { updateState }) => {
 						<img src={localPhotoSnappedImg} />
 					</div>
 				</div>
+				<div id="individualImages" style={{flex : 1, display : "none"}}>
+					<ul>
+						{localIndividualImages.map(imageData => {
+							console.log("MAP INDIVIDUAL IMAGES");
+							return (
+								<li><img src={imageData}/></li>
+							)
+						})}
+					</ul>
+				</div>
 			</div>
 			<div id="controls">
 				<button on-click={() => toggleEnabledExternally()}>
@@ -108,7 +118,7 @@ const view = (state, { updateState }) => {
 				{snapRequested ? (
 					<button
 						on-click={() => {
-							updateState({ snapRequested: "" });
+							updateState({ snapRequested: "", localIndividualImages : [], localPhotoSnappedImg : "" });
 						}}
 					>
 						Reset
@@ -156,8 +166,6 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 			effect: ({ action: { payload } }) => {
 				const { selectedCameraDeviceId, cameras } = payload;
 				console.log(
-					"XX",
-					"B",
 					"SET AVAILABLE CAMERAS",
 					payload,
 					"Selected Camera:",
@@ -166,6 +174,19 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 				localUpdateState({ localCameras: cameras });
 			},
 		},
+		[PHOTOBOOTH_CAMERA_SINGLE_SNAPPED] : {
+			effect: ({
+				state : { localIndividualImages },
+				action: {
+					payload: { imageData },
+				},
+			}) => {
+				console.log("PHOTOBOOTH CAMERA SINGLE SNAPPED YO!", localIndividualImages, imageData);
+				
+				localIndividualImages.push(imageData);
+				localUpdateState({ localIndividualImages });
+			}
+		}
 	},
 });
 
