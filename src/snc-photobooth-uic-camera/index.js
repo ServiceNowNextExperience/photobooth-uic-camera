@@ -52,6 +52,43 @@ const initializeMedia = ({
 	});
 };
 
+const propertyHandlers = {
+	snapRequested: ({ state, dispatch, updateState, payload : {value, previousValue} }) => {
+		const {
+			snapState,
+			watermarkImage,
+			properties: { watermarkImagePosition, gap },
+		} = state;
+
+		if (value && value != previousValue) {
+			snap({ state, updateState }).then(({context, individualSnaps}) => {
+				console.log("SNAP COMPLETED", context);
+				applyWatermark({context, watermarkImage, watermarkImagePosition, gap});
+
+				const imageData = context.canvas.toDataURL("image/jpeg");
+				dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {imageData});
+				dispatch(PHOTOBOOTH_CAMERA_SINGLE_SNAPPED, {individualSnaps});
+			});
+		} else if (!value && snapState != "idle") {
+			// Reset if the value for snapRequested is empty
+			updateState({ snapState: "idle" });
+		}
+	},
+	enabled: ({state : { video }, payload : {value}, updateState}) => {
+		toggleTracks({ video, enabled: value });
+		updateState({ snapState: "idle" });
+	},
+	cameraDeviceId: ({payload: value}) => {
+		const cameraDeviceId = value;
+		selectMediaDevice({
+			video,
+			cameraDeviceId,
+			enabled
+		});
+		updateState({ cameraDeviceId });
+	},
+};
+
 const actionHandlers = {
 	[COMPONENT_DOM_READY]: ({
 		host,
@@ -74,49 +111,9 @@ const actionHandlers = {
 		updateState,
 	}) => {
 		console.log(COMPONENT_PROPERTY_CHANGED, { name, value });
-		const {
-			snapState,
-			video,
-			watermarkImage,
-			properties: { enabled, watermarkImagePosition, gap },
-		} = state;
-
-		const propertyHandlers = {
-			snapRequested: () => {
-				if (value && value != previousValue) {
-					const onIndividualSnap = ({imageData}) => { 
-						console.log(PHOTOBOOTH_CAMERA_SINGLE_SNAPPED, {imageData})
-						dispatch(PHOTOBOOTH_CAMERA_SINGLE_SNAPPED, {imageData})
-					};
-					snap({ state, updateState, onIndividualSnap }).then(({context}) => {
-						console.log("SNAP COMPLETED", context);
-						applyWatermark({context, watermarkImage, watermarkImagePosition, gap});
-		
-						const imageData = context.canvas.toDataURL("image/jpeg");
-						dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {imageData});
-					});
-				} else if (!value && snapState != "idle") {
-					// Reset if the value for snapRequested is empty
-					updateState({ snapState: "idle" });
-				}
-			},
-			enabled: () => {
-				toggleTracks({ video, enabled: value });
-				updateState({ snapState: "idle" });
-			},
-			cameraDeviceId: () => {
-				const cameraDeviceId = value;
-				selectMediaDevice({
-					video,
-					cameraDeviceId,
-					enabled
-				});
-				updateState({ cameraDeviceId });
-			},
-		};
 
 		if (propertyHandlers[name]) {
-			propertyHandlers[name]();
+			propertyHandlers[name]({ state, dispatch, updateState, payload: { value, previousValue } });
 		}
 	},
 };

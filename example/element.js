@@ -24,7 +24,7 @@ const initialState = {
 	watermarkImagePosition: "bottom-right",
 	cameraDeviceId: CameraIds.Empty,
 	localPhotoSnappedImg: "",
-	localIndividualImages: [],
+	individualSnaps: [],
 	localCameras: [],
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
 };
@@ -44,7 +44,7 @@ const view = (state, { updateState }) => {
 		watermarkImagePosition,
 		cameraDeviceId,
 		localPhotoSnappedImg,
-		localIndividualImages,
+		individualSnaps,
 		localCameras,
 		canvasConfig: { gap, chin, fillStyle },
 		shutterSoundFile,
@@ -87,16 +87,16 @@ const view = (state, { updateState }) => {
 					<div id="photoSnappedImg">
 						<img src={localPhotoSnappedImg} />
 					</div>
-				</div>
-				<div id="individualImages" style={{flex : 1, display : "none"}}>
-					<ul>
-						{localIndividualImages.map(imageData => {
-							console.log("MAP INDIVIDUAL IMAGES");
+					<div id="individualImages">
+					<ul style={{display:"none"}}>
+						{individualSnaps.map(imageData => {
+							console.log("MAP INDIVIDUAL SNAPS", {imageData});
 							return (
 								<li><img src={imageData}/></li>
 							)
 						})}
 					</ul>
+				</div>
 				</div>
 			</div>
 			<div id="controls">
@@ -118,7 +118,7 @@ const view = (state, { updateState }) => {
 				{snapRequested ? (
 					<button
 						on-click={() => {
-							updateState({ snapRequested: "", localIndividualImages : [], localPhotoSnappedImg : "" });
+							updateState({ snapRequested: "", individualSnaps : [], localPhotoSnappedImg : "" });
 						}}
 					>
 						Reset
@@ -158,7 +158,7 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 					payload: { imageData },
 				},
 			}) => {
-				console.log("PHOTOBOOTH CAMERA SNAPPED YO!", state, imageData);
+				console.log("PHOTOBOOTH CAMERA SNAPPED YO!", {state, imageData});
 				localUpdateState({ localPhotoSnappedImg: imageData });
 			},
 		},
@@ -176,15 +176,13 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 		},
 		[PHOTOBOOTH_CAMERA_SINGLE_SNAPPED] : {
 			effect: ({
-				state : { localIndividualImages },
 				action: {
-					payload: { imageData },
+					payload: { individualSnaps },
 				},
 			}) => {
-				console.log("PHOTOBOOTH CAMERA SINGLE SNAPPED YO!", localIndividualImages, imageData);
+				console.log("PHOTOBOOTH CAMERA SINGLES SNAPPED YO!", {individualSnaps});
 				
-				localIndividualImages.push(imageData);
-				localUpdateState({ localIndividualImages });
+				localUpdateState({ individualSnaps });
 			}
 		}
 	},

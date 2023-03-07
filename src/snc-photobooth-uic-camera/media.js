@@ -104,7 +104,7 @@ export function drawImage({ pos, context, video, gap = 10, chin = 0 }) {
 // Passing in "state" instead of destructuring it in place
 // becuase drawImage needs a lot of values from state
 // and I don't want to have to call them out twice
-export function snap({ state, updateState, onIndividualSnap }) {
+export function snap({ state, updateState }) {
 	const {
 		video,
 		context,
@@ -125,6 +125,7 @@ export function snap({ state, updateState, onIndividualSnap }) {
 	}
 
 	return new Promise((resolve) => {
+		const individualSnaps = [];
 		const _snap = () => {
 			console.log("_snap", pos, context);
 			updateState({ snapState: "snapping" });
@@ -135,10 +136,8 @@ export function snap({ state, updateState, onIndividualSnap }) {
 				shutterSound.play();
 			}
 
-			if(onIndividualSnap){
-				const imageData = context.canvas.toDataURL("image/jpeg");
-				onIndividualSnap({imageData});
-			}
+			const imageData = context.canvas.toDataURL("image/jpeg");
+			individualSnaps.push(imageData);
 
 			if (pos < 4) {
 				pos++;
@@ -146,7 +145,7 @@ export function snap({ state, updateState, onIndividualSnap }) {
 			} else {
 				updateState({ snapState: "preview" });
 
-				resolve({context});
+				resolve({context, individualSnaps});
 			}
 		};
 
