@@ -79,10 +79,20 @@ export function initializeCanvas({
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-export function drawImage({ pos, context, video, gap = 10, chin = 0 }) {
-	const {
-		canvas: { width, height },
-	} = context;
+function createIndividualContext({context : {canvas: {ownerDocument, width, height}}}){
+	const individualCanvas = ownerDocument.createElement("canvas");
+	individualCanvas.width = width;
+	individualCanvas.height = height;
+	const individualContext = individualCanvas.getContext("2d");
+
+	return {individualContext};
+};
+
+function drawToSnapImage({ pos, context, video, gap = 10, chin = 0 }) {
+	console.log("drawToSnapImage", {context})
+
+	const {width, height} = context.canvas;
+	
 	// Make the shots slightly smaller to accomodate the gap/chin
 	const hWidth = (width / 2) - (gap * 3) / 2;
 	const hHeight = ((height - chin) / 2) - (gap * 3) / 2;
@@ -98,7 +108,13 @@ export function drawImage({ pos, context, video, gap = 10, chin = 0 }) {
 
 	const { x, y } = posMap[pos];
 
-	context.drawImage(video, x, y, hWidth, hHeight);
+	drawImage(context, video, {x, y, width : hWidth, height : hHeight})
+
+	return { context };
+}
+
+function drawImage(context, video, {x = 0, y = 0, width, height}){
+	context.drawImage(video, x, y, width, height);
 }
 
 // Passing in "state" instead of destructuring it in place
@@ -114,7 +130,8 @@ export function snap({ state, updateState }) {
 			pauseDurationSeconds = 1,
 			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
 			gap,
-			chin
+			chin,
+			imageSize
 		},
 	} = state;
 
@@ -125,19 +142,24 @@ export function snap({ state, updateState }) {
 	}
 
 	return new Promise((resolve) => {
+		const { individualContext } = createIndividualContext({context});
 		const individualSnaps = [];
 		const _snap = () => {
 			console.log("_snap", pos, context);
 			updateState({ snapState: "snapping" });
 
-			drawImage({ pos, context, video, gap, chin });
+			// Draw the primary 2x2 result to the main context
+			drawToSnapImage({ pos, context, video, gap, chin });
+		
+			// Draw the individual image full sized
+			drawImage(individualContext, video, individualContext.canvas);
+			individualSnaps.push(individualContext.canvas.toDataURL("image/jpeg"));
+
+			console.log("individualContext", individualContext.canvas.ownerDocument);
 
 			if(shutterSound){
 				shutterSound.play();
 			}
-
-			const imageData = context.canvas.toDataURL("image/jpeg");
-			individualSnaps.push(imageData);
 
 			if (pos < 4) {
 				pos++;
@@ -145,6 +167,7 @@ export function snap({ state, updateState }) {
 			} else {
 				updateState({ snapState: "preview" });
 
+				individualContext.canvas.remove();
 				resolve({context, individualSnaps});
 			}
 		};

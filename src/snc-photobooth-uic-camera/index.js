@@ -32,6 +32,7 @@ const initializeMedia = ({
 	const video = host.shadowRoot.getElementById("video");
 	const canvas = host.shadowRoot.ownerDocument.createElement("canvas");
 	const context = canvas.getContext("2d");
+
 	const shutterSound = new Audio(shutterSoundFile);
 
 	initializeCanvas({context, ...properties});

@@ -3,7 +3,11 @@ import snabbdom from "@servicenow/ui-renderer-snabbdom";
 import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
 import "../src/index.js";
 
-import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, PHOTOBOOTH_CAMERA_SINGLE_SNAPPED } from "../src/snc-photobooth-uic-camera/events"
+import {
+	PHOTOBOOTH_CAMERA_SNAPPED,
+	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED,
+	PHOTOBOOTH_CAMERA_SINGLE_SNAPPED,
+} from "../src/snc-photobooth-uic-camera/events";
 
 const CameraIds = {
 	Logitech: "aaadfd301a109346b3393ce9b1abe3eab71f9e72607d70a0e1f98c288c5916d5",
@@ -65,82 +69,85 @@ const view = (state, { updateState }) => {
 	return (
 		<div id="main">
 			<div style={{ display: "flex" }}>
-				<div id="camera" style={{ flex: 1 }}>
-					<snc-photobooth-uic-camera
-						enabled={enabled}
-						snapRequested={snapRequested}
-						countdownDurationSeconds={countdownDurationSeconds}
-						countdownAnimationCss={countdownAnimationCss}
-						pauseDurationSeconds={pauseDurationSeconds}
-						imageSize={imageSize}
-						watermarkImageUrl={watermarkImageUrl}
-						watermarkImageScale={watermarkImageScale}
-						watermarkImagePosition={watermarkImagePosition}
-						cameraDeviceId={cameraDeviceId}
-						gap={gap}
-						chin={chin}
-						fillStyle={fillStyle}
-						shutterSoundFile={shutterSoundFile}
-					></snc-photobooth-uic-camera>
+				<div id="cameraAndControls">
+					<div id="camera" style={{ flex: 1 }}>
+						<snc-photobooth-uic-camera
+							enabled={enabled}
+							snapRequested={snapRequested}
+							countdownDurationSeconds={countdownDurationSeconds}
+							countdownAnimationCss={countdownAnimationCss}
+							pauseDurationSeconds={pauseDurationSeconds}
+							imageSize={imageSize}
+							watermarkImageUrl={watermarkImageUrl}
+							watermarkImageScale={watermarkImageScale}
+							watermarkImagePosition={watermarkImagePosition}
+							cameraDeviceId={cameraDeviceId}
+							gap={gap}
+							chin={chin}
+							fillStyle={fillStyle}
+							shutterSoundFile={shutterSoundFile}
+						></snc-photobooth-uic-camera>
+					</div>
+					<div id="controls">
+						<button on-click={() => toggleEnabledExternally()}>
+							Toggle Enabled
+						</button>
+						{enabled ? (
+							<span>
+								<button on-click={() => requestSnap(0)}>Snap!</button>
+								<button
+									on-click={() => {
+										requestSnap(5);
+									}}
+								>
+									Countdown
+								</button>
+							</span>
+						) : null}
+						{snapRequested ? (
+							<button
+								on-click={() => {
+									updateState({
+										snapRequested: "",
+										individualSnaps: [],
+										localPhotoSnappedImg: "",
+									});
+								}}
+							>
+								Reset
+							</button>
+						) : null}
+					</div>
+					<div id="availableCameras">
+						Available Cameras:
+						<ol>
+							{localCameras.map(({ label, deviceId }) => {
+								console.log("LABEL");
+								return (
+									<li
+										on-click={() => {
+											updateState({ cameraDeviceId: deviceId });
+										}}
+									>
+										{label} : {deviceId}
+									</li>
+								);
+							})}
+						</ol>
+					</div>
 				</div>
 				<div id="outputs" style={{ flex: 1 }}>
 					<div id="photoSnappedImg">
 						<img src={localPhotoSnappedImg} />
 					</div>
 					<div id="individualImages">
-					<ul style={{display:"none"}}>
-						{individualSnaps.map(imageData => {
-							console.log("MAP INDIVIDUAL SNAPS", {imageData});
+						{individualSnaps.map((imageData) => {
 							return (
-								<li><img src={imageData}/></li>
-							)
+								<img src={imageData} />
+							);
 						})}
-					</ul>
+					</div>
 				</div>
-				</div>
-			</div>
-			<div id="controls">
-				<button on-click={() => toggleEnabledExternally()}>
-					Toggle Enabled
-				</button>
-				{enabled ? (
-					<span>
-						<button on-click={() => requestSnap(0)}>Snap!</button>
-						<button
-							on-click={() => {
-								requestSnap(5);
-							}}
-						>
-							Countdown
-						</button>
-					</span>
-				) : null}
-				{snapRequested ? (
-					<button
-						on-click={() => {
-							updateState({ snapRequested: "", individualSnaps : [], localPhotoSnappedImg : "" });
-						}}
-					>
-						Reset
-					</button>
-				) : null}
-			</div>
-			<div id="availableCameras">
-				Available Cameras:
-				<ol>
-					{localCameras.map(({ label, deviceId }) => {
-						console.log("LABEL");
-						return (
-							<li
-								on-click={() => {
-									updateState({ cameraDeviceId: deviceId });
-								}}
-							>
-								{label} : {deviceId}
-							</li>
-						);
-					})}
-				</ol>
 			</div>
 		</div>
 	);
@@ -158,7 +165,7 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 					payload: { imageData },
 				},
 			}) => {
-				console.log("PHOTOBOOTH CAMERA SNAPPED YO!", {state, imageData});
+				console.log("PHOTOBOOTH CAMERA SNAPPED YO!", { state, imageData });
 				localUpdateState({ localPhotoSnappedImg: imageData });
 			},
 		},
@@ -174,17 +181,19 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 				localUpdateState({ localCameras: cameras });
 			},
 		},
-		[PHOTOBOOTH_CAMERA_SINGLE_SNAPPED] : {
+		[PHOTOBOOTH_CAMERA_SINGLE_SNAPPED]: {
 			effect: ({
 				action: {
 					payload: { individualSnaps },
 				},
 			}) => {
-				console.log("PHOTOBOOTH CAMERA SINGLES SNAPPED YO!", {individualSnaps});
-				
+				console.log("PHOTOBOOTH CAMERA SINGLES SNAPPED YO!", {
+					individualSnaps,
+				});
+
 				localUpdateState({ individualSnaps });
-			}
-		}
+			},
+		},
 	},
 });
 
