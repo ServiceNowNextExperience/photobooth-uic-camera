@@ -1,12 +1,11 @@
 import { createCustomElement } from "@servicenow/ui-core";
 import snabbdom from "@servicenow/ui-renderer-snabbdom";
-import countdownAnimationCss from "../src/snc-photobooth-uic-camera/animation1.scss";
 import "../src/index.js";
 
 import {
 	PHOTOBOOTH_CAMERA_SNAPPED,
 	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED,
-	PHOTOBOOTH_CAMERA_SINGLE_SNAPPED,
+	PHOTOBOOTH_CAMERA_SINGLES_SNAPPED,
 } from "../src/snc-photobooth-uic-camera/events";
 
 const CameraIds = {
@@ -75,7 +74,6 @@ const view = (state, { updateState }) => {
 							enabled={enabled}
 							snapRequested={snapRequested}
 							countdownDurationSeconds={countdownDurationSeconds}
-							countdownAnimationCss={countdownAnimationCss}
 							pauseDurationSeconds={pauseDurationSeconds}
 							imageSize={imageSize}
 							watermarkImageUrl={watermarkImageUrl}
@@ -143,7 +141,9 @@ const view = (state, { updateState }) => {
 					<div id="individualImages">
 						{individualSnaps.map((imageData) => {
 							return (
-								<img src={imageData} />
+								<div>
+									<img src={imageData} />
+								</div>
 							);
 						})}
 					</div>
@@ -181,7 +181,7 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 				localUpdateState({ localCameras: cameras });
 			},
 		},
-		[PHOTOBOOTH_CAMERA_SINGLE_SNAPPED]: {
+		[PHOTOBOOTH_CAMERA_SINGLES_SNAPPED]: {
 			effect: ({
 				action: {
 					payload: { individualSnaps },

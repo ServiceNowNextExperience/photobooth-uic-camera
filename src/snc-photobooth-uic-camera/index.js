@@ -6,7 +6,7 @@ import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
 import { selectMediaDevice, toggleTracks, getConnectedDevices, snap } from "./media";
 
-import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, PHOTOBOOTH_CAMERA_SINGLE_SNAPPED } from "./events";
+import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, PHOTOBOOTH_CAMERA_SINGLES_SNAPPED } from "./events";
 
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
@@ -71,7 +71,7 @@ const propertyHandlers = {
 
 				const imageData = context.canvas.toDataURL("image/jpeg");
 				dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {imageData});
-				dispatch(PHOTOBOOTH_CAMERA_SINGLE_SNAPPED, {individualSnaps});
+				dispatch(PHOTOBOOTH_CAMERA_SINGLES_SNAPPED, {individualSnaps});
 			});
 		} else if (!value && snapState != "idle") {
 			// Reset if the value for snapRequested is empty
@@ -124,14 +124,12 @@ const actionHandlers = {
 const view = ({
 	snapState,
 	properties: {
-		countdownAnimationCss,
 		pauseDurationSeconds,
 		animationDuration = pauseDurationSeconds + "s",
 	},
 }) => {
 	return (
 		<div>
-			<style>{countdownAnimationCss}</style>
 			<div id="container" className={snapState}>
 				<div
 					id="flash"
@@ -152,6 +150,12 @@ const dispatches = {
 	 * @type {{response:string}}
 	 */
 	PHOTOBOOTH_CAMERA_SNAPPED: {},
+
+		/**
+	 * Dispatched with array of image data when all individual images are snapped
+	 * @type {{response:object}}
+	 */
+	PHOTOBOOTH_CAMERA_SINGLES_SNAPPED: {},
 
 	/**
 	 * Dispatched when the available cameras change

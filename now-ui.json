@@ -105,22 +105,6 @@
 					}
 				},
 				{
-					"name": "countdownAnimationCss",
-					"label": "Countdown Animation CSS",
-					"defaultValue": "",
-					"description": "Minified complete CSS to create the countdown animation. Use with the Countdown Duration property and make sure that the animation duration matches. Should target divs with ids of 'content' (this is the main div to overlay the counter onto) and 'counter' (the div to put the counter into). Can be any CSS or SCSS but be sure to minify it first (remove whitespace). There are four classes used to represent state: 'idle', 'countdown', 'snapping' and 'preview'. Example https://github.com/ServiceNowNextExperience/photobooth-uic-camera/blob/main/src/snc-photobooth-uic-camera/animation1.scss",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				},
-				{
 					"name": "watermarkImageUrl",
 					"label": "Watermark Image Path",
 					"defaultValue": "",
@@ -226,6 +210,17 @@
 						"label": "Image Data",
 						"description": "The image data from the camera after the snap is completed",
 						"fieldType": "string"
+					}]
+				},
+				{
+					"action": "PHOTOBOOH_CAMERA#SINGLES_SNAPPED",
+					"label": "Photo Singles Snapped",
+					"description": "Dispatched with array of imageData when all indivdiual photo snaps are complete.",
+					"payload": [{
+						"name": "individualSnaps",
+						"label": "Individual Snaps Image Data",
+						"description": "Array of image data from the camera after all individual snaps are completed",
+						"fieldType": "array"
 					}]
 				},
 				{

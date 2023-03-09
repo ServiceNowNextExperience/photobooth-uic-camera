@@ -78,19 +78,6 @@ export const properties = {
 		schema: { type: "string" },
 	},
 
-	/**
-	 * Countdown Animation CSS
-	 * If using the Countdown Duration property make sure that the animation duration matches.
-	 * Should target divs with ids of "content" (the div to overlay the counter on)
-	 * and "counter" (the div to put the counter into).
-	 * Can be any CSS or SCSS but be sure to minify it first (remove whitespace).
-	 * Example https://github.com/ServiceNowNextExperience/photobooth-uic-camera/blob/main/src/snc-photobooth-uic-camera/animation1.scss
-	 */
-	countdownAnimationCss: {
-		schema: { type: "string" },
-		default: "",
-	},
-
 	watermarkImageUrl: {
 		schema: { type: "string" },
 		default: "",
