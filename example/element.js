@@ -124,7 +124,7 @@ const view = (state, { updateState }) => {
 							{localCameras.map(({ label, deviceId }) => {
 								console.log("LABEL");
 								return (
-									<li
+									<li style={{cursor: "pointer"}}
 										on-click={() => {
 											updateState({ cameraDeviceId: deviceId });
 										}}

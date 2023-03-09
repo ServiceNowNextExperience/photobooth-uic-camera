@@ -24,7 +24,8 @@ export function selectMediaDevice({ video, cameraDeviceId = "", enabled }) {
 }
 
 export function toggleTracks({ video: { srcObject: stream }, enabled }) {
-	if (stream) {
+	// Don't use falsy to enable tracks, actual true or false only
+	if (stream && (enabled === true || enabled === false)) {
 		stream.getTracks().forEach((track) => (track.enabled = enabled));
 	}
 }
@@ -62,31 +63,18 @@ export function getConnectedDevices({
 			resolver(updatedCameras);
 		});
 	});
-}
-
-export function initializeCanvas({
-	context,
-	imageSize = { width: 800, height: 600 },
-	fillStyle,
-}) {
-	const { canvas } = context;
-	console.log("Initialize Canvas", canvas, imageSize, fillStyle);
-	// Add room for gaps above, between and below images
-	canvas.width = imageSize.width;
-	canvas.height = imageSize.height;
-
-	context.fillStyle = fillStyle;
-	context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-function createIndividualContext({context : {canvas: {ownerDocument, width, height}}}){
-	const individualCanvas = ownerDocument.createElement("canvas");
-	individualCanvas.width = width;
-	individualCanvas.height = height;
-	const individualContext = individualCanvas.getContext("2d");
-
-	return {individualContext};
 };
+
+function initializeCanvas(context, {
+	imageSize : { width = 800, height = 600 },
+	fillStyle = null,
+}) {
+	context.canvas.width = width;
+	context.canvas.height = height;
+
+	context.fillStyle = fillStyle || context.fillStyle;
+	context.fillRect(0, 0, width, height);
+}
 
 function drawToSnapImage({ pos, context, video, gap = 10, chin = 0 }) {
 	console.log("drawToSnapImage", {context})
@@ -124,25 +112,32 @@ export function snap({ state, updateState }) {
 	const {
 		video,
 		context,
+		individualContext,
 		shutterSound,
 		properties: {
 			countdownDurationSeconds,
 			pauseDurationSeconds = 1,
 			pauseDurationMilliseconds = pauseDurationSeconds * 1000,
-			gap,
-			chin,
-			imageSize
+			gap = 0,
+			chin = 0,
+			imageSize,
+			fillStyle
 		},
 	} = state;
 
 	let pos = 1;
+
+	initializeCanvas(context, {imageSize, fillStyle});
+
+	if(individualContext){
+		initializeCanvas(individualContext, {imageSize});
+	}
 
 	if (countdownDurationSeconds > 0) {
 		updateState({ snapState: "countdown" });
 	}
 
 	return new Promise((resolve) => {
-		const { individualContext } = createIndividualContext({context});
 		const individualSnaps = [];
 		const _snap = () => {
 			console.log("_snap", pos, context);
@@ -151,9 +146,11 @@ export function snap({ state, updateState }) {
 			// Draw the primary 2x2 result to the main context
 			drawToSnapImage({ pos, context, video, gap, chin });
 		
-			// Draw the individual image full sized
-			drawImage(individualContext, video, individualContext.canvas);
-			individualSnaps.push(individualContext.canvas.toDataURL("image/jpeg"));
+			if(individualContext){
+				// Draw the individual image full sized
+				drawImage(individualContext, video, imageSize);
+				individualSnaps.push(individualContext.canvas.toDataURL("image/jpeg"));
+			}
 
 			console.log("individualContext", individualContext.canvas.ownerDocument);
 

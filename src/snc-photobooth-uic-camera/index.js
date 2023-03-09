@@ -4,7 +4,7 @@ import styles from "./styles.scss";
 import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
-import { selectMediaDevice, toggleTracks, getConnectedDevices, initializeCanvas, snap } from "./media";
+import { selectMediaDevice, toggleTracks, getConnectedDevices, snap } from "./media";
 
 import { PHOTOBOOTH_CAMERA_SNAPPED, PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, PHOTOBOOTH_CAMERA_SINGLE_SNAPPED } from "./events";
 
@@ -30,12 +30,13 @@ const initializeMedia = ({
 
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
-	const canvas = host.shadowRoot.ownerDocument.createElement("canvas");
-	const context = canvas.getContext("2d");
+
+	// Canvas context where "main" 2x2 snapshot will be rendered
+	const context = host.shadowRoot.ownerDocument.createElement("canvas").getContext("2d");
+	// Canvas context where individual snapshots will be rendered
+	const individualContext = host.shadowRoot.ownerDocument.createElement("canvas").getContext("2d");
 
 	const shutterSound = new Audio(shutterSoundFile);
-
-	initializeCanvas({context, ...properties});
 
 	initializeWatermark(properties).then(updateState);
 
@@ -49,6 +50,7 @@ const initializeMedia = ({
 	updateState({
 		video,
 		context,
+		individualContext,
 		shutterSound,
 	});
 };
@@ -58,13 +60,14 @@ const propertyHandlers = {
 		const {
 			snapState,
 			watermarkImage,
-			properties: { watermarkImagePosition, gap },
+			properties,
 		} = state;
 
 		if (value && value != previousValue) {
+			console.log("SNAP STARTED");
 			snap({ state, updateState }).then(({context, individualSnaps}) => {
 				console.log("SNAP COMPLETED", context);
-				applyWatermark({context, watermarkImage, watermarkImagePosition, gap});
+				applyWatermark({context, watermarkImage, ...properties});
 
 				const imageData = context.canvas.toDataURL("image/jpeg");
 				dispatch(PHOTOBOOTH_CAMERA_SNAPPED, {imageData});
@@ -79,12 +82,11 @@ const propertyHandlers = {
 		toggleTracks({ video, enabled: value });
 		updateState({ snapState: "idle" });
 	},
-	cameraDeviceId: ({payload: value}) => {
+	cameraDeviceId: ({state : {video}, payload: {value}, updateState}) => {
 		const cameraDeviceId = value;
 		selectMediaDevice({
 			video,
-			cameraDeviceId,
-			enabled
+			cameraDeviceId
 		});
 		updateState({ cameraDeviceId });
 	},
