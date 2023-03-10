@@ -25,7 +25,7 @@ const initialState = {
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
 	watermarkImageScale: 0.3,
 	watermarkImagePosition: "bottom-right",
-	cameraDeviceId: CameraIds.Empty,
+	cameraDeviceId: CameraIds.Facetime,
 	localPhotoSnappedImg: "",
 	individualSnaps: [],
 	localCameras: [],

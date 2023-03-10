@@ -81,9 +81,9 @@ function drawToSnapImage({ pos, context, video, gap = 10, chin = 0 }) {
 
 	const {width, height} = context.canvas;
 	
-	// Make the shots slightly smaller to accomodate the gap/chin
-	const hWidth = (width / 2) - (gap * 3) / 2;
-	const hHeight = ((height - chin) / 2) - (gap * 3) / 2;
+	// Subtract out gap and chin to make image size proportional
+	const hWidth = ((width - (gap * 3)) / 2);
+	const hHeight = ((height - (gap * 3) - chin) / 2);
 
 	// Define where the first, second, third and fourth images appear
 	// in the grid, taking into account offsets from the gap
@@ -112,7 +112,6 @@ export function snap({ state, updateState }) {
 	const {
 		video,
 		context,
-		individualContext,
 		shutterSound,
 		properties: {
 			countdownDurationSeconds,
@@ -125,47 +124,51 @@ export function snap({ state, updateState }) {
 		},
 	} = state;
 
+	const NUMBER_OF_SNAPS = 4;
+	const singleSnapContexts = [];
 	let pos = 1;
 
-	initializeCanvas(context, {imageSize, fillStyle});
-
-	if(individualContext){
-		initializeCanvas(individualContext, {imageSize});
-	}
+	const mainCanvasSize = { width : (imageSize.width + (gap * 3)), height : (imageSize.height + (gap * 3) + chin)};
+	initializeCanvas(context, {imageSize : mainCanvasSize, fillStyle});
 
 	if (countdownDurationSeconds > 0) {
 		updateState({ snapState: "countdown" });
 	}
 
+	// Initialize the snap contexts to return for the single snaps in advance
+	// Man, I haven't done a for loop like this in years!
+	for(let i=0; i<NUMBER_OF_SNAPS; i++){
+		const singleSnapContext = context.canvas.ownerDocument.createElement("canvas").getContext("2d");
+		initializeCanvas(singleSnapContext, {imageSize});
+		singleSnapContexts.push(singleSnapContext);
+	}
+
+
 	return new Promise((resolve) => {
-		const individualSnaps = [];
+	
 		const _snap = () => {
 			console.log("_snap", pos, context);
 			updateState({ snapState: "snapping" });
 
+
 			// Draw the primary 2x2 result to the main context
 			drawToSnapImage({ pos, context, video, gap, chin });
 		
-			if(individualContext){
-				// Draw the individual image full sized
-				drawImage(individualContext, video, imageSize);
-				individualSnaps.push(individualContext.canvas.toDataURL("image/jpeg"));
-			}
-
-			console.log("individualContext", individualContext.canvas.ownerDocument);
+			const singleSnapContext = singleSnapContexts[pos-1];
+			// Draw the individual image full-sized
+			drawImage(singleSnapContext, video, imageSize);
 
 			if(shutterSound){
 				shutterSound.play();
 			}
 
-			if (pos < 4) {
+			if (pos < NUMBER_OF_SNAPS) {
 				pos++;
 				setTimeout(_snap, pauseDurationMilliseconds);
 			} else {
 				updateState({ snapState: "preview" });
 
-				individualContext.canvas.remove();
-				resolve({context, individualSnaps});
+				resolve({context, singleSnapContexts});
 			}
 		};
 
