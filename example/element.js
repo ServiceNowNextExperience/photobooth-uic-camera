@@ -14,8 +14,6 @@ const CameraIds = {
 	Empty: "",
 };
 
-let localUpdateState = null;
-
 const initialState = {
 	enabled: true,
 	countdownDurationSeconds: 0,
@@ -25,15 +23,13 @@ const initialState = {
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
 	watermarkImageScale: 0.3,
 	watermarkImagePosition: "bottom-right",
-	cameraDeviceId: CameraIds.Facetime,
-	localPhotoSnappedImg: "",
+	mainSnappedImg: "",
 	individualSnaps: [],
-	localCameras: [],
+	cameras: [],
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
 };
 
 const view = (state, { updateState }) => {
-	localUpdateState = updateState;
 	console.log("ELEMENT VIEW");
 	console.log(state);
 	const {
@@ -46,9 +42,9 @@ const view = (state, { updateState }) => {
 		watermarkImageScale,
 		watermarkImagePosition,
 		cameraDeviceId,
-		localPhotoSnappedImg,
+		mainSnappedImg,
 		individualSnaps,
-		localCameras,
+		cameras,
 		canvasConfig: { gap, chin, fillStyle },
 		shutterSoundFile,
 	} = state;
@@ -57,10 +53,9 @@ const view = (state, { updateState }) => {
 		updateState({ enabled: !enabled });
 	};
 
-	const requestSnap = (countdownDurationSeconds) => {
+	const requestSnap = () => {
 		console.log("REQUEST SNAP");
 		updateState({
-			countdownDurationSeconds: countdownDurationSeconds || 0,
 			snapRequested: Date.now() + "",
 		});
 	};
@@ -92,14 +87,8 @@ const view = (state, { updateState }) => {
 						</button>
 						{enabled ? (
 							<span>
-								<button on-click={() => requestSnap(0)}>Snap!</button>
-								<button
-									on-click={() => {
-										requestSnap(5);
-									}}
-								>
-									Countdown
-								</button>
+								<button on-click={() => requestSnap()}>Snap!</button>
+								Delay Seconds: <input type="number"  on-blur={({target : { value }}) => updateState({countdownDurationSeconds: Number(value)})} value={countdownDurationSeconds} style={{width:"2rem"}}/>
 							</span>
 						) : null}
 						{snapRequested ? (
@@ -108,7 +97,7 @@ const view = (state, { updateState }) => {
 									updateState({
 										snapRequested: "",
 										individualSnaps: [],
-										localPhotoSnappedImg: "",
+										mainSnappedImg: "",
 									});
 								}}
 							>
@@ -119,7 +108,7 @@ const view = (state, { updateState }) => {
 					<div id="availableCameras">
 						Available Cameras:
 						<ol>
-							{localCameras.map(({ label, deviceId }) => {
+							{cameras.map(({ label, deviceId }) => {
 								console.log("LABEL");
 								return (
 									<li style={{cursor: "pointer"}}
@@ -136,7 +125,7 @@ const view = (state, { updateState }) => {
 				</div>
 				<div id="outputs" style={{ flex: 1 }}>
 					<div id="photoSnappedImg">
-						<img src={localPhotoSnappedImg} />
+						<img src={mainSnappedImg} />
 					</div>
 					<div id="individualImages">
 						{individualSnaps.map((imageData) => {
@@ -153,7 +142,7 @@ const view = (state, { updateState }) => {
 	);
 };
 
-createCustomElement("snc-photobooth-uic-camera-examples", {
+createCustomElement("example-element", {
 	initialState: initialState,
 	renderer: { type: snabbdom },
 	view,
@@ -161,16 +150,17 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 		[PHOTOBOOTH_CAMERA_SNAPPED]: {
 			effect: ({
 				state,
+				updateState,
 				action: {
 					payload: { imageData },
 				},
 			}) => {
 				console.log("PHOTOBOOTH CAMERA SNAPPED YO!", { state, imageData });
-				localUpdateState({ localPhotoSnappedImg: imageData });
+				updateState({ mainSnappedImg: imageData });
 			},
 		},
 		[PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED]: {
-			effect: ({ action: { payload } }) => {
+			effect: ({ updateState, action: { payload } }) => {
 				const { selectedCameraDeviceId, cameras } = payload;
 				console.log(
 					"SET AVAILABLE CAMERAS",
@@ -178,11 +168,12 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 					"Selected Camera:",
 					payload.selectedCameraDeviceId
 				);
-				localUpdateState({ localCameras: cameras });
+				updateState({ cameras });
 			},
 		},
 		[PHOTOBOOTH_CAMERA_SINGLES_SNAPPED]: {
 			effect: ({
+				updateState,
 				action: {
 					payload: { individualSnaps },
 				},
@@ -191,7 +182,7 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 					individualSnaps,
 				});
 
-				localUpdateState({ individualSnaps });
+				updateState({ individualSnaps });
 			},
 		},
 	},
@@ -200,4 +191,4 @@ createCustomElement("snc-photobooth-uic-camera-examples", {
 const el = document.createElement("main");
 document.body.appendChild(el);
 
-el.innerHTML = "<snc-photobooth-uic-camera-examples/>";
+el.innerHTML = "<example-element/>";
