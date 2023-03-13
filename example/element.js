@@ -8,12 +8,6 @@ import {
 	PHOTOBOOTH_CAMERA_SINGLES_SNAPPED,
 } from "../src/snc-photobooth-uic-camera/events";
 
-const CameraIds = {
-	Logitech: "aaadfd301a109346b3393ce9b1abe3eab71f9e72607d70a0e1f98c288c5916d5",
-	Facetime: "82d655a55ce60865695b37097d36cf8d21553d59d20e226bcd372c41d80b60f2",
-	Empty: "",
-};
-
 const initialState = {
 	enabled: true,
 	countdownDurationSeconds: 0,
