@@ -20,6 +20,7 @@ const initialState = {
 	mainSnappedImg: "",
 	individualSnaps: [],
 	cameras: [],
+	cameraDeviceId : "",
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
 };
 
@@ -35,10 +36,10 @@ const view = (state, { updateState }) => {
 		watermarkImageUrl,
 		watermarkImageScale,
 		watermarkImagePosition,
-		cameraDeviceId,
 		mainSnappedImg,
 		individualSnaps,
 		cameras,
+		cameraDeviceId,
 		canvasConfig: { gap, chin, fillStyle },
 		shutterSoundFile,
 	} = state;
@@ -154,14 +155,7 @@ createCustomElement("example-element", {
 			},
 		},
 		[PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED]: {
-			effect: ({ updateState, action: { payload } }) => {
-				const { selectedCameraDeviceId, cameras } = payload;
-				console.log(
-					"SET AVAILABLE CAMERAS",
-					payload,
-					"Selected Camera:",
-					payload.selectedCameraDeviceId
-				);
+			effect: ({ updateState, action: { payload : { cameras } } }) => {
 				updateState({ cameras });
 			},
 		},
