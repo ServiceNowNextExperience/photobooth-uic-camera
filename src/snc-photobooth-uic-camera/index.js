@@ -40,16 +40,16 @@ const initializeMedia = ({ host, updateState, dispatch, properties }) => {
 
 	initializeWatermark(properties).then(updateState);
 
-	selectMediaDevice({ video, cameraDeviceId, enabled }).then((stream) => {
+	selectMediaDevice({ video, cameraDeviceId, enabled }).then(() => {
 		getConnectedDevices({ cameraDeviceId }).then((cameras) => {
-			debugger;
 			console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
 			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
 		}).catch((err) => {
-			console.log("getConnectedDevices", err);
+			console.log("ERROR getConnectedDevices", err);
+			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, err);
 		});
 	}).catch((err) => {
-		console.log("selectMediaDevice", err);
+		console.log("ERROR selectMediaDevice", err);
 	});
 
 	updateState({
