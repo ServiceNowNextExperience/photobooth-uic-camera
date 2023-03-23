@@ -109,6 +109,6 @@ export const properties = {
 
 	shutterSoundFile: {
 		schema: { type: "string" },
-		default: "",
+		default: "/@snc/photobooth-uic-camera/camera-click.wav",
 	},
 };

@@ -20,7 +20,7 @@ const initialState = {
 	mainSnappedImg: "",
 	individualSnaps: [],
 	cameras: [],
-	cameraDeviceId : "",
+	cameraDeviceId: "",
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
 };
 
@@ -83,14 +83,13 @@ const view = (state, { updateState }) => {
 						{enabled ? (
 							<span>
 								<button on-click={() => requestSnap()}>Snap!</button>
-								Delay Seconds: <input type="number"  on-blur={({target : { value }}) => updateState({countdownDurationSeconds: Number(value)})} value={countdownDurationSeconds} style={{width:"2rem"}}/>
+								Delay Seconds: <input type="number" on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })} value={countdownDurationSeconds} style={{ width: "2rem" }} />
 							</span>
 						) : null}
 						{snapRequested ? (
 							<button
 								on-click={() => {
 									updateState({
-										snapRequested: "",
 										individualSnaps: [],
 										mainSnappedImg: "",
 									});
@@ -106,7 +105,7 @@ const view = (state, { updateState }) => {
 							{cameras.map(({ label, deviceId }) => {
 								console.log("LABEL");
 								return (
-									<li style={{cursor: "pointer"}}
+									<li style={{ cursor: "pointer" }}
 										on-click={() => {
 											updateState({ cameraDeviceId: deviceId });
 										}}
@@ -155,7 +154,7 @@ createCustomElement("example-element", {
 			},
 		},
 		[PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED]: {
-			effect: ({ updateState, action: { payload : { cameras } } }) => {
+			effect: ({ updateState, action: { payload: { cameras } } }) => {
 				updateState({ cameras });
 			},
 		},

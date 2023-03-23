@@ -60,9 +60,9 @@ const propertyHandlers = {
 		updateState,
 		payload: { value, previousValue },
 	}) => {
-		const { snapState, watermarkImage, properties } = state;
+		const { watermarkImage, properties } = state;
 
-		if (value && value != previousValue) {
+		if (value != previousValue) {
 			console.log("SNAP STARTED");
 			snap({ state, updateState }).then(({ context, singleSnapContexts }) => {
 				console.log("SNAP COMPLETED", context);
@@ -76,14 +76,10 @@ const propertyHandlers = {
 				});
 				dispatch(PHOTOBOOTH_CAMERA_SINGLES_SNAPPED, { individualSnaps });
 			});
-		} else if (!value && snapState != "idle") {
-			// Reset if the value for snapRequested is empty
-			updateState({ snapState: "idle" });
 		}
 	},
-	enabled: ({ state: { video }, payload: { value }, updateState }) => {
+	enabled: ({ state: { video }, payload: { value } }) => {
 		toggleTracks({ video, enabled: value });
-		updateState({ snapState: "idle" });
 	},
 	cameraDeviceId: ({ state: { video }, payload: { value }, updateState }) => {
 		const cameraDeviceId = value;
@@ -139,17 +135,15 @@ const view = ({
 	},
 }) => {
 	return (
-		<div>
-			<div id="container" className={snapState}>
-				<div
-					id="flash"
-					style={{
-						"animation-iteration-count": 4,
-						"animation-duration": animationDuration,
-					}}
-				></div>
-				<video id="video" autoplay="" style={{ width: "100%" }}></video>
-			</div>
+		<div id="container" className={snapState}>
+			<div
+				id="flash"
+				style={{
+					"animation-iteration-count": 4,
+					"animation-duration": animationDuration,
+				}}
+			></div>
+			<video id="video" autoplay="" style={{ width: "100%" }}></video>
 		</div>
 	);
 };
