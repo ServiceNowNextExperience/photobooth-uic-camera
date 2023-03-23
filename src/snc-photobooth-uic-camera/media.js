@@ -14,7 +14,7 @@ export function selectMediaDevice({ video, cameraDeviceId = "", enabled }) {
 				video.srcObject = stream;
 				toggleTracks({ video, enabled });
 				video.play();
-				resolve();
+				resolve(stream);
 			})
 			.catch((exc) => {
 				console.log("Error Getting Media!", exc);
@@ -34,33 +34,39 @@ export function getConnectedDevices({
 	deviceType = "videoinput",
 	cameraDeviceId,
 }) {
-	// This is done purely to return a list of devices to the client so that they can
-	// offer a selection to the user. It does not impact initializing the camera functionality.
 	return new Promise((resolver) => {
-		navigator.mediaDevices.enumerateDevices().then((devices) => {
-			const cameras = devices.filter((device) => device.kind === deviceType);
-			cameras.forEach((camera) => (camera.id = camera.deviceId));
-			const updatedCameras = {
-				selectedCameraDeviceId: cameraDeviceId,
-				cameras,
-				selectedDeviceIdFound: false,
-				boundCameraDeviceId: null,
-			};
+		debugger;
+		navigator.mediaDevices.getUserMedia({ video: true }).then(() => {
 
-			if (
-				cameras.filter((camera) => camera.deviceId === cameraDeviceId).length ==
-				1
-			) {
-				updatedCameras.selectedDeviceIdFound = true;
-				updatedCameras.boundCameraDeviceId = cameraDeviceId;
-			} else if (cameras.length === 1) {
-				// If there is only one camera attached, just ignore the deviceId and use that one
-				const selectedCameraDeviceId = cameras[0].deviceId;
-				updatedCameras.selectedDeviceIdFound =
-					selectedCameraDeviceId === cameraDeviceId;
-				updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
-			}
-			resolver(updatedCameras);
+			// This is done purely to return a list of devices to the client so that they can
+			// offer a selection to the user. It does not impact initializing the camera functionality.
+			navigator.mediaDevices.enumerateDevices().then((devices) => {
+				const cameras = devices.filter((device) => device.kind === deviceType);
+				cameras.forEach((camera) => (camera.id = camera.deviceId));
+				const updatedCameras = {
+					selectedCameraDeviceId: cameraDeviceId,
+					cameras,
+					selectedDeviceIdFound: false,
+					boundCameraDeviceId: null,
+				};
+
+				if (
+					cameras.filter((camera) => camera.deviceId === cameraDeviceId).length ==
+					1
+				) {
+					updatedCameras.selectedDeviceIdFound = true;
+					updatedCameras.boundCameraDeviceId = cameraDeviceId;
+				} else if (cameras.length === 1) {
+					// If there is only one camera attached, just ignore the deviceId and use that one
+					const selectedCameraDeviceId = cameras[0].deviceId;
+					updatedCameras.selectedDeviceIdFound =
+						selectedCameraDeviceId === cameraDeviceId;
+					updatedCameras.boundCameraDeviceId = selectedCameraDeviceId;
+				}
+				resolver(updatedCameras);
+			});
+		}).catch((err) => {
+			resolver({ err, msg: "No can do" });
 		});
 	});
 };

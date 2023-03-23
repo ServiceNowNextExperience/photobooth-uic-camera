@@ -274,7 +274,13 @@
 							"fieldType": "string"
 						}
 					]
-				}
+				},
+				{
+					"action": "PHOTOBOOTH_CAMERA#DBLCLICK",
+					"label": "Photobooth Camera Double Clicked",
+					"description": "Dispatched when the user double clicks the component.",
+					"payload": [{}]
+				}				
 			]
 		}
 	},

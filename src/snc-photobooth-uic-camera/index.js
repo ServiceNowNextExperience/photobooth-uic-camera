@@ -15,6 +15,7 @@ import {
 	PHOTOBOOTH_CAMERA_SNAPPED,
 	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED,
 	PHOTOBOOTH_CAMERA_SINGLES_SNAPPED,
+	PHOTOBOOTH_CAMERA_DOUBLE_CLICK
 } from "./events";
 
 const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
@@ -39,11 +40,16 @@ const initializeMedia = ({ host, updateState, dispatch, properties }) => {
 
 	initializeWatermark(properties).then(updateState);
 
-	selectMediaDevice({ video, cameraDeviceId, enabled });
-
-	getConnectedDevices({ cameraDeviceId }).then((cameras) => {
-		console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
-		dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+	selectMediaDevice({ video, cameraDeviceId, enabled }).then((stream) => {
+		getConnectedDevices({ cameraDeviceId }).then((cameras) => {
+			debugger;
+			console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+		}).catch((err) => {
+			console.log("getConnectedDevices", err);
+		});
+	}).catch((err) => {
+		console.log("selectMediaDevice", err);
 	});
 
 	updateState({
@@ -132,10 +138,15 @@ const view = ({
 	properties: {
 		pauseDurationSeconds,
 		animationDuration = pauseDurationSeconds + "s",
-	},
+	}
+}, {
+	dispatch
 }) => {
 	return (
-		<div id="container" className={snapState}>
+		<div id="container" className={snapState} on-dblclick={() => {
+			console.log({ PHOTOBOOTH_CAMERA_DOUBLE_CLICK });
+			dispatch(PHOTOBOOTH_CAMERA_DOUBLE_CLICK);
+		}}>
 			<div
 				id="flash"
 				style={{
@@ -166,6 +177,12 @@ const dispatches = {
 	 * @type {{response:object}}
 	 */
 	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED: {},
+
+	/**
+	 * Dispatched when the component is double clicked
+	 * @type {{}}
+	 */
+	PHOTOBOOTH_CAMERA_DOUBLE_CLICK: {}
 };
 
 createCustomElement("snc-photobooth-uic-camera", {
