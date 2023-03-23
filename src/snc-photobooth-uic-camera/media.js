@@ -35,7 +35,6 @@ export function getConnectedDevices({
 	cameraDeviceId,
 }) {
 	return new Promise((resolver) => {
-		debugger;
 		navigator.mediaDevices.getUserMedia({ video: true }).then(() => {
 
 			// This is done purely to return a list of devices to the client so that they can
