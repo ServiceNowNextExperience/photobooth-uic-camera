@@ -150,6 +150,10 @@ export function snap({ state, updateState }) {
 			console.log("_snap", pos, context);
 			updateState({ snapState: "snapping" });
 
+			if (shutterSound) {
+				console.log("SHUTTER SOUND!");
+				shutterSound.play();
+			}
 
 			// Draw the primary 2x2 result to the main context
 			drawToSnapImage({ pos, context, video, gap, chin });
@@ -157,10 +161,6 @@ export function snap({ state, updateState }) {
 			const singleSnapContext = singleSnapContexts[pos - 1];
 			// Draw the individual image full-sized
 			drawImage(singleSnapContext, video, imageSize);
-
-			if (shutterSound) {
-				shutterSound.play();
-			}
 
 			if (pos < NUMBER_OF_SNAPS) {
 				pos++

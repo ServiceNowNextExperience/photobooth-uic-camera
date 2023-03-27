@@ -71,15 +71,15 @@ const propertyHandlers = {
 		if (value != previousValue) {
 			console.log("SNAP STARTED");
 			snap({ state, updateState }).then(({ context, singleSnapContexts }) => {
-				console.log("SNAP COMPLETED", context);
+				console.log("SNAP COMPLETED", { context, singleSnapContexts });
 				applyWatermark({ context, watermarkImage, ...properties });
 
 				const imageData = context.canvas.toDataURL("image/jpeg");
 				dispatch(PHOTOBOOTH_CAMERA_SNAPPED, { imageData });
 
-				const individualSnaps = singleSnapContexts.map((singleSnapContext) => {
-					return singleSnapContext.canvas.toDataURL("image/jpeg");
-				});
+				const individualSnaps = singleSnapContexts.map((singleSnapContext) =>
+					singleSnapContext.canvas.toDataURL("image/jpeg")
+				);
 				dispatch(PHOTOBOOTH_CAMERA_SINGLES_SNAPPED, { individualSnaps });
 			});
 		}

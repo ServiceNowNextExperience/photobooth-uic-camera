@@ -199,6 +199,22 @@
 							"type": "string"
 						}
 					}
+				},
+				{
+					"name": "shutterSoundFile",
+					"label": "Shutter Sound File",
+					"defaultValue": "",
+					"description": "Local wav file path",
+					"fieldType": "string",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
 				}
 			],
 			"actions": [{
@@ -213,7 +229,7 @@
 					}]
 				},
 				{
-					"action": "PHOTOBOOH_CAMERA#SINGLES_SNAPPED",
+					"action": "PHOTOBOOTH_CAMERA#SINGLES_SNAPPED",
 					"label": "Photobooth Singles Snapped",
 					"description": "Dispatched with array of imageData when all indivdiual photo snaps are complete.",
 					"payload": [{
