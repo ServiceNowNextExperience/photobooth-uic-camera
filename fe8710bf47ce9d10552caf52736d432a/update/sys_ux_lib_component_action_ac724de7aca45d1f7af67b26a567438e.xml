@@ -5,7 +5,7 @@
         <publisher display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</publisher>
         <sys_class_name>sys_ux_lib_component_action</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-03-27 22:53:33</sys_created_on>
+        <sys_created_on>2023-04-04 20:05:40</sys_created_on>
         <sys_id>ac724de7aca45d1f7af67b26a567438e</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name/>
@@ -14,7 +14,7 @@
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_lib_component_action_ac724de7aca45d1f7af67b26a567438e</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-03-27 22:53:33</sys_updated_on>
+        <sys_updated_on>2023-04-04 20:05:40</sys_updated_on>
     </sys_ux_lib_component_action>
     <sys_translated_text action="delete_multiple" query="documentkey=ac724de7aca45d1f7af67b26a567438e"/>
 </record_update>
