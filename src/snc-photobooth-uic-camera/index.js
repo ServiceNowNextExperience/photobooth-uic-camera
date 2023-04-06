@@ -26,6 +26,10 @@ const initialState = { snapState: "idle", watermarkImage: null };
 const initializeMedia = ({ host, updateState, dispatch, properties }) => {
 	console.log("INITIALIZE MEDIA!");
 
+	initializeWatermark(properties).then(({ watermarkImage, error }) => {
+		updateState({ watermarkImage });
+	});
+
 	const { enabled, cameraDeviceId, shutterSoundFile } = properties;
 
 	// Grab elements, create settings, etc.
@@ -37,8 +41,6 @@ const initializeMedia = ({ host, updateState, dispatch, properties }) => {
 		.getContext("2d");
 
 	const shutterSound = new Audio(shutterSoundFile);
-
-	initializeWatermark(properties).then(updateState);
 
 	selectMediaDevice({ video, cameraDeviceId, enabled }).then(() => {
 		getConnectedDevices({ cameraDeviceId }).then((cameras) => {
@@ -95,6 +97,16 @@ const propertyHandlers = {
 		});
 		updateState({ cameraDeviceId });
 	},
+	watermarkImageUrl: ({ state: { properties }, updateState, dispatch }) => {
+		initializeWatermark(properties).then(({ watermarkImage, error }) => {
+			updateState({ watermarkImage });
+		});
+	},
+	watermarkImageHeight: ({ state: { properties }, updateState, dispatch }) => {
+		initializeWatermark(properties).then(({ watermarkImage, error }) => {
+			updateState({ watermarkImage });
+		});
+	}
 };
 
 const actionHandlers = {
@@ -106,6 +118,7 @@ const actionHandlers = {
 	}) => {
 		console.log(COMPONENT_DOM_READY, host, properties);
 		initializeMedia({ host, properties, dispatch, updateState });
+		console.log("SCREEN SIZE: ", { innerHeight, innerHeight } = window);
 	},
 
 	[COMPONENT_CONNECTED]: ({ properties }) => {
@@ -143,9 +156,14 @@ const view = ({
 	dispatch
 }) => {
 	return (
-		<div id="container" className={snapState} on-dblclick={() => {
-			console.log({ PHOTOBOOTH_CAMERA_DOUBLE_CLICK });
-			dispatch(PHOTOBOOTH_CAMERA_DOUBLE_CLICK);
+		<div id="container" className={snapState} on-dblclick={({ clientX, clientY }) => {
+			// Only respond in the top left corner of the canvas
+			const doubleClickZoneSize = 250;
+			if (clientX < doubleClickZoneSize && clientY < doubleClickZoneSize) {
+				dispatch(PHOTOBOOTH_CAMERA_DOUBLE_CLICK);
+			} else {
+				console.log(PHOTOBOOTH_CAMERA_DOUBLE_CLICK, `NOT FIRED--double click only responds in the top left corner of the camera, ${doubleClickZoneSize} x ${doubleClickZoneSize} pixels.`);
+			}
 		}}>
 			<div
 				id="flash"

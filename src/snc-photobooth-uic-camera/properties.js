@@ -96,15 +96,15 @@ export const properties = {
 				"center",
 			],
 		},
-		default: "center",
+		default: "bottom-center",
 	},
 
 	/**
-	 * Number representing the scale of the watermark image from 0 to 1 (100%)
+	 * Number representing the height in pixels to scale the watermark image to. Use -1 to not scale.
 	 */
-	watermarkImageScale: {
+	watermarkImageHeight: {
 		schema: { type: "number" },
-		default: 1,
+		default: null,
 	},
 
 	shutterSoundFile: {

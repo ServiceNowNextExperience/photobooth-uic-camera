@@ -121,10 +121,10 @@
 					}
 				},
 				{
-					"name": "watermarkImageScale",
-					"label": "Watermark Image Scale",
-					"defaultValue": 1,
-					"description": "Number between 0 and 1 (100%) to scale the watermark image.",
+					"name": "watermarkImageHeight",
+					"label": "Watermark Image Height in Pixels",
+					"defaultValue": null,
+					"description": "Height to scale the watermark image to in pixels. Generally the same as the chin height.",
 					"fieldType": "number",
 					"managed": false,
 					"readOnly": false,
@@ -139,8 +139,8 @@
 				{
 					"name": "watermarkImagePosition",
 					"label": "Watermark Image Position",
-					"defaultValue": "top-left",
-					"description": "Where to place the watermark relative to the image being watermarked.  Must be one of top-left, top-center, top-right, bottom-left, bottom-center, bottom-right, center",
+					"defaultValue": "bottom-center",
+					"description": "Where to place the watermark relative to the image being watermarked.  Must be one of top-left, top-center, top-right, bottom-left, bottom-center (default), bottom-right, center",
 					"fieldType": "string",
 					"managed": false,
 					"readOnly": false,

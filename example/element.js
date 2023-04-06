@@ -15,7 +15,7 @@ const initialState = {
 	imageSize: { width: 800, height: 600 },
 	canvasConfig: { gap: 10, chin: 50, fillStyle: "lightgreen" },
 	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
-	watermarkImageScale: 0.3,
+	watermarkImageHeight: 50,
 	watermarkImagePosition: "bottom-right",
 	mainSnappedImg: "",
 	individualSnaps: [],
@@ -34,7 +34,7 @@ const view = (state, { updateState }) => {
 		pauseDurationSeconds,
 		imageSize,
 		watermarkImageUrl,
-		watermarkImageScale,
+		watermarkImageHeight,
 		watermarkImagePosition,
 		mainSnappedImg,
 		individualSnaps,
@@ -67,7 +67,7 @@ const view = (state, { updateState }) => {
 							pauseDurationSeconds={pauseDurationSeconds}
 							imageSize={imageSize}
 							watermarkImageUrl={watermarkImageUrl}
-							watermarkImageScale={watermarkImageScale}
+							watermarkImageHeight={watermarkImageHeight}
 							watermarkImagePosition={watermarkImagePosition}
 							cameraDeviceId={cameraDeviceId}
 							gap={gap}
@@ -98,6 +98,8 @@ const view = (state, { updateState }) => {
 								Reset
 							</button>
 						) : null}
+						<input type="text" value={watermarkImageUrl} on-blur={({ target: { value } }) => updateState({ watermarkImageUrl: value })}></input>
+						Watermark Height PX: <input type="number" value={watermarkImageHeight} on-blur={({ target: { value } }) => updateState({ watermarkImageHeight: value })}></input>
 					</div>
 					<div id="availableCameras">
 						Available Cameras:

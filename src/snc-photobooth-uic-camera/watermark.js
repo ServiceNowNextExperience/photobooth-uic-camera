@@ -1,21 +1,26 @@
 const initializeWatermark = ({
 	watermarkImageUrl,
-	watermarkImageScale
+	watermarkImageHeight
 }) => {
 	console.log("Initialize Watermark", watermarkImageUrl);
 
 	return new Promise((resolve) => {
 		if (watermarkImageUrl) {
 			const watermarkImage = new Image();
-			watermarkImage.onload = ({ target : { width, height } }) => {
+			watermarkImage.onload = ({ target: { width, height } }) => {
+				// Calculate the scale based on the specified height. If -1 is specified it will use scale = 1 ()
+				const watermarkImageScale = watermarkImageHeight ? watermarkImageHeight / height : 1;
 				watermarkImage.width = width * watermarkImageScale;
 				watermarkImage.height = height * watermarkImageScale;
 
-				resolve({ watermarkImage});
+				resolve({ watermarkImage });
+			};
+			watermarkImage.onerror = () => {
+				resolve({ watermarkImage: new Image(), error: `Unable to resolve image with url ${watermarkImageUrl}` });
 			};
 			watermarkImage.src = watermarkImageUrl;
 		} else {
-			resolve(null);
+			resolve({ watermarkImage: new Image() });
 		}
 	});
 };
@@ -25,13 +30,13 @@ export { initializeWatermark };
 const applyWatermark = ({ watermarkImage, context, watermarkImagePosition, gap }) => {
 	console.log("applyWatermark", watermarkImage);
 
-	if(!watermarkImage){ return; }
+	if (!watermarkImage) { return; }
 
 	const [watermarkX, watermarkY] = getCoordinates({
 		watermarkImagePosition,
-		imageWidth : watermarkImage.width,
-		imageHeight : watermarkImage.height,
-		canvas : context.canvas,
+		imageWidth: watermarkImage.width,
+		imageHeight: watermarkImage.height,
+		canvas: context.canvas,
 		gap
 	});
 
@@ -51,7 +56,7 @@ const getCoordinates = ({
 	watermarkImagePosition,
 	imageWidth,
 	imageHeight,
-	canvas : {width : canvasWidth, height : canvasHeight},
+	canvas: { width: canvasWidth, height: canvasHeight },
 	gap = 10
 }) => {
 	// Offset is the margin--if the gap is 10px start 10 from the top/left
@@ -63,7 +68,7 @@ const getCoordinates = ({
 	const yTop = 0 + offsetY;
 	const xRight = canvasWidth - imageWidth - offsetX;
 	const yBottom = canvasHeight - imageHeight - offsetY;
-	console.log({watermarkImagePosition, imageWidth, imageHeight, canvasWidth, canvasHeight, offsetX, offsetY, xRight});
+	console.log({ watermarkImagePosition, imageWidth, imageHeight, canvasWidth, canvasHeight, offsetX, offsetY, xRight });
 	switch (watermarkImagePosition) {
 		case "top-left":
 			return [xLeft, yTop];
