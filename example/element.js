@@ -6,10 +6,11 @@ import {
 	PHOTOBOOTH_CAMERA_SNAPPED,
 	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED,
 	PHOTOBOOTH_CAMERA_SINGLES_SNAPPED,
+	PHOTOBOOTH_CAMERA_DOUBLE_CLICK,
 } from "../src/snc-photobooth-uic-camera/events";
 
 const initialState = {
-	enabled: true,
+	enabled: false,
 	countdownDurationSeconds: 0,
 	pauseDurationSeconds: 1,
 	imageSize: { width: 800, height: 600 },
@@ -42,18 +43,22 @@ const view = (state, { updateState }) => {
 		cameraDeviceId,
 		canvasConfig: { gap, chin, fillStyle },
 		shutterSoundFile,
+		refreshRequested
 	} = state;
 	const toggleEnabledExternally = () => {
 		console.log("TOGGLE ENABLED EXTERNALLY");
-		updateState({ enabled: !enabled });
+		updateState({ enabled: !state.enabled });
 	};
 
 	const requestSnap = () => {
 		console.log("REQUEST SNAP");
-		updateState({
-			snapRequested: Date.now() + "",
-		});
+		updateState({ snapRequested: Date.now() + "" });
 	};
+
+	const refresh = () => {
+		console.log("REFRESH");
+		updateState({ refreshRequested: Date.now() + "" });
+	}
 
 	return (
 		<div id="main">
@@ -74,6 +79,7 @@ const view = (state, { updateState }) => {
 							chin={chin}
 							fillStyle={fillStyle}
 							shutterSoundFile={shutterSoundFile}
+							refreshRequested={refreshRequested}
 						></snc-photobooth-uic-camera>
 					</div>
 					<div id="controls">
@@ -84,6 +90,7 @@ const view = (state, { updateState }) => {
 							<span>
 								<button on-click={() => requestSnap()}>Snap!</button>
 								Delay Seconds: <input type="number" on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })} value={countdownDurationSeconds} style={{ width: "2rem" }} />
+								<button on-click={() => refresh()}>Refresh</button>
 							</span>
 						) : null}
 						{snapRequested ? (
@@ -174,6 +181,11 @@ createCustomElement("example-element", {
 				updateState({ individualSnaps });
 			},
 		},
+		[PHOTOBOOTH_CAMERA_DOUBLE_CLICK]: {
+			effect: ({ action: { payload } }) => {
+				console.log(PHOTOBOOTH_CAMERA_DOUBLE_CLICK, payload);
+			}
+		}
 	},
 });
 

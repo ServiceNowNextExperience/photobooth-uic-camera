@@ -20,7 +20,23 @@
 					"name": "snapRequested",
 					"label": "Snap Requested",
 					"defaultValue": "",
-					"description": "A string containing timestamp that can be passed down to trigger a snap. Use script to set this value such as Date.now()",
+					"description": "A string containing anything that can be passed down to trigger a snap by simply changing the value. Use script to set this value such as Date.now()",
+					"fieldType": "string",
+					"managed": false,
+					"readOnly": false,
+					"required": false,
+					"selectable": false,
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				{
+					"name": "refreshRequested",
+					"label": "Refresh Requested",
+					"defaultValue": "",
+					"description": "A string containing anything that can be passed down to trigger refreshing the page by simply changing the value. Use script to set this value such as Date.now()",
 					"fieldType": "string",
 					"managed": false,
 					"readOnly": false,
@@ -122,7 +138,7 @@
 				},
 				{
 					"name": "watermarkImageHeight",
-					"label": "Watermark Image Height in Pixels",
+					"label": "Watermark Image Height (Pixels)",
 					"defaultValue": null,
 					"description": "Height to scale the watermark image to in pixels. Generally the same as the chin height.",
 					"fieldType": "number",
@@ -154,7 +170,7 @@
 				},
 				{
 					"name": "gap",
-					"label": "Gap in pixels",
+					"label": "Gap (Pixels)",
 					"defaultValue": 10,
 					"description": "Gap, in pixels, between each snapshot and around the margins.",
 					"fieldType": "number",
@@ -170,9 +186,9 @@
 				},
 				{
 					"name": "chin",
-					"label": "Chin height in pixels",
+					"label": "Chin height (Pixels)",
 					"defaultValue": 50,
-					"description": "Number of pixels height for the 'chin' beneath the snapshots",
+					"description": "Number of pixels for the height of the 'chin' beneath the snapshots",
 					"fieldType": "number",
 					"managed": false,
 					"readOnly": false,
@@ -294,8 +310,18 @@
 				{
 					"action": "PHOTOBOOTH_CAMERA#DBLCLICK",
 					"label": "Photobooth Camera Double Clicked",
-					"description": "Dispatched when the user double clicks the component.",
-					"payload": [{}]
+					"description": "Dispatched when the user double clicks the component.  Returns the mouse position relative to the component as clientX and clientY.",
+					"payload": [{
+						"type": "object",
+						"properties": {
+						  "clientX": {
+							 "type": "integer"
+						  },
+						  "clientY": {
+							 "type": "integer"
+						  }
+						}
+					 }]
 				}				
 			]
 		}

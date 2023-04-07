@@ -111,4 +111,9 @@ export const properties = {
 		schema: { type: "string" },
 		default: "",
 	},
+
+	refreshRequested: {
+		schema: { type: "string" },
+		default: ""
+	}
 };

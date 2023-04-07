@@ -4,6 +4,7 @@ import styles from "./styles.scss";
 import { properties } from "./properties";
 import { actionTypes } from "@servicenow/ui-core";
 import { applyWatermark, initializeWatermark } from "./watermark";
+import { setupAppMetadata } from "./metadata";
 import {
 	selectMediaDevice,
 	toggleTracks,
@@ -89,23 +90,28 @@ const propertyHandlers = {
 	enabled: ({ state: { video }, payload: { value } }) => {
 		toggleTracks({ video, enabled: value });
 	},
-	cameraDeviceId: ({ state: { video }, payload: { value }, updateState }) => {
+	cameraDeviceId: ({ state: { video }, payload: { value }, updateState, properties: { enabled } }) => {
 		const cameraDeviceId = value;
 		selectMediaDevice({
 			video,
 			cameraDeviceId,
+			enabled
 		});
 		updateState({ cameraDeviceId });
 	},
-	watermarkImageUrl: ({ state: { properties }, updateState, dispatch }) => {
+	watermarkImageUrl: ({ properties, updateState }) => {
 		initializeWatermark(properties).then(({ watermarkImage, error }) => {
 			updateState({ watermarkImage });
 		});
 	},
-	watermarkImageHeight: ({ state: { properties }, updateState, dispatch }) => {
+	watermarkImageHeight: ({ properties, updateState }) => {
 		initializeWatermark(properties).then(({ watermarkImage, error }) => {
 			updateState({ watermarkImage });
 		});
+	},
+	refreshRequested: () => {
+		console.log("REFRESH REQUESTED");
+		window.location.reload();
 	}
 };
 
@@ -118,7 +124,8 @@ const actionHandlers = {
 	}) => {
 		console.log(COMPONENT_DOM_READY, host, properties);
 		initializeMedia({ host, properties, dispatch, updateState });
-		console.log("SCREEN SIZE: ", { innerHeight, innerHeight } = window);
+
+		setupAppMetadata(window);
 	},
 
 	[COMPONENT_CONNECTED]: ({ properties }) => {
@@ -126,6 +133,7 @@ const actionHandlers = {
 	},
 
 	[COMPONENT_PROPERTY_CHANGED]: ({
+		host,
 		state,
 		action: {
 			payload: { name, value, previousValue },
@@ -137,10 +145,12 @@ const actionHandlers = {
 
 		if (propertyHandlers[name]) {
 			propertyHandlers[name]({
+				host,
 				state,
 				dispatch,
 				updateState,
 				payload: { value, previousValue },
+				properties: state.properties
 			});
 		}
 	},
@@ -157,13 +167,8 @@ const view = ({
 }) => {
 	return (
 		<div id="container" className={snapState} on-dblclick={({ clientX, clientY }) => {
-			// Only respond in the top left corner of the canvas
-			const doubleClickZoneSize = 250;
-			if (clientX < doubleClickZoneSize && clientY < doubleClickZoneSize) {
-				dispatch(PHOTOBOOTH_CAMERA_DOUBLE_CLICK);
-			} else {
-				console.log(PHOTOBOOTH_CAMERA_DOUBLE_CLICK, `NOT FIRED--double click only responds in the top left corner of the camera, ${doubleClickZoneSize} x ${doubleClickZoneSize} pixels.`);
-			}
+			console.log(PHOTOBOOTH_CAMERA_DOUBLE_CLICK, { clientX, clientY });
+			dispatch(PHOTOBOOTH_CAMERA_DOUBLE_CLICK, { clientX, clientY });
 		}}>
 			<div
 				id="flash"
@@ -172,7 +177,7 @@ const view = ({
 					"animation-duration": animationDuration,
 				}}
 			></div>
-			<video id="video" autoplay="" style={{ width: "100%" }}></video>
+			<video id="video" autoplay muted style={{ width: "100%" }}></video>
 		</div>
 	);
 };
@@ -198,7 +203,7 @@ const dispatches = {
 
 	/**
 	 * Dispatched when the component is double clicked
-	 * @type {{}}
+	 * @type {{response:object}}
 	 */
 	PHOTOBOOTH_CAMERA_DOUBLE_CLICK: {}
 };
