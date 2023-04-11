@@ -3,9 +3,8 @@ export function selectMediaDevice({ video, cameraDeviceId = "", enabled }) {
 	// Get access to the camera!
 	return new Promise((resolve, reject) => {
 		navigator.mediaDevices
-			.getUserMedia({ video: { deviceId: cameraDeviceId } })
-			.then(function (stream) {
-				console.log("Got User Media!", { video, cameraDeviceId });
+			.getUserMedia({ video: { deviceId: cameraDeviceId } }).then((stream) => {
+				console.log("Got User Media!", { video, cameraDeviceId, stream });
 				if (video.srcObject) {
 					video.srcObject.getTracks().forEach((track) => {
 						track.stop();

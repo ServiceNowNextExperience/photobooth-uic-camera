@@ -108,7 +108,7 @@ const view = (state, { updateState }) => {
 						<input type="text" value={watermarkImageUrl} on-blur={({ target: { value } }) => updateState({ watermarkImageUrl: value })}></input>
 						Watermark Height PX: <input type="number" value={watermarkImageHeight} on-blur={({ target: { value } }) => updateState({ watermarkImageHeight: value })}></input>
 					</div>
-					<div id="availableCameras">
+					<div id="availableCameras" style={{ display: enabled ? "block" : "none" }}>
 						Available Cameras:
 						<ol>
 							{cameras.map(({ label, deviceId }) => {

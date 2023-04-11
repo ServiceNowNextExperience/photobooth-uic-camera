@@ -24,14 +24,12 @@ const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 
 const initialState = { snapState: "idle", watermarkImage: null };
 
-const initializeMedia = ({ host, updateState, dispatch, properties }) => {
+const initializeMedia = ({ host, updateState, dispatch, properties, properties: { shutterSoundFile } }) => {
 	console.log("INITIALIZE MEDIA!");
 
 	initializeWatermark(properties).then(({ watermarkImage, error }) => {
 		updateState({ watermarkImage });
 	});
-
-	const { enabled, cameraDeviceId, shutterSoundFile } = properties;
 
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
@@ -41,24 +39,14 @@ const initializeMedia = ({ host, updateState, dispatch, properties }) => {
 		.createElement("canvas")
 		.getContext("2d");
 
-	const shutterSound = new Audio(shutterSoundFile);
-
-	selectMediaDevice({ video, cameraDeviceId, enabled }).then(() => {
-		getConnectedDevices({ cameraDeviceId }).then((cameras) => {
-			console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
-			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
-		}).catch((err) => {
-			console.log("ERROR getConnectedDevices", err);
-			dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, err);
-		});
-	}).catch((err) => {
-		console.log("ERROR selectMediaDevice", err);
-	});
+	if (shutterSoundFile) {
+		const shutterSound = new Audio(shutterSoundFile);
+		updateState({ shutterSound });
+	}
 
 	updateState({
 		video,
-		context,
-		shutterSound,
+		context
 	});
 };
 
@@ -87,17 +75,31 @@ const propertyHandlers = {
 			});
 		}
 	},
-	enabled: ({ state: { video }, payload: { value } }) => {
-		toggleTracks({ video, enabled: value });
+	enabled: ({ state: { video }, payload: { value: enabled }, properties: { cameraDeviceId }, dispatch }) => {
+		if (enabled & !video.srcObject) {
+			selectMediaDevice({ video, cameraDeviceId, enabled }).then(() => {
+				getConnectedDevices({ cameraDeviceId }).then((cameras) => {
+					console.log(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+					dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, cameras);
+				}).catch((err) => {
+					console.log("ERROR getConnectedDevices", err);
+					dispatch(PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED, err);
+				});
+			}).catch((err) => {
+				console.log("ERROR selectMediaDevice", err);
+			});
+		} else {
+			toggleTracks({ video, enabled });
+		}
 	},
-	cameraDeviceId: ({ state: { video }, payload: { value }, updateState, properties: { enabled } }) => {
-		const cameraDeviceId = value;
-		selectMediaDevice({
-			video,
-			cameraDeviceId,
-			enabled
-		});
-		updateState({ cameraDeviceId });
+	cameraDeviceId: ({ state: { video }, payload: { value: cameraDeviceId }, updateState, properties: { enabled } }) => {
+		if (enabled) {
+			selectMediaDevice({
+				video,
+				cameraDeviceId,
+				enabled
+			});
+		}
 	},
 	watermarkImageUrl: ({ properties, updateState }) => {
 		initializeWatermark(properties).then(({ watermarkImage, error }) => {
