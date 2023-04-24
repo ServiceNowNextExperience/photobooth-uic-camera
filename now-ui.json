@@ -156,7 +156,7 @@
 					"name": "watermarkImagePosition",
 					"label": "Watermark image position",
 					"defaultValue": "bottom-center",
-					"description": "Where to place the watermark relative to the image being watermarked.  Must be one of top-left, top-center, top-right, bottom-left, bottom-center (default), bottom-right, center",
+					"description": "Where to place the watermark on the composed output image.",
 					"fieldType": "choice",
 					"managed": false,
 					"readOnly": false,
@@ -170,7 +170,7 @@
 							{ "label" : "Bottom Left", "value" : "bottom-left"},
 							{ "label" : "Bottom Center", "value" : "bottom-center"},
 							{ "label" : "Bottom Right", "value" : "bottom-right"},
-							{ "label" : "Cetner", "value" : "center"}
+							{ "label" : "Center", "value" : "center"}
 						]
 					}
 				},
