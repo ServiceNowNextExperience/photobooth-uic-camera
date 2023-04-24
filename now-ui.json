@@ -18,7 +18,7 @@
 				},
 				{
 					"name": "snapRequested",
-					"label": "Snap Requested",
+					"label": "Snap requested",
 					"defaultValue": "",
 					"description": "A string containing anything that can be passed down to trigger a snap by simply changing the value. Use script to set this value such as Date.now()",
 					"fieldType": "string",
@@ -34,7 +34,7 @@
 				},
 				{
 					"name": "refreshRequested",
-					"label": "Refresh Requested",
+					"label": "Refresh requested",
 					"defaultValue": "",
 					"description": "A string containing anything that can be passed down to trigger refreshing the page by simply changing the value. Use script to set this value such as Date.now()",
 					"fieldType": "string",
@@ -50,7 +50,7 @@
 				},
 				{
 					"name": "countdownDurationSeconds",
-					"label": "Countdown Duration Seconds",
+					"label": "Countdown duration seconds",
 					"defaultValue": 0,
 					"description": "Number of seconds to wait after Snap Requested to take the shot",
 					"fieldType": "integer",
@@ -66,7 +66,7 @@
 				},
 				{
 					"name": "pauseDurationSeconds",
-					"label": "Pause Between Snap Seconds",
+					"label": "Pause between snap seconds",
 					"defaultValue" : 1,
 					"description" : "How long to pause between each snap in seconds.",
 					"fieldType" : "number",
@@ -82,7 +82,7 @@
 				},
 				{
 					"name": "imageSize",
-					"label": "Output Image Size",
+					"label": "Output image size",
 					"defaultValue": "{\"width\":640,\"height\":480}",
 					"description": "Width and Height of the result (not the video panel) in pixels",
 					"fieldType": "json",
@@ -95,10 +95,10 @@
 							"type": "object",
 							"properties": {
 								"width": {
-									"type": "integer"
+									"type": "number"
 								},
 								"height": {
-									"type": "integer"
+									"type": "number"
 								}
 							}
 						}
@@ -106,7 +106,7 @@
 				},
 				{
 					"name": "cameraDeviceId",
-					"label": "Camera Device ID",
+					"label": "Camera device ID",
 					"defaultValue": "",
 					"description": "The device id of the preferred camera.  If only one camera is available it will override this setting if different. If the device id is not found the nearest available camera will be used. Get list from PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED event.",
 					"fieldType": "string",
@@ -122,7 +122,7 @@
 				},
 				{
 					"name": "watermarkImageUrl",
-					"label": "Watermark Image Path",
+					"label": "Watermark image path",
 					"defaultValue": "",
 					"description": "Must be a local image path (go to System UI > Images)",
 					"fieldType": "string",
@@ -138,7 +138,7 @@
 				},
 				{
 					"name": "watermarkImageHeight",
-					"label": "Watermark Image Height (Pixels)",
+					"label": "Watermark image height in pixels",
 					"defaultValue": null,
 					"description": "Height to scale the watermark image to in pixels. Generally the same as the chin height.",
 					"fieldType": "number",
@@ -154,23 +154,29 @@
 				},
 				{
 					"name": "watermarkImagePosition",
-					"label": "Watermark Image Position",
+					"label": "Watermark image position",
 					"defaultValue": "bottom-center",
 					"description": "Where to place the watermark relative to the image being watermarked.  Must be one of top-left, top-center, top-right, bottom-left, bottom-center (default), bottom-right, center",
-					"fieldType": "string",
+					"fieldType": "choice",
 					"managed": false,
 					"readOnly": false,
 					"required": false,
 					"selectable": false,
 					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
+						"choices": [
+							{ "label" : "Top Left", "value" : "top-left"},
+							{ "label" : "Top Center", "value" : "top-center"},
+							{ "label" : "Top Right", "value" : "top-right"},
+							{ "label" : "Bottom Left", "value" : "bottom-left"},
+							{ "label" : "Bottom Center", "value" : "bottom-center"},
+							{ "label" : "Bottom Right", "value" : "bottom-right"},
+							{ "label" : "Cetner", "value" : "center"}
+						]
 					}
 				},
 				{
 					"name": "gap",
-					"label": "Gap (Pixels)",
+					"label": "Gap in pixels",
 					"defaultValue": 10,
 					"description": "Gap, in pixels, between each snapshot and around the margins.",
 					"fieldType": "number",
@@ -186,7 +192,7 @@
 				},
 				{
 					"name": "chin",
-					"label": "Chin height (Pixels)",
+					"label": "Chin height pixels",
 					"defaultValue": 50,
 					"description": "Number of pixels for the height of the 'chin' beneath the snapshots",
 					"fieldType": "number",
@@ -250,7 +256,7 @@
 					"description": "Dispatched with array of imageData when all indivdiual photo snaps are complete.",
 					"payload": [{
 						"name": "individualSnaps",
-						"label": "Individual Snaps Image Data",
+						"label": "Individual snaps image data",
 						"description": "Array of image data from the camera after all individual snaps are completed",
 						"fieldType": "array"
 					}]
@@ -261,7 +267,7 @@
 					"description": "Dispatched when the available cameras are updated.",
 					"payload": [{
 							"name": "selectedCameraDeviceId",
-							"label": "Selected Camera Device ID",
+							"label": "Selected camera device ID",
 							"description": "",
 							"fieldType": "string"
 						},
@@ -295,13 +301,13 @@
 						},
 						{
 							"name": "selectedDeviceIdFound",
-							"label": "Selected Device ID was Found",
+							"label": "Selected device ID was found",
 							"description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
 							"fieldType": "boolean"
 						},
 						{
 							"name": "boundCameraDeviceId",
-							"label": "Actual Camera Device ID",
+							"label": "Actual camera device ID",
 							"description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
 							"fieldType": "string"
 						}
@@ -309,7 +315,7 @@
 				},
 				{
 					"action": "PHOTOBOOTH_CAMERA#DBLCLICK",
-					"label": "Photobooth Camera Double Clicked",
+					"label": "Photobooth camera double clicked",
 					"description": "Dispatched when the user double clicks the component.  Returns the mouse position relative to the component as clientX and clientY.",
 					"payload": [{
 						"type": "object",
