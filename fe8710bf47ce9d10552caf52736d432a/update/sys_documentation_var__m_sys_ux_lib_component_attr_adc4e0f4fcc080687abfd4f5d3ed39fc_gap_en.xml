@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_documentation element="gap" label="Gap (Pixels)" language="en" table="var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc">
+    <sys_documentation element="gap" label="Gap in pixels" language="en" table="var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>gap</element>
             <help/>
             <hint/>
-            <label>Gap (Pixels)</label>
+            <label>Gap in pixels</label>
             <language>en</language>
             <name>var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc</name>
-            <plural>Gap (Pixels)</plural>
+            <plural>Gap in pixels</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>jon.lind</sys_created_by>
-            <sys_created_on>2023-04-13 17:32:19</sys_created_on>
+            <sys_created_on>2023-04-24 18:40:06</sys_created_on>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>Gap (Pixels)</sys_name>
+            <sys_name>Gap in pixels</sys_name>
             <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
             <sys_policy/>
             <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
             <sys_update_name>sys_documentation_var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc_gap_en</sys_update_name>
             <sys_updated_by>jon.lind</sys_updated_by>
-            <sys_updated_on>2023-04-13 17:32:19</sys_updated_on>
+            <sys_updated_on>2023-04-24 18:40:06</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>
