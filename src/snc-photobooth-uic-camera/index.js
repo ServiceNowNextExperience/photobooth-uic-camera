@@ -34,6 +34,9 @@ const initializeMedia = ({ host, updateState, dispatch, properties, properties: 
 	// Grab elements, create settings, etc.
 	const video = host.shadowRoot.getElementById("video");
 
+	const videoCanvas = host.shadowRoot.getElementById("videoCanvas");
+	const videoCtx = videoCanvas.getContext("2d");
+
 	// Canvas context where "main" 2x2 snapshot will be rendered
 	const context = host.shadowRoot.ownerDocument
 		.createElement("canvas")
@@ -44,9 +47,36 @@ const initializeMedia = ({ host, updateState, dispatch, properties, properties: 
 		updateState({ shutterSound });
 	}
 
+	/*	video.addEventListener("loadedmetadata", function () {
+			console.log("VIDEO LOADED METADATA EVENT", video.videoWidth, video.videoHeight, videoCanvas.width, videoCanvas.height);
+				videoCanvas.width = video.videoWidth;
+					videoCanvas.height = video.videoHeight;
+		});*/
+
+	video.addEventListener("play", function () {
+		videoCanvas.width = 800;
+		videoCanvas.height = 600;
+		let $this = this; //cache
+		(function loop() {
+			if (!$this.paused && !$this.ended) {
+				videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
+				setTimeout(loop, 1000 / 30); // drawing at 30fps
+			}
+		})();
+	}, 0);
+
+	const resizeObserver = new ResizeObserver(() => {
+		console.log("RESIZE");
+	});
+	resizeObserver.observe(host);
+	/*	host.shadowRoot.ownerDocument.window.addEventListener("resize", function () {
+			console.log("WINDOW RESIZE EVENT", this, video.getBoundingClientRect());
+		});*/
+
 	updateState({
 		video,
-		context
+		context,
+		videoCtx
 	});
 };
 
@@ -75,7 +105,8 @@ const propertyHandlers = {
 			});
 		}
 	},
-	enabled: ({ state: { video }, payload: { value: enabled }, properties: { cameraDeviceId }, dispatch }) => {
+	enabled: ({ state: { video, videoCtx }, payload: { value: enabled }, properties: { cameraDeviceId }, dispatch }) => {
+		console.log("ENABLED");
 		if (enabled & !video.srcObject) {
 			selectMediaDevice({ video, cameraDeviceId, enabled }).then(() => {
 				getConnectedDevices({ cameraDeviceId }).then((cameras) => {
@@ -179,7 +210,8 @@ const view = ({
 					"animation-duration": animationDuration,
 				}}
 			></div>
-			<video id="video" autoplay muted style={{ width: "100%" }}></video>
+			<canvas id="videoCanvas" style={{ width: "800px", height: "600px" }}></canvas>
+			<video id="video" autoplay muted style={{ width: "100%", display: "none" }}></video>
 		</div>
 	);
 };

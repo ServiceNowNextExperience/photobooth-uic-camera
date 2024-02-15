@@ -89,7 +89,11 @@ const view = (state, { updateState }) => {
 						{enabled ? (
 							<span>
 								<button on-click={() => requestSnap()}>Snap!</button>
-								Delay Seconds: <input type="number" on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })} value={countdownDurationSeconds} style={{ width: "2rem" }} />
+								Delay Seconds:
+								<input type="number"
+									on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })}
+									value={countdownDurationSeconds}
+									style={{ width: "2rem" }} />
 								<button on-click={() => refresh()}>Refresh</button>
 							</span>
 						) : null}
