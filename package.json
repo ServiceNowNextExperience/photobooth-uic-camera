@@ -25,7 +25,11 @@
     "@servicenow/cli-component-archetype": "22.0.0",
     "@servicenow/sass-theme": "quebec",
     "@servicenow/sass-kit": "quebec",
-    "@servicenow/library-translate": "quebec"
+    "@servicenow/library-translate": "quebec",
+    "@tensorflow-models/body-segmentation": "^1.0.2",
+    "@tensorflow/tfjs-backend-webgl": "^4.17.0",
+    "@tensorflow/tfjs-converter": "^4.17.0",
+    "@tensorflow/tfjs-core": "^4.16.0"
   },
   "devDependencies": {
     "@servicenow/cli-archetype-dev": "22.0.0",

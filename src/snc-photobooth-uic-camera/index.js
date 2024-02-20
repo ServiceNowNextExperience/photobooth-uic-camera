@@ -12,6 +12,12 @@ import {
 	snap,
 } from "./media";
 
+
+import '@tensorflow/tfjs-core';
+import '@tensorflow/tfjs-backend-webgl';
+import * as bodySegmentation from '@tensorflow-models/body-segmentation';
+import '@tensorflow/tfjs-converter';
+
 import {
 	PHOTOBOOTH_CAMERA_SNAPPED,
 	PHOTOBOOTH_AVAILABLE_CAMERAS_UPDATED,
@@ -23,6 +29,61 @@ const { COMPONENT_CONNECTED, COMPONENT_PROPERTY_CHANGED, COMPONENT_DOM_READY } =
 	actionTypes;
 
 const initialState = { snapState: "idle", watermarkImage: null };
+
+async function mask(people, context, video) {
+	const { canvas } = context;
+	const foregroundColor = { r: 0, g: 0, b: 0, a: 0 };
+	const backgroundColor = { r: 0, g: 0, b: 0, a: 255 };
+	const drawContour = true;
+	const foregroundThreshold = 0.55;
+
+	const backgroundDarkeningMask = await bodySegmentation.toBinaryMask(people, foregroundColor, backgroundColor, drawContour, foregroundThreshold);
+
+	const opacity = 0.7;
+	const maskBlurAmount = 2; // Number of pixels to blur by.
+
+	return await bodySegmentation.drawMask(canvas, video, backgroundDarkeningMask, opacity, maskBlurAmount);
+}
+
+async function processVideo(video, videoCtx, context) {
+	const model = bodySegmentation.SupportedModels.MediaPipeSelfieSegmentation; // or 'BodyPix'
+	const videoCanvas = videoCtx.canvas;
+	const segmenterConfig = {
+		runtime: 'tfjs', // or 'mediapipe' or 'tfjs'
+		modelType: 'general' // or 'landscape'
+	};
+
+	const segmenter = await bodySegmentation.createSegmenter(model, segmenterConfig);
+
+	video.addEventListener("play", function () {
+		videoCanvas.width = 800;
+		videoCanvas.height = 600;
+		video.width = 800;
+		video.height = 600;
+
+		console.log("VIDEO PLAY EVENT", video.videoWidth, video.videoHeight, videoCanvas.width, videoCanvas.height);
+
+		(function loop() {
+			//if (properties.enabled) {
+			//const image = videoCtx.canvas.toDataURL("image/jpeg");
+
+			segmenter.segmentPeople(videoCtx.canvas).then((people) => {
+				//				console.log(people);
+				//				videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
+
+				mask(people, videoCtx, video);
+
+
+				// mask.toTensor().then((x) => {
+				// 	context.drawImage(x, 0, 0, videoCanvas.width, videoCanvas.height);
+				// });
+
+				setTimeout(loop, 1000 / 30); // drawing at 30fps
+			});
+			//}
+		})();
+	}, 0);
+}
 
 const initializeMedia = ({ host, updateState, dispatch, properties, properties: { shutterSoundFile } }) => {
 	console.log("INITIALIZE MEDIA!");
@@ -53,17 +114,7 @@ const initializeMedia = ({ host, updateState, dispatch, properties, properties: 
 					videoCanvas.height = video.videoHeight;
 		});*/
 
-	video.addEventListener("play", function () {
-		videoCanvas.width = 800;
-		videoCanvas.height = 600;
-		let $this = this; //cache
-		(function loop() {
-			if (!$this.paused && !$this.ended) {
-				videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
-				setTimeout(loop, 1000 / 30); // drawing at 30fps
-			}
-		})();
-	}, 0);
+	processVideo(video, videoCtx, context);
 
 	const resizeObserver = new ResizeObserver(() => {
 		console.log("RESIZE");
