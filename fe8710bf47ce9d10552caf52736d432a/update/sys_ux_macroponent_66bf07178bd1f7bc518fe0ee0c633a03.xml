@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_macroponent">
     <sys_ux_macroponent action="INSERT_OR_UPDATE">
         <associated_types>d8899a0473000010f7353c78caf6a750,c1251a89db4c1010793ddf6b5e96199c</associated_types>
-        <category>component</category>
+        <bundles/>
+        <category>primitives</category>
         <component_dependencies/>
-        <composition>[]</composition>
+        <composition>[
+    
+]</composition>
         <da_relay_models/>
         <data/>
         <description/>
-        <dispatched_events>21732cc14775a510552caf52736d43a3,3f6fd8ac87ed6d1089790fe5dabb350b,036cd4f48736d51089790fe5dabb3546,06ed941187b7d15089790fe5dabb35b5</dispatched_events>
+        <dispatched_events>1e9730b683aa23b1811a07fc9d5fe339,4a9bd2585c20cf10ae95b4ef9157044c,1d79e0195bd7fd43f1cc618c6580e3a0,21e4600ac1a96cc01c10538449b6e18b</dispatched_events>
         <ext_controller_dep/>
         <extends/>
+        <extension_point/>
         <handled_events/>
         <interactions/>
         <interfaces/>
@@ -18,25 +22,277 @@
         <macroponent_dependencies/>
         <name>Photobooth Camera</name>
         <output_prop_mapping/>
-        <props>[{"name":"enabled","label":"Enabled","fieldType":"boolean","defaultValue":false,"description":"Whether or not the camera stream is enabled.","valueType":"string"},{"name":"snapRequested","label":"Snap requested","fieldType":"string","readOnly":false,"typeMetadata":{"schema":{"type":"string"}},"defaultValue":"","description":"A string containing anything that can be passed down to trigger a snap by simply changing the value. Use script to set this value such as Date.now()","selectable":false,"valueType":"string","mandatory":false},{"name":"refreshRequested","label":"Refresh requested","fieldType":"string","readOnly":false,"typeMetadata":{"schema":{"type":"string"}},"defaultValue":"","description":"A string containing anything that can be passed down to trigger refreshing the page by simply changing the value. Use script to set this value such as Date.now()","selectable":false,"valueType":"string","mandatory":false},{"name":"countdownDurationSeconds","label":"Countdown duration seconds","fieldType":"integer","readOnly":false,"typeMetadata":{"schema":{"type":"number"}},"defaultValue":0,"description":"Number of seconds to wait after Snap Requested to take the shot","selectable":false,"valueType":"string","mandatory":false},{"name":"pauseDurationSeconds","label":"Pause between snap seconds","fieldType":"number","readOnly":false,"typeMetadata":{"schema":{"type":"number"}},"defaultValue":1,"description":"How long to pause between each snap in seconds.","selectable":false,"valueType":"string","mandatory":false},{"name":"imageSize","label":"Output image size","fieldType":"json","readOnly":false,"typeMetadata":{"schema":{"type":"object","properties":{"width":{"type":"number"},"height":{"type":"number"}}}},"defaultValue":"{\"width\":640,\"height\":480}","description":"Width and Height of the result (not the video panel) in pixels","selectable":false,"valueType":"string","mandatory":true},{"name":"cameraDeviceId","label":"Camera device ID","fieldType":"string","readOnly":false,"typeMetadata":{"schema":{"type":"string"}},"defaultValue":"","description":"The device id of the preferred camera.  If only one camera is available it will override this setting if different. If the device id is not found the nearest available camera will be used. Get list from PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED event.","selectable":false,"valueType":"string","mandatory":false},{"name":"watermarkImageUrl","label":"Watermark image path","fieldType":"string","readOnly":false,"typeMetadata":{"schema":{"type":"string"}},"defaultValue":"","description":"Must be a local image path (go to System UI &gt; Images)","selectable":false,"valueType":"string","mandatory":false},{"name":"watermarkImageHeight","label":"Watermark image height in pixels","fieldType":"number","readOnly":false,"typeMetadata":{"schema":{"type":"number"}},"defaultValue":null,"description":"Height to scale the watermark image to in pixels. Generally the same as the chin height.","selectable":false,"valueType":"string","mandatory":false},{"name":"watermarkImagePosition","label":"Watermark image position","fieldType":"choice","readOnly":false,"typeMetadata":{"choices":[{"label":"Top Left","value":"top-left"},{"label":"Top Center","value":"top-center"},{"label":"Top Right","value":"top-right"},{"label":"Bottom Left","value":"bottom-left"},{"label":"Bottom Center","value":"bottom-center"},{"label":"Bottom Right","value":"bottom-right"},{"label":"Center","value":"center"}]},"defaultValue":"bottom-center","description":"Where to place the watermark on the composed output image.","selectable":false,"valueType":"string","mandatory":false},{"name":"gap","label":"Gap in pixels","fieldType":"number","readOnly":false,"typeMetadata":{"schema":{"type":"number"}},"defaultValue":10,"description":"Gap, in pixels, between each snapshot and around the margins.","selectable":false,"valueType":"string","mandatory":false},{"name":"chin","label":"Chin height pixels","fieldType":"number","readOnly":false,"typeMetadata":{"schema":{"type":"number"}},"defaultValue":50,"description":"Number of pixels for the height of the 'chin' beneath the snapshots","selectable":false,"valueType":"string","mandatory":false},{"name":"fillStyle","label":"Fill style of background","fieldType":"string","readOnly":false,"typeMetadata":{"schema":{"type":"string"}},"defaultValue":"lightgreen","description":"The canvas fill style to specify the background color. See https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle","selectable":false,"valueType":"string","mandatory":false},{"name":"shutterSoundFile","label":"Shutter Sound File","fieldType":"string","readOnly":false,"typeMetadata":{"schema":{"type":"string"}},"defaultValue":"","description":"Local wav file path","selectable":false,"valueType":"string","mandatory":false}]</props>
+        <props>[
+    {
+        "defaultValue": false,
+        "description": "Whether or not the camera stream is enabled.",
+        "fieldType": "boolean",
+        "label": "Enabled",
+        "name": "enabled",
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "",
+        "description": "A string containing anything that can be passed down to trigger a snap by simply changing the value. Use script to set this value such as Date.now()",
+        "fieldType": "string",
+        "label": "Snap requested",
+        "mandatory": false,
+        "name": "snapRequested",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "string"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "",
+        "description": "A string containing anything that can be passed down to trigger refreshing the page by simply changing the value. Use script to set this value such as Date.now()",
+        "fieldType": "string",
+        "label": "Refresh requested",
+        "mandatory": false,
+        "name": "refreshRequested",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "string"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": 0,
+        "description": "Number of seconds to wait after Snap Requested to take the shot",
+        "fieldType": "integer",
+        "label": "Countdown duration seconds",
+        "mandatory": false,
+        "name": "countdownDurationSeconds",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "number"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": 1,
+        "description": "How long to pause between each snap in seconds.",
+        "fieldType": "number",
+        "label": "Pause between snap seconds",
+        "mandatory": false,
+        "name": "pauseDurationSeconds",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "number"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "{\"width\":640,\"height\":480}",
+        "description": "Width and Height of the result (not the video panel) in pixels",
+        "fieldType": "json",
+        "label": "Output image size",
+        "mandatory": true,
+        "name": "imageSize",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "properties": {
+                    "height": {
+                        "type": "number"
+                    },
+                    "width": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "",
+        "description": "The device id of the preferred camera.  If only one camera is available it will override this setting if different. If the device id is not found the nearest available camera will be used. Get list from PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED event.",
+        "fieldType": "string",
+        "label": "Camera device ID",
+        "mandatory": false,
+        "name": "cameraDeviceId",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "string"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "",
+        "description": "Must be a local image path (go to System UI &gt; Images)",
+        "fieldType": "string",
+        "label": "Watermark image path",
+        "mandatory": false,
+        "name": "watermarkImageUrl",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "string"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": null,
+        "description": "Height to scale the watermark image to in pixels. Generally the same as the chin height.",
+        "fieldType": "number",
+        "label": "Watermark image height in pixels",
+        "mandatory": false,
+        "name": "watermarkImageHeight",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "number"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "bottom-center",
+        "description": "Where to place the watermark on the composed output image.",
+        "fieldType": "choice",
+        "label": "Watermark image position",
+        "mandatory": false,
+        "name": "watermarkImagePosition",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "choices": [
+                {
+                    "label": "Top Left",
+                    "value": "top-left"
+                },
+                {
+                    "label": "Top Center",
+                    "value": "top-center"
+                },
+                {
+                    "label": "Top Right",
+                    "value": "top-right"
+                },
+                {
+                    "label": "Bottom Left",
+                    "value": "bottom-left"
+                },
+                {
+                    "label": "Bottom Center",
+                    "value": "bottom-center"
+                },
+                {
+                    "label": "Bottom Right",
+                    "value": "bottom-right"
+                },
+                {
+                    "label": "Center",
+                    "value": "center"
+                }
+            ]
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": 10,
+        "description": "Gap, in pixels, between each snapshot and around the margins.",
+        "fieldType": "number",
+        "label": "Gap in pixels",
+        "mandatory": false,
+        "name": "gap",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "number"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": 50,
+        "description": "Number of pixels for the height of the 'chin' beneath the snapshots",
+        "fieldType": "number",
+        "label": "Chin height pixels",
+        "mandatory": false,
+        "name": "chin",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "number"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "lightgreen",
+        "description": "The canvas fill style to specify the background color. See https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle",
+        "fieldType": "string",
+        "label": "Fill style of background",
+        "mandatory": false,
+        "name": "fillStyle",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "string"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "defaultValue": "",
+        "description": "Local wav file path",
+        "fieldType": "string",
+        "label": "Shutter Sound File",
+        "mandatory": false,
+        "name": "shutterSoundFile",
+        "readOnly": false,
+        "selectable": false,
+        "typeMetadata": {
+            "schema": {
+                "type": "string"
+            }
+        },
+        "valueType": "string"
+    }
+]</props>
         <required_translations>[ ]</required_translations>
         <root_component display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</root_component>
         <root_component_config>{"enabled":"@context/enabled","snapRequested":"@context/snapRequested","refreshRequested":"@context/refreshRequested","countdownDurationSeconds":"@context/countdownDurationSeconds","pauseDurationSeconds":"@context/pauseDurationSeconds","imageSize":"@context/imageSize","cameraDeviceId":"@context/cameraDeviceId","watermarkImageUrl":"@context/watermarkImageUrl","watermarkImageHeight":"@context/watermarkImageHeight","watermarkImagePosition":"@context/watermarkImagePosition","gap":"@context/gap","chin":"@context/chin","fillStyle":"@context/fillStyle","shutterSoundFile":"@context/shutterSoundFile"}</root_component_config>
-        <root_component_definition/>
+        <root_component_definition>{"availableSlots":[]}</root_component_definition>
         <schema_version>1.0.0</schema_version>
         <state_properties/>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-04-26 17:49:06</sys_created_on>
+        <sys_created_on>2024-01-31 18:12:35</sys_created_on>
         <sys_id>66bf07178bd1f7bc518fe0ee0c633a03</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name>Photobooth Camera</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_macroponent_66bf07178bd1f7bc518fe0ee0c633a03</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-04-26 17:49:08</sys_updated_on>
+        <sys_updated_on>2024-01-31 18:12:35</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=66bf07178bd1f7bc518fe0ee0c633a03"/>
 </record_update>

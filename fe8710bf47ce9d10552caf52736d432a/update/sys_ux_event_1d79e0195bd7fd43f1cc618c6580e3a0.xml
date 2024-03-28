@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
+    <sys_ux_event action="INSERT_OR_UPDATE">
+        <description>Dispatched when the available cameras are updated.</description>
+        <event_name>PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED</event_name>
+        <explicit_api_name/>
+        <interfaces>[]</interfaces>
+        <label>Photobooth Available Cameras Updated</label>
+        <props>[
+    {
+        "description": "",
+        "fieldType": "string",
+        "label": "Selected camera device ID",
+        "name": "selectedCameraDeviceId",
+        "valueType": "string"
+    },
+    {
+        "description": "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+        "fieldType": "json",
+        "label": "Cameras",
+        "name": "cameras",
+        "typeMetadata": {
+            "schema": {
+                "items": [
+                    {
+                        "properties": {
+                            "deviceId": {
+                                "type": "string"
+                            },
+                            "groupId": {
+                                "type": "string"
+                            },
+                            "kind": {
+                                "type": "string"
+                            },
+                            "label": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ],
+                "type": "array"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+        "fieldType": "boolean",
+        "label": "Selected device ID was found",
+        "name": "selectedDeviceIdFound",
+        "valueType": "string"
+    },
+    {
+        "description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+        "fieldType": "string",
+        "label": "Actual camera device ID",
+        "name": "boundCameraDeviceId",
+        "valueType": "string"
+    }
+]</props>
+        <required_translations>[ {
+  "message" : "Actual camera device ID",
+  "comment" : ""
+}, {
+  "message" : "Cameras",
+  "comment" : ""
+}, {
+  "message" : "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+  "comment" : ""
+}, {
+  "message" : "Selected camera device ID",
+  "comment" : ""
+}, {
+  "message" : "Selected device ID was found",
+  "comment" : ""
+}, {
+  "message" : "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+  "comment" : ""
+}, {
+  "message" : "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+  "comment" : ""
+} ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <sys_class_name>sys_ux_event</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:12:34</sys_created_on>
+        <sys_id>1d79e0195bd7fd43f1cc618c6580e3a0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Photobooth Available Cameras Updated</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_event_1d79e0195bd7fd43f1cc618c6580e3a0</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-01-31 18:12:34</sys_updated_on>
+    </sys_ux_event>
+    <sys_translated_text action="delete_multiple" query="documentkey=1d79e0195bd7fd43f1cc618c6580e3a0"/>
+</record_update>

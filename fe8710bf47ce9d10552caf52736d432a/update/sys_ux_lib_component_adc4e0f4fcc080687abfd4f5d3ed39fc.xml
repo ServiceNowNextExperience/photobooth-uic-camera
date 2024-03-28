@@ -6,7 +6,7 @@
         <inner_components/>
         <overrides/>
         <required_sys_props/>
-        <required_translation_keys/>
+        <required_translation_keys>[]</required_translation_keys>
         <required_user_prefs/>
         <source_script/>
         <source_script_name>@snc/photobooth-uic-camera</source_script_name>
@@ -14,14 +14,14 @@
         <sys_created_by>jon.lind</sys_created_by>
         <sys_created_on>2022-09-26 21:38:22</sys_created_on>
         <sys_id>adc4e0f4fcc080687abfd4f5d3ed39fc</sys_id>
-        <sys_mod_count>467370</sys_mod_count>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name>snc-photobooth-uic-camera</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_lib_component_adc4e0f4fcc080687abfd4f5d3ed39fc</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-04-26 17:48:49</sys_updated_on>
+        <sys_updated_on>2024-01-31 18:12:18</sys_updated_on>
         <tag>snc-photobooth-uic-camera</tag>
     </sys_ux_lib_component>
 </record_update>
