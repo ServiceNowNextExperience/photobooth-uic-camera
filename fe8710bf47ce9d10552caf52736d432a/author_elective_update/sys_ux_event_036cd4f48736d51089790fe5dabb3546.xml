@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
+    <sys_ux_event action="DELETE">
+        <description/>
+        <event_name>PHOTOBOOTH_CAMERA#SNAPPED</event_name>
+        <interfaces/>
+        <label>Photobooth Image Snapped</label>
+        <props>[{&#13;
+	"name": "imageData",&#13;
+	"label": "Image Data",&#13;
+	"fieldType": "string"&#13;
+}]</props>
+        <required_translations>[ {
+  "message" : "Image Data",
+  "comment" : ""
+} ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <sys_class_name>sys_ux_event</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2022-10-24 18:46:56</sys_created_on>
+        <sys_id>036cd4f48736d51089790fe5dabb3546</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Photobooth Image Snapped</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_event_036cd4f48736d51089790fe5dabb3546</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2023-01-11 02:12:49</sys_updated_on>
+    </sys_ux_event>
+    <sys_translated_text action="DELETE" query="documentkey=036cd4f48736d51089790fe5dabb3546"/>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
+        <file_path/>
+        <instance_id>ad63be13db0df51402d9172913961980</instance_id>
+        <instance_name>volleyball</instance_name>
+        <name>sys_ux_event_036cd4f48736d51089790fe5dabb3546</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
+    <sys_ux_event action="INSERT_OR_UPDATE">
+        <description/>
+        <event_name>PHOTOBOOTH_CAMERA#SNAPPED</event_name>
+        <interfaces/>
+        <label>Photobooth Image Snapped</label>
+        <props>[{&#13;
+	"name": "imageData",&#13;
+	"label": "Image Data",&#13;
+	"fieldType": "string"&#13;
+}]</props>
+        <required_translations>[ {
+  "message" : "Image Data",
+  "comment" : ""
+} ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <sys_class_name>sys_ux_event</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2022-10-24 18:46:56</sys_created_on>
+        <sys_id>036cd4f48736d51089790fe5dabb3546</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Photobooth Image Snapped</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_event_036cd4f48736d51089790fe5dabb3546</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2023-01-11 02:12:49</sys_updated_on>
+    </sys_ux_event>
+    <sys_translated_text action="delete_multiple" query="documentkey=036cd4f48736d51089790fe5dabb3546"/>
+</record_update>]]></payload>
+        <payload_hash>-1567875048</payload_hash>
+        <record_name>Photobooth Image Snapped</record_name>
+        <reverted_from/>
+        <source>1f54710e83c40e50f918eac0deaad375</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:03:58</sys_created_on>
+        <sys_id>f754b10e83c40e50f918eac0deaad33c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18d60b124a80000001</sys_recorded_at>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-01-31 18:03:58</sys_updated_on>
+        <type>UX Event</type>
+        <update_guid>b754b10e6cc40e509425d223917b8b3c</update_guid>
+        <update_guid_history>b754b10e6cc40e509425d223917b8b3c:-1567875048</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:11:54</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_event">sys_ux_event</sys_db_object>
+        <sys_id>2a67fac45b8b4322b8da43710f375809</sys_id>
+        <sys_metadata>036cd4f48736d51089790fe5dabb3546</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Photobooth Image Snapped</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
+        <sys_update_name>sys_ux_event_036cd4f48736d51089790fe5dabb3546</sys_update_name>
+        <sys_update_version display_value="sys_ux_event_036cd4f48736d51089790fe5dabb3546">f754b10e83c40e50f918eac0deaad33c</sys_update_version>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-01-31 18:11:54</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
