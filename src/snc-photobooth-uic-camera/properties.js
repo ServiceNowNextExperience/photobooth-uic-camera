@@ -115,5 +115,12 @@ export const properties = {
 	refreshRequested: {
 		schema: { type: "string" },
 		default: ""
+	},
+
+	numberOfSnaps: {
+		schema: {
+			type: "number", enum: [1, 4],
+		},
+		default: 4,
 	}
 };

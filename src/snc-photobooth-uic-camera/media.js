@@ -119,11 +119,11 @@ export function snap({ state, updateState }) {
 			gap = 10,
 			chin = 0,
 			imageSize = { width: 800, height: 600 },
-			fillStyle
+			fillStyle,
+			numberOfSnaps
 		},
 	} = state;
 
-	const NUMBER_OF_SNAPS = 4;
 	const singleSnapContexts = [];
 	let pos = 1;
 
@@ -136,7 +136,7 @@ export function snap({ state, updateState }) {
 
 	// Initialize the snap contexts to return for the single snaps in advance
 	// Man, I haven't done a for loop like this in years!
-	for (let i = 0; i < NUMBER_OF_SNAPS; i++) {
+	for (let i = 0; i < numberOfSnaps; i++) {
 		const singleSnapContext = context.canvas.ownerDocument.createElement("canvas").getContext("2d");
 		initializeCanvas(singleSnapContext, { imageSize });
 		singleSnapContexts.push(singleSnapContext);
@@ -161,7 +161,7 @@ export function snap({ state, updateState }) {
 			// Draw the individual image full-sized
 			drawImage(singleSnapContext, video, imageSize);
 
-			if (pos < NUMBER_OF_SNAPS) {
+			if (pos < numberOfSnaps) {
 				pos++
 				setTimeout(_snap, pauseDurationMilliseconds);
 			} else {

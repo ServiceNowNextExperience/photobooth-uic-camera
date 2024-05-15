@@ -1,30 +1,34 @@
 {
-	"name": "@snc/photobooth-uic-camera",
-	"version": "0.0.1",
-	"private": false,
-	"description": "Use the HTML5 camera in a photobooth app",
-	"keywords": [
-		"ServiceNow",
-		"Now Experience UI Component",
-		"@snc/photobooth-uic-camera"
-	],
-	"readme": "./README.md",
-	"engines": {
-		"node": ">=8.6.0",
-		"npm": ">=5.3.0"
-	},
-	"module": "src/index.js",
-	"dependencies": {
-		"@servicenow/ui-core": "quebec",
-		"@servicenow/ui-renderer-snabbdom": "quebec",
-		"@servicenow/cli-archetype": "22.0.0",
-		"@servicenow/cli-component-archetype": "22.0.0",
-		"@servicenow/sass-theme": "quebec",
-		"@servicenow/sass-kit": "quebec",
-		"@servicenow/library-translate": "quebec"
-	},
-	"devDependencies": {
-		"@servicenow/cli-archetype-dev": "22.0.0",
-		"@servicenow/cli-component-archetype-dev": "22.0.0"
-	}
+  "name": "@snc/photobooth-uic-camera",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Use the HTML5 camera in a photobooth app",
+  "scripts": {
+    "dev": "snc ui-component dev --open",
+    "deploy": "snc ui-component deploy"
+  },
+  "keywords": [
+    "ServiceNow",
+    "Now Experience UI Component",
+    "@snc/photobooth-uic-camera"
+  ],
+  "readme": "./README.md",
+  "engines": {
+    "node": ">=8.6.0",
+    "npm": ">=5.3.0"
+  },
+  "module": "src/index.js",
+  "dependencies": {
+    "@servicenow/ui-core": "quebec",
+    "@servicenow/ui-renderer-snabbdom": "quebec",
+    "@servicenow/cli-archetype": "22.0.0",
+    "@servicenow/cli-component-archetype": "22.0.0",
+    "@servicenow/sass-theme": "quebec",
+    "@servicenow/sass-kit": "quebec",
+    "@servicenow/library-translate": "quebec"
+  },
+  "devDependencies": {
+    "@servicenow/cli-archetype-dev": "22.0.0",
+    "@servicenow/cli-component-archetype-dev": "22.0.0"
+  }
 }

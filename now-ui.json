@@ -1,336 +1,364 @@
 {
-	"components": {
-		"snc-photobooth-uic-camera": {
-			"innerComponents": [],
-			"uiBuilder": {
-				"associatedTypes": ["global.core", "global.landing-page"],
-				"label": "Photobooth Camera",
-				"icon": "camera-outline",
-				"description": "Photobooth component to take snapshots from a connected camera",
-				"category": "primitives"
-			},
-			"properties": [{
-					"name": "enabled",
-					"label": "Enabled",
-					"description": "Whether or not the camera stream is enabled.",
-					"fieldType": "boolean",
-					"defaultValue": false
-				},
-				{
-					"name": "snapRequested",
-					"label": "Snap requested",
-					"defaultValue": "",
-					"description": "A string containing anything that can be passed down to trigger a snap by simply changing the value. Use script to set this value such as Date.now()",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				},
-				{
-					"name": "refreshRequested",
-					"label": "Refresh requested",
-					"defaultValue": "",
-					"description": "A string containing anything that can be passed down to trigger refreshing the page by simply changing the value. Use script to set this value such as Date.now()",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				},
-				{
-					"name": "countdownDurationSeconds",
-					"label": "Countdown duration seconds",
-					"defaultValue": 0,
-					"description": "Number of seconds to wait after Snap Requested to take the shot",
-					"fieldType": "integer",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata" : {
-						"schema" : {
-							"type" : "number"
-						}
-					}
-				},
-				{
-					"name": "pauseDurationSeconds",
-					"label": "Pause between snap seconds",
-					"defaultValue" : 1,
-					"description" : "How long to pause between each snap in seconds.",
-					"fieldType" : "number",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata" : {
-						"schema" : {
-							"type" : "number"
-						}
-					}
-				},
-				{
-					"name": "imageSize",
-					"label": "Output image size",
-					"defaultValue": "{\"width\":640,\"height\":480}",
-					"description": "Width and Height of the result (not the video panel) in pixels",
-					"fieldType": "json",
-					"managed": false,
-					"readOnly": false,
-					"required": true,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "object",
-							"properties": {
-								"width": {
-									"type": "number"
-								},
-								"height": {
-									"type": "number"
-								}
-							}
-						}
-					}
-				},
-				{
-					"name": "cameraDeviceId",
-					"label": "Camera device ID",
-					"defaultValue": "",
-					"description": "The device id of the preferred camera.  If only one camera is available it will override this setting if different. If the device id is not found the nearest available camera will be used. Get list from PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED event.",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				},
-				{
-					"name": "watermarkImageUrl",
-					"label": "Watermark image path",
-					"defaultValue": "",
-					"description": "Must be a local image path (go to System UI > Images)",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				},
-				{
-					"name": "watermarkImageHeight",
-					"label": "Watermark image height in pixels",
-					"defaultValue": null,
-					"description": "Height to scale the watermark image to in pixels. Generally the same as the chin height.",
-					"fieldType": "number",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "number"
-						}
-					}
-				},
-				{
-					"name": "watermarkImagePosition",
-					"label": "Watermark image position",
-					"defaultValue": "bottom-center",
-					"description": "Where to place the watermark on the composed output image.",
-					"fieldType": "choice",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"choices": [
-							{ "label" : "Top Left", "value" : "top-left"},
-							{ "label" : "Top Center", "value" : "top-center"},
-							{ "label" : "Top Right", "value" : "top-right"},
-							{ "label" : "Bottom Left", "value" : "bottom-left"},
-							{ "label" : "Bottom Center", "value" : "bottom-center"},
-							{ "label" : "Bottom Right", "value" : "bottom-right"},
-							{ "label" : "Center", "value" : "center"}
-						]
-					}
-				},
-				{
-					"name": "gap",
-					"label": "Gap in pixels",
-					"defaultValue": 10,
-					"description": "Gap, in pixels, between each snapshot and around the margins.",
-					"fieldType": "number",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "number"
-						}
-					}
-				},
-				{
-					"name": "chin",
-					"label": "Chin height pixels",
-					"defaultValue": 50,
-					"description": "Number of pixels for the height of the 'chin' beneath the snapshots",
-					"fieldType": "number",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "number"
-						}
-					}
-				},
-				{
-					"name": "fillStyle",
-					"label": "Fill style of background",
-					"defaultValue": "lightgreen",
-					"description": "The canvas fill style to specify the background color. See https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				},
-				{
-					"name": "shutterSoundFile",
-					"label": "Shutter Sound File",
-					"defaultValue": "",
-					"description": "Local wav file path",
-					"fieldType": "string",
-					"managed": false,
-					"readOnly": false,
-					"required": false,
-					"selectable": false,
-					"typeMetadata": {
-						"schema": {
-							"type": "string"
-						}
-					}
-				}
-			],
-			"actions": [{
-					"action": "PHOTOBOOTH_CAMERA#SNAPPED",
-					"label": "Photobooth Image Snapped",
-					"description": "Dispatched when a photo is snapped.  Includes the imageData in the payload.",
-					"payload": [{
-						"name": "imageData",
-						"label": "Image Data",
-						"description": "The image data from the camera after the snap is completed",
-						"fieldType": "string"
-					}]
-				},
-				{
-					"action": "PHOTOBOOTH_CAMERA#SINGLES_SNAPPED",
-					"label": "Photobooth Singles Snapped",
-					"description": "Dispatched with array of imageData when all indivdiual photo snaps are complete.",
-					"payload": [{
-						"name": "individualSnaps",
-						"label": "Individual snaps image data",
-						"description": "Array of image data from the camera after all individual snaps are completed",
-						"fieldType": "array"
-					}]
-				},
-				{
-					"action": "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED",
-					"label": "Photobooth Available Cameras Updated",
-					"description": "Dispatched when the available cameras are updated.",
-					"payload": [{
-							"name": "selectedCameraDeviceId",
-							"label": "Selected camera device ID",
-							"description": "",
-							"fieldType": "string"
-						},
-						{
-							"name": "cameras",
-							"label": "Cameras",
-							"description": "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
-							"fieldType": "json",
-							"typeMetadata": {
-								"schema": {
-									"type": "array",
-									"items": [{
-										"type": "object",
-										"properties": {
-											"deviceId": {
-												"type": "string"
-											},
-											"kind": {
-												"type": "string"
-											},
-											"label": {
-												"type": "string"
-											},
-											"groupId": {
-												"type": "string"
-											}
-										}
-									}]
-								}
-							}
-						},
-						{
-							"name": "selectedDeviceIdFound",
-							"label": "Selected device ID was found",
-							"description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
-							"fieldType": "boolean"
-						},
-						{
-							"name": "boundCameraDeviceId",
-							"label": "Actual camera device ID",
-							"description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
-							"fieldType": "string"
-						}
-					]
-				},
-				{
-					"action": "PHOTOBOOTH_CAMERA#DBLCLICK",
-					"label": "Photobooth camera double clicked",
-					"description": "Dispatched when the user double clicks the component.  Returns the mouse position relative to the component as clientX and clientY.",
-					"payload": [{
-						"type": "object",
-						"properties": {
-						  "clientX": {
-							 "type": "integer"
-						  },
-						  "clientY": {
-							 "type": "integer"
-						  }
-						}
-					 }]
-				}				
-			]
-		}
-	},
-	"scopeName": "x_snc_pb_camera"
+  "components": {
+    "snc-photobooth-uic-camera": {
+      "innerComponents": [],
+      "uiBuilder": {
+        "associatedTypes": ["global.core", "global.landing-page"],
+        "label": "Photobooth Camera",
+        "icon": "camera-outline",
+        "description": "Photobooth component to take snapshots from a connected camera",
+        "category": "primitives"
+      },
+      "properties": [
+        {
+          "name": "enabled",
+          "label": "Enabled",
+          "description": "Whether or not the camera stream is enabled.",
+          "fieldType": "boolean",
+          "defaultValue": false
+        },
+        {
+          "name": "snapRequested",
+          "label": "Snap requested",
+          "defaultValue": "",
+          "description": "A string containing anything that can be passed down to trigger a snap by simply changing the value. Use script to set this value such as Date.now()",
+          "fieldType": "string",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "refreshRequested",
+          "label": "Refresh requested",
+          "defaultValue": "",
+          "description": "A string containing anything that can be passed down to trigger refreshing the page by simply changing the value. Use script to set this value such as Date.now()",
+          "fieldType": "string",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "countdownDurationSeconds",
+          "label": "Countdown duration seconds",
+          "defaultValue": 0,
+          "description": "Number of seconds to wait after Snap Requested to take the shot",
+          "fieldType": "integer",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "pauseDurationSeconds",
+          "label": "Pause between snap seconds",
+          "defaultValue": 1,
+          "description": "How long to pause between each snap in seconds.",
+          "fieldType": "number",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "imageSize",
+          "label": "Output image size",
+          "defaultValue": "{\"width\":640,\"height\":480}",
+          "description": "Width and Height of the result (not the video panel) in pixels",
+          "fieldType": "json",
+          "managed": false,
+          "readOnly": false,
+          "required": true,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "width": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "cameraDeviceId",
+          "label": "Camera device ID",
+          "defaultValue": "",
+          "description": "The device id of the preferred camera.  If only one camera is available it will override this setting if different. If the device id is not found the nearest available camera will be used. Get list from PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED event.",
+          "fieldType": "string",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "watermarkImageUrl",
+          "label": "Watermark image path",
+          "defaultValue": "",
+          "description": "Must be a local image path (go to System UI > Images)",
+          "fieldType": "string",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "watermarkImageHeight",
+          "label": "Watermark image height in pixels",
+          "defaultValue": null,
+          "description": "Height to scale the watermark image to in pixels. Generally the same as the chin height.",
+          "fieldType": "number",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "watermarkImagePosition",
+          "label": "Watermark image position",
+          "defaultValue": "bottom-center",
+          "description": "Where to place the watermark on the composed output image.",
+          "fieldType": "choice",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "choices": [
+              { "label": "Top Left", "value": "top-left" },
+              { "label": "Top Center", "value": "top-center" },
+              { "label": "Top Right", "value": "top-right" },
+              { "label": "Bottom Left", "value": "bottom-left" },
+              { "label": "Bottom Center", "value": "bottom-center" },
+              { "label": "Bottom Right", "value": "bottom-right" },
+              { "label": "Center", "value": "center" }
+            ]
+          }
+        },
+        {
+          "name": "numberOfSnaps",
+          "label": "Number of snaps",
+          "defaultValue": 4,
+          "description": "Whether to operate as a photobooth with 4 snaps or a simple camera with 1.",
+          "fieldType": "choice",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "choices": [
+              { "label": "One", "value": "1" },
+              { "label": "Four", "value": "4" }
+            ]
+          }
+        },
+        {
+          "name": "gap",
+          "label": "Gap in pixels",
+          "defaultValue": 10,
+          "description": "Gap, in pixels, between each snapshot and around the margins.",
+          "fieldType": "number",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "chin",
+          "label": "Chin height pixels",
+          "defaultValue": 50,
+          "description": "Number of pixels for the height of the 'chin' beneath the snapshots",
+          "fieldType": "number",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "fillStyle",
+          "label": "Fill style of background",
+          "defaultValue": "lightgreen",
+          "description": "The canvas fill style to specify the background color. See https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle",
+          "fieldType": "string",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "shutterSoundFile",
+          "label": "Shutter Sound File",
+          "defaultValue": "",
+          "description": "Local wav file path",
+          "fieldType": "string",
+          "managed": false,
+          "readOnly": false,
+          "required": false,
+          "selectable": false,
+          "typeMetadata": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "actions": [
+        {
+          "action": "PHOTOBOOTH_CAMERA#SNAPPED",
+          "label": "Photobooth Image Snapped",
+          "description": "Dispatched when a photo is snapped.  Includes the imageData in the payload.",
+          "payload": [
+            {
+              "name": "imageData",
+              "label": "Image Data",
+              "description": "The image data from the camera after the snap is completed",
+              "fieldType": "string"
+            }
+          ]
+        },
+        {
+          "action": "PHOTOBOOTH_CAMERA#SINGLES_SNAPPED",
+          "label": "Photobooth Singles Snapped",
+          "description": "Dispatched with array of imageData when all indivdiual photo snaps are complete.",
+          "payload": [
+            {
+              "name": "individualSnaps",
+              "label": "Individual snaps image data",
+              "description": "Array of image data from the camera after all individual snaps are completed",
+              "fieldType": "array"
+            }
+          ]
+        },
+        {
+          "action": "PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED",
+          "label": "Photobooth Available Cameras Updated",
+          "description": "Dispatched when the available cameras are updated.",
+          "payload": [
+            {
+              "name": "selectedCameraDeviceId",
+              "label": "Selected camera device ID",
+              "description": "",
+              "fieldType": "string"
+            },
+            {
+              "name": "cameras",
+              "label": "Cameras",
+              "description": "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+              "fieldType": "json",
+              "typeMetadata": {
+                "schema": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "deviceId": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "groupId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "selectedDeviceIdFound",
+              "label": "Selected device ID was found",
+              "description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+              "fieldType": "boolean"
+            },
+            {
+              "name": "boundCameraDeviceId",
+              "label": "Actual camera device ID",
+              "description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+              "fieldType": "string"
+            }
+          ]
+        },
+        {
+          "action": "PHOTOBOOTH_CAMERA#DBLCLICK",
+          "label": "Photobooth camera double clicked",
+          "description": "Dispatched when the user double clicks the component.  Returns the mouse position relative to the component as clientX and clientY.",
+          "payload": [
+            {
+              "type": "object",
+              "properties": {
+                "clientX": {
+                  "type": "integer"
+                },
+                "clientY": {
+                  "type": "integer"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scopeName": "x_snc_pb_camera"
 }

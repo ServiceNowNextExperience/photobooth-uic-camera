@@ -23,6 +23,7 @@ const initialState = {
 	cameras: [],
 	cameraDeviceId: "",
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
+	numberOfSnaps: 4
 };
 
 const view = (state, { updateState }) => {
@@ -43,7 +44,8 @@ const view = (state, { updateState }) => {
 		cameraDeviceId,
 		canvasConfig: { gap, chin, fillStyle },
 		shutterSoundFile,
-		refreshRequested
+		refreshRequested,
+		numberOfSnaps
 	} = state;
 	const toggleEnabledExternally = () => {
 		console.log("TOGGLE ENABLED EXTERNALLY");
@@ -80,6 +82,7 @@ const view = (state, { updateState }) => {
 							fillStyle={fillStyle}
 							shutterSoundFile={shutterSoundFile}
 							refreshRequested={refreshRequested}
+							numberOfSnaps={numberOfSnaps}
 						></snc-photobooth-uic-camera>
 					</div>
 					<div id="controls">
@@ -88,6 +91,10 @@ const view = (state, { updateState }) => {
 						</button>
 						{enabled ? (
 							<span>
+								<select id="numberOfSnaps" on-change={({ target: { value } }) => updateState({ numberOfSnaps: value })}>
+									<option value="1">One</option>
+									<option value="4" selected>Four</option>
+								</select>
 								<button on-click={() => requestSnap()}>Snap!</button>
 								Delay Seconds: <input type="number" on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })} value={countdownDurationSeconds} style={{ width: "2rem" }} />
 								<button on-click={() => refresh()}>Refresh</button>
