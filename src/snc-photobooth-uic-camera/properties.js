@@ -119,8 +119,8 @@ export const properties = {
 
 	numberOfSnaps: {
 		schema: {
-			type: "number", enum: [1, 4],
+			type: "string", enum: ["1", "4"],
 		},
-		default: 4,
+		default: "4",
 	}
 };

@@ -35,14 +35,12 @@ Because we are hosting both the code and the "compiled" app scope in the same in
 5. Use the following command to configure the folder for local UI Component dev:
 
 `snc ui-component project --name @snc/photobooth-uic-camera --description "Use the HTML5 camera in a photobooth app" --scope "x_snc_pb_camera" –offline`
-
 6. Don't forget to install the NPM dependencies (I always seem to miss this for some reason):
 
 `npm install`
-
 7. You will need to connect this folder, which already has existing content, to git. The SNC tool won’t initialize a project in a non-empty folder and git has the same rule. To get around this we will clone our git repo into a temp folder then copy the ".git" folder from there to our project to tie it to git. (Steps from [Stack Overflow](https://stackoverflow.com/questions/5377960/git-whats-the-best-practice-to-git-clone-into-an-existing-folder))
 
-```
+``` shell
 git clone https://github.com/ServiceNowNextExperience/photobooth-uic-camera temp
 mv temp/.git photobooth-uic-camera/.git
 rm -rf temp
@@ -50,7 +48,6 @@ rm -rf temp
 
 8. Return to “photobooth-uic-camera” folder. Git will be confused about the state of your app versus the server. The simple way to get around this is to just stash your current config with this command:
    `git stash`
-
 9. That's it! You should have the latest code locally. If you want to be sure you can always run `git pull`. Now you just need the following two commands, executed from the root of the "photobooth-uic-camera" folder, as you develop the component:
 
    **Develop locally:**
@@ -58,3 +55,11 @@ rm -rf temp
 
    **Deploy to your default instance:**
    `snc ui-component deploy --force`
+
+### Notes
+
+You may use three scripts configured in pacakge.json as shortcuts for snc ui-component activities:
+
+   1. `npm run dev` open browser in dev mode
+   1. `npm run deploy` deploy to the configured environment
+   1. `npm run config` configure your server connection and credentials

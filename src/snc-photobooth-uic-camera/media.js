@@ -75,14 +75,14 @@ function initializeCanvas(context, {
 	context.fillRect(0, 0, width, height);
 }
 
-function drawToSnapImage({ pos, context, video, gap, chin }) {
+function drawToSnapImage({ pos, context, video, gap, chin, scaleFactor }) {
 	console.log("drawToSnapImage", { context })
 
 	const { width, height } = context.canvas;
 
 	// Subtract out gap and chin to make image size proportional
-	const hWidth = ((width - (gap * 3)) / 2);
-	const hHeight = ((height - (gap * 3) - chin) / 2);
+	const hWidth = ((width - (gap * 3)) / scaleFactor);
+	const hHeight = ((height - (gap * 3) - chin) / scaleFactor);
 
 	// Define where the first, second, third and fourth images appear
 	// in the grid, taking into account offsets from the gap
@@ -150,12 +150,14 @@ export function snap({ state, updateState }) {
 			updateState({ snapState: "snapping" });
 
 			if (shutterSound) {
-				console.log("SHUTTER SOUND!");
 				shutterSound.play();
 			}
 
-			// Draw the primary 2x2 result to the main context
-			drawToSnapImage({ pos, context, video, gap, chin });
+			// If it's 4 snaps, then make each divide width by 2, otherwise don't scale
+			const scaleFactor = numberOfSnaps === 1 ? 1 : 2;
+
+			// Draw the primary result to the main context
+			drawToSnapImage({ pos, context, video, gap, chin, scaleFactor: numberOfSnaps === 1 ? 1 : 2 });
 
 			const singleSnapContext = singleSnapContexts[pos - 1];
 			// Draw the individual image full-sized

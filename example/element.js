@@ -23,7 +23,8 @@ const initialState = {
 	cameras: [],
 	cameraDeviceId: "",
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
-	numberOfSnaps: 4
+	numberOfSnaps: 4,
+	watermarkEnabled: true,
 };
 
 const view = (state, { updateState }) => {
