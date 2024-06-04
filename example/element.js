@@ -93,8 +93,8 @@ const view = (state, { updateState }) => {
 						{enabled ? (
 							<span>
 								<select id="numberOfSnaps" on-change={({ target: { value } }) => updateState({ numberOfSnaps: value })}>
-									<option value="1" selected>One</option>
-									<option value="4">Four</option>
+									<option value="1">One</option>
+									<option value="4" selected>Four</option>
 								</select>
 								<button on-click={() => requestSnap()}>Snap!</button>
 								Delay Seconds: <input type="number" on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })} value={countdownDurationSeconds} style={{ width: "2rem" }} />
