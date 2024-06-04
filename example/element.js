@@ -15,7 +15,7 @@ const initialState = {
 	pauseDurationSeconds: 1,
 	imageSize: { width: 800, height: 600 },
 	canvasConfig: { gap: 10, chin: 50, fillStyle: "lightgreen" },
-	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
+	watermarkImageUrl: "" /*"/@snc/photobooth-uic-camera/ServiceNow-Logo.png"*/,
 	watermarkImageHeight: 50,
 	watermarkImagePosition: "bottom-right",
 	mainSnappedImg: "",
@@ -23,7 +23,7 @@ const initialState = {
 	cameras: [],
 	cameraDeviceId: "",
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
-	numberOfSnaps: 4,
+	numberOfSnaps: 1,
 	watermarkEnabled: true,
 };
 
@@ -93,8 +93,8 @@ const view = (state, { updateState }) => {
 						{enabled ? (
 							<span>
 								<select id="numberOfSnaps" on-change={({ target: { value } }) => updateState({ numberOfSnaps: value })}>
-									<option value="1">One</option>
-									<option value="4" selected>Four</option>
+									<option value="1" selected>One</option>
+									<option value="4">Four</option>
 								</select>
 								<button on-click={() => requestSnap()}>Snap!</button>
 								Delay Seconds: <input type="number" on-blur={({ target: { value } }) => updateState({ countdownDurationSeconds: Number(value) })} value={countdownDurationSeconds} style={{ width: "2rem" }} />

@@ -27,7 +27,9 @@
     "@servicenow/ui-renderer-snabbdom": "quebec"
   },
   "devDependencies": {
-    "@servicenow/cli": "26.4.1",
+    "@servicenow/cli": "26.4.0",
+    "@servicenow/cli-archetype-dev": "24.0.1",
+    "@servicenow/cli-component-archetype-dev": "^24.0.1",
     "ajv": "^6.12.6"
   }
 }

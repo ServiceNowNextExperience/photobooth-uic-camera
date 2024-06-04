@@ -50,16 +50,11 @@ rm -rf temp
    `git stash`
 9. That's it! You should have the latest code locally. If you want to be sure you can always run `git pull`. Now you just need the following two commands, executed from the root of the "photobooth-uic-camera" folder, as you develop the component:
 
-   **Develop locally:**
-   `snc ui-component develop --open`
+**Configure your default instance**
+`npm run configure`
 
-   **Deploy to your default instance:**
-   `snc ui-component deploy --force`
+**Develop locally**
+`npm run dev`
 
-### Notes
-
-You may use three scripts configured in pacakge.json as shortcuts for snc ui-component activities:
-
-   1. `npm run dev` open browser in dev mode
-   1. `npm run deploy` deploy to the configured environment
-   1. `npm run config` configure your server connection and credentials
+**Deploy to your default instance**
+`npm run deploy`

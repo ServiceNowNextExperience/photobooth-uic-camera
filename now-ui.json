@@ -247,12 +247,12 @@
         {
           "name": "PHOTOBOOTH_CAMERA#SNAPPED",
           "label": "Photobooth Image Snapped",
-          "description": "Dispatched when a photo is snapped.  Includes the imageData in the payload.",
+          "description": "Dispatched with composed image (including gap, borders and watermarks if specified) when a photo is snapped.  Includes the imageData in the payload which can be bound directly to an IMAGE component to render.",
           "payload": [
             {
               "name": "imageData",
               "label": "Image Data",
-              "description": "The image data from the camera after the snap is completed",
+              "description": "The composed image data from the camera after the snap is completed. May be bound to an IMAGE component to render.",
               "fieldType": "string"
             }
           ]
@@ -260,12 +260,12 @@
         {
           "name": "PHOTOBOOTH_CAMERA#SINGLES_SNAPPED",
           "label": "Photobooth Singles Snapped",
-          "description": "Dispatched with array of imageData when all indivdiual photo snaps are complete.",
+          "description": "Dispatched with array of imageData when all indivdiual photo snaps are complete. Each may be bound to an IMAGE component to render.",
           "payload": [
             {
               "name": "individualSnaps",
               "label": "Individual snaps image data",
-              "description": "Array of image data from the camera after all individual snaps are completed",
+              "description": "Array of raw data from the camera for each image after all individual snaps are completed. Each may be bound to an IMAGE component to render.",
               "fieldType": "array"
             }
           ]
