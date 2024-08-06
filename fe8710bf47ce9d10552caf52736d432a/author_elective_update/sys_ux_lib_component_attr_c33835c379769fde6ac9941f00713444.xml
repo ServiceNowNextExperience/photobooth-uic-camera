@@ -13,7 +13,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>watermarkImageUrl</column_label>
+        <column_label>Watermark image path</column_label>
         <comments/>
         <create_roles/>
         <default_value/>
@@ -35,7 +35,7 @@
         <help/>
         <hint/>
         <internal_type display_value="String">string</internal_type>
-        <label>Watermark Image Path</label>
+        <label>Watermark image path</label>
         <mandatory>false</mandatory>
         <max_length>255</max_length>
         <model display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</model>
@@ -58,15 +58,15 @@
         <staged>false</staged>
         <sys_class_name>sys_ux_lib_component_attr</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-11 01:58:37</sys_created_on>
+        <sys_created_on>2024-01-31 18:12:25</sys_created_on>
         <sys_id>c33835c379769fde6ac9941f00713444</sys_id>
-        <sys_name>Watermark Image Path</sys_name>
+        <sys_name>Watermark image path</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-11 01:58:37</sys_updated_on>
+        <sys_updated_on>2024-01-31 18:12:25</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -79,54 +79,130 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_ux_lib_component_attr>
-    <sys_update_version action="INSERT_OR_UPDATE">
+<sys_update_version action="INSERT_OR_UPDATE">
         <action>DELETE</action>
         <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
         <file_path/>
-        <instance_id>634887c3db11915c8aea21c4059619b9</instance_id>
-        <instance_name>tennis</instance_name>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
         <name>sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444</name>
-        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;&lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;
+    &lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;array&gt;false&lt;/array&gt;
+        &lt;attributes/&gt;
+        &lt;audit&gt;false&lt;/audit&gt;
+        &lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
 
 	// Add your code here
 	return '';  // return the calculated value
 
-})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;watermarkImageUrl&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;watermarkImageUrl&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;help/&gt;&lt;hint/&gt;&lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;&lt;label&gt;Watermark Image Path&lt;/label&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;255&lt;/max_length&gt;&lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;&lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;&lt;model_table/&gt;&lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;&lt;next_element/&gt;&lt;order&gt;100&lt;/order&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;&lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-01-11 01:58:37&lt;/sys_created_on&gt;&lt;sys_id&gt;c33835c379769fde6ac9941f00713444&lt;/sys_id&gt;&lt;sys_name&gt;Watermark Image Path&lt;/sys_name&gt;&lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-11 01:58:37&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_ux_lib_component_attr&gt;&lt;/record_update&gt;</payload>
-        <payload_hash>33161312</payload_hash>
-        <record_name>Watermark Image Path</record_name>
+})(current);]]&gt;&lt;/calculation&gt;
+        &lt;choice/&gt;
+        &lt;choice_field/&gt;
+        &lt;choice_table/&gt;
+        &lt;column_label&gt;Watermark image path&lt;/column_label&gt;
+        &lt;comments/&gt;
+        &lt;create_roles/&gt;
+        &lt;default_value/&gt;
+        &lt;defaultsort/&gt;
+        &lt;delete_roles/&gt;
+        &lt;dependent/&gt;
+        &lt;dependent_on_field/&gt;
+        &lt;display&gt;false&lt;/display&gt;
+        &lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;
+        &lt;dynamic_creation_script/&gt;
+        &lt;dynamic_default_value/&gt;
+        &lt;dynamic_ref_qual/&gt;
+        &lt;element&gt;watermarkImageUrl&lt;/element&gt;
+        &lt;element_reference&gt;false&lt;/element_reference&gt;
+        &lt;foreign_database/&gt;
+        &lt;formula/&gt;
+        &lt;function_definition/&gt;
+        &lt;function_field&gt;false&lt;/function_field&gt;
+        &lt;help/&gt;
+        &lt;hint/&gt;
+        &lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;
+        &lt;label&gt;Watermark image path&lt;/label&gt;
+        &lt;mandatory&gt;false&lt;/mandatory&gt;
+        &lt;max_length&gt;255&lt;/max_length&gt;
+        &lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;
+        &lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;
+        &lt;model_table/&gt;
+        &lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;
+        &lt;next_element/&gt;
+        &lt;order&gt;100&lt;/order&gt;
+        &lt;primary&gt;false&lt;/primary&gt;
+        &lt;read_only&gt;false&lt;/read_only&gt;
+        &lt;read_roles/&gt;
+        &lt;reference/&gt;
+        &lt;reference_cascade_rule/&gt;
+        &lt;reference_floats&gt;false&lt;/reference_floats&gt;
+        &lt;reference_key/&gt;
+        &lt;reference_qual/&gt;
+        &lt;reference_qual_condition/&gt;
+        &lt;reference_type/&gt;
+        &lt;spell_check&gt;false&lt;/spell_check&gt;
+        &lt;staged&gt;false&lt;/staged&gt;
+        &lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-01-31 18:12:25&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;c33835c379769fde6ac9941f00713444&lt;/sys_id&gt;
+        &lt;sys_name&gt;Watermark image path&lt;/sys_name&gt;
+        &lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-01-31 18:12:25&lt;/sys_updated_on&gt;
+        &lt;table_reference&gt;false&lt;/table_reference&gt;
+        &lt;text_index&gt;false&lt;/text_index&gt;
+        &lt;unique&gt;false&lt;/unique&gt;
+        &lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;
+        &lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;
+        &lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;
+        &lt;virtual&gt;false&lt;/virtual&gt;
+        &lt;virtual_type&gt;script&lt;/virtual_type&gt;
+        &lt;widget/&gt;
+        &lt;write_roles/&gt;
+        &lt;xml_view&gt;false&lt;/xml_view&gt;
+    &lt;/sys_ux_lib_component_attr&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>1265891574</payload_hash>
+        <record_name>Watermark image path</record_name>
         <reverted_from/>
-        <source>2403d43f47f3dd50552caf52736d43a4</source>
-        <source_table>sys_update_set</source_table>
+        <source>34ffbf5c9751ce506c017f6de053afb7</source>
+        <source_table>sys_upgrade_history</source_table>
         <state>current</state>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-11 01:58:37</sys_created_on>
-        <sys_id>515b67f187d0a55089790fe5dabb3563</sys_id>
+        <sys_created_on>2024-03-28 21:02:57</sys_created_on>
+        <sys_id>e5ffff5c9751ce506c017f6de053af9e</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_recorded_at>1859e8cfc010000001</sys_recorded_at>
+        <sys_recorded_at>18e86df7de90000001</sys_recorded_at>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-11 01:58:37</sys_updated_on>
+        <sys_updated_on>2024-03-28 21:02:57</sys_updated_on>
         <type>Component Attribute</type>
-        <update_guid>995b67f185d0a55083c519dd0d9b1962</update_guid>
-        <update_guid_history>995b67f185d0a55083c519dd0d9b1962:33161312,855b67f1e9d0a550b329eacd24bfc35d:-22096348,a54be3798b1c65d0ccc09420aac530f7:265761611,a9c3d47f68f3dd5040109438625240dc:33161312,a5c3d47f13f3dd505fa76bad3c4803d7:-22096348,b4b3947f4ff3dd50d583b1b42cc54e53:-1889609017,b0fb95fd43f3195039f319209b4a3318:33161312,bcfb95fdbaf3195063af5b37f1f3ef12:-22096348,0edb15fd9ff3195083872382eb71db82:22838794,319670e96df315501114d0ec1a0f4136:33161312,2d9670e92ff31550623377936ded4c30:-22096348,e18634612737d550edb4974008cddb30:1631307392,44a6e7190dffd1505b808d1885017810:33161312,7396e719a4ffd150b5387cd97f9a6d0b:-22096348,de86eb99c2ff9550f0d7c30362154e21:806863371,bb4dd8ddce379550102e41f5a24147ae:33161312,2f4dd8dde53795508262a44d314876ab:-22096348,cfec18dd9077d1500e2e8881bd266b68:366232344,ecfb149dbf77d150f58f7189f916fab7:33161312,1cfb149dd477d150806596c5363703b4:-22096348,884448d5b9f39550050d8fc3d9ab70a6:22838794,4054c8d5c2f39550ff32e7149276129a:33161312,4c54c8d5dff39550631352188aaceb94:-22096348,884448d5b9f39550050d8fc3d9ab70a6:22838794,313b7f81c237d150c09335aed83da53e:33161312,2d3b7f811e37d1507f813f8c0da97438:-22096348,3d0b7b8d4eb39550f9802f6a71338a32:2040534671,dfc7b301d637d150bae7192345cd9530:33161312,1fc7b301e737d1508c12fa2f5d046e2b:-22096348,3db7b3c92eb3955004dd8a4776879d9b:-1972813815,2977d38da1339550f6e560d364d60a91:33161312,2577d38d9e339550a390db1001380a8c:-22096348,37579f850db3d15078612008de5851b5:1390329916,59409301acb3d150548af7434f3acc46:33161312,9540930189b3d150c03ed34f0f3da741:-22096348,c1309f8587339550e445ff0a416b764b:1335211684,4fae8f8d6073d15088708a7e5329dd3a:33161312,baae8f8d0973d150d1e2f0c512867435:-22096348,a59e0f8d0f73d150eb650c2932bc79fa:-595140697,c407b470cc135110e803e4ec01a2e85a:33161312,0807b470a11351101cc598fbf1dd6b57:-22096348,51c3b261974f1110116e0138710fb1f9:366232344,e943ba217d4f1110275801b141e3ab81:33161312,2d43ba21b84f1110736176a54e42d57c:-22096348,ba337a212d4f11101b10a49fc63bf39b:933009040,3e03b621854f1110d9103ed98001a109:33161312,7e03b621e14f11108bc4be2ad572ce04:-22096348,6803fe692e0b1110620647d55d391c7f:-1255610334,5bffeae5bd0b11104c30ade6203a9c70:33161312,97ffeae5250b1110e5cafecad9a5bc6b:-22096348,c1ff2a2dab0f111055ebdd4556286724:1001603510,cace62e9ad0f1110ca1f8c860d78461e:33161312,0ece62e9070f11108354ecb83e4da81b:-22096348,4ace22e9280f11106f838e1ec42c3dd9:33161312</update_guid_history>
+        <update_guid>a5ffff5cb051ce5030490ddc54521b9e</update_guid>
+        <update_guid_history>a5ffff5cb051ce5030490ddc54521b9e:1265891574</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
         <sys_audit_delete/>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-26 16:19:13</sys_created_on>
+        <sys_created_on>2024-05-15 20:07:56</sys_created_on>
         <sys_db_object display_value="" name="sys_ux_lib_component_attr">sys_ux_lib_component_attr</sys_db_object>
-        <sys_id>46fbca76c9e94deaaccba083ae69fec4</sys_id>
-        <sys_metadata>c33835c379769fde6ac9941f00713444</sys_metadata>
+        <sys_id>0720653ffaac46ea803c43a8c75d9701</sys_id>
+        <sys_metadata>31cc37589751ce506c017f6de053afbb</sys_metadata>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>Watermark Image Path</sys_name>
+        <sys_name>Watermark image path</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_parent/>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
         <sys_update_name>sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444</sys_update_name>
-        <sys_update_version display_value="sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444">515b67f187d0a55089790fe5dabb3563</sys_update_version>
+        <sys_update_version display_value="sys_ux_lib_component_attr_c33835c379769fde6ac9941f00713444">e5ffff5c9751ce506c017f6de053af9e</sys_update_version>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-26 16:19:13</sys_updated_on>
+        <sys_updated_on>2024-05-15 20:07:56</sys_updated_on>
     </sys_metadata_delete>
 </record_update>

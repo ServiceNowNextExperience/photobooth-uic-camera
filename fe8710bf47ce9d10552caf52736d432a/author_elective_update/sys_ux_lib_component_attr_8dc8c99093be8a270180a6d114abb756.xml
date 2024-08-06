@@ -13,10 +13,10 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>Countdown duration seconds</column_label>
+        <column_label>Pause between snap seconds</column_label>
         <comments/>
         <create_roles/>
-        <default_value>0</default_value>
+        <default_value>1</default_value>
         <defaultsort/>
         <delete_roles/>
         <dependent/>
@@ -26,7 +26,7 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>countdownDurationSeconds</element>
+        <element>pauseDurationSeconds</element>
         <element_reference>false</element_reference>
         <foreign_database/>
         <formula/>
@@ -35,7 +35,7 @@
         <help/>
         <hint/>
         <internal_type display_value="String">string</internal_type>
-        <label>Countdown duration seconds</label>
+        <label>Pause between snap seconds</label>
         <mandatory>false</mandatory>
         <max_length>255</max_length>
         <model display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</model>
@@ -58,13 +58,13 @@
         <staged>false</staged>
         <sys_class_name>sys_ux_lib_component_attr</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2024-01-31 18:12:21</sys_created_on>
-        <sys_id>7bc6f1f028a6978f1367698c5798a732</sys_id>
-        <sys_name>Countdown duration seconds</sys_name>
+        <sys_created_on>2024-01-31 18:12:22</sys_created_on>
+        <sys_id>8dc8c99093be8a270180a6d114abb756</sys_id>
+        <sys_name>Pause between snap seconds</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
-        <sys_update_name>sys_ux_lib_component_attr_7bc6f1f028a6978f1367698c5798a732</sys_update_name>
+        <sys_update_name>sys_ux_lib_component_attr_8dc8c99093be8a270180a6d114abb756</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
         <sys_updated_on>2024-01-31 18:12:22</sys_updated_on>
         <table_reference>false</table_reference>
@@ -85,7 +85,7 @@
         <file_path/>
         <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
         <instance_name>wiffleball</instance_name>
-        <name>sys_ux_lib_component_attr_7bc6f1f028a6978f1367698c5798a732</name>
+        <name>sys_ux_lib_component_attr_8dc8c99093be8a270180a6d114abb756</name>
         <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;
     &lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;
         &lt;active&gt;true&lt;/active&gt;
@@ -101,10 +101,10 @@
         &lt;choice/&gt;
         &lt;choice_field/&gt;
         &lt;choice_table/&gt;
-        &lt;column_label&gt;Countdown duration seconds&lt;/column_label&gt;
+        &lt;column_label&gt;Pause between snap seconds&lt;/column_label&gt;
         &lt;comments/&gt;
         &lt;create_roles/&gt;
-        &lt;default_value&gt;0&lt;/default_value&gt;
+        &lt;default_value&gt;1&lt;/default_value&gt;
         &lt;defaultsort/&gt;
         &lt;delete_roles/&gt;
         &lt;dependent/&gt;
@@ -114,7 +114,7 @@
         &lt;dynamic_creation_script/&gt;
         &lt;dynamic_default_value/&gt;
         &lt;dynamic_ref_qual/&gt;
-        &lt;element&gt;countdownDurationSeconds&lt;/element&gt;
+        &lt;element&gt;pauseDurationSeconds&lt;/element&gt;
         &lt;element_reference&gt;false&lt;/element_reference&gt;
         &lt;foreign_database/&gt;
         &lt;formula/&gt;
@@ -123,7 +123,7 @@
         &lt;help/&gt;
         &lt;hint/&gt;
         &lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;
-        &lt;label&gt;Countdown duration seconds&lt;/label&gt;
+        &lt;label&gt;Pause between snap seconds&lt;/label&gt;
         &lt;mandatory&gt;false&lt;/mandatory&gt;
         &lt;max_length&gt;255&lt;/max_length&gt;
         &lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;
@@ -146,13 +146,13 @@
         &lt;staged&gt;false&lt;/staged&gt;
         &lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;
         &lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;
-        &lt;sys_created_on&gt;2024-01-31 18:12:21&lt;/sys_created_on&gt;
-        &lt;sys_id&gt;7bc6f1f028a6978f1367698c5798a732&lt;/sys_id&gt;
-        &lt;sys_name&gt;Countdown duration seconds&lt;/sys_name&gt;
+        &lt;sys_created_on&gt;2024-01-31 18:12:22&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;8dc8c99093be8a270180a6d114abb756&lt;/sys_id&gt;
+        &lt;sys_name&gt;Pause between snap seconds&lt;/sys_name&gt;
         &lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;
         &lt;sys_policy/&gt;
         &lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;
-        &lt;sys_update_name&gt;sys_ux_lib_component_attr_7bc6f1f028a6978f1367698c5798a732&lt;/sys_update_name&gt;
+        &lt;sys_update_name&gt;sys_ux_lib_component_attr_8dc8c99093be8a270180a6d114abb756&lt;/sys_update_name&gt;
         &lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;
         &lt;sys_updated_on&gt;2024-01-31 18:12:22&lt;/sys_updated_on&gt;
         &lt;table_reference&gt;false&lt;/table_reference&gt;
@@ -168,41 +168,41 @@
         &lt;xml_view&gt;false&lt;/xml_view&gt;
     &lt;/sys_ux_lib_component_attr&gt;
 &lt;/record_update&gt;</payload>
-        <payload_hash>-2022379993</payload_hash>
-        <record_name>Countdown duration seconds</record_name>
+        <payload_hash>1078392162</payload_hash>
+        <record_name>Pause between snap seconds</record_name>
         <reverted_from/>
         <source>34ffbf5c9751ce506c017f6de053afb7</source>
         <source_table>sys_upgrade_history</source_table>
         <state>current</state>
         <sys_created_by>jon.lind</sys_created_by>
         <sys_created_on>2024-03-28 21:02:57</sys_created_on>
-        <sys_id>65ffff5c9751ce506c017f6de053af94</sys_id>
+        <sys_id>e5ffff5c9751ce506c017f6de053af99</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_recorded_at>18e86df7d710000001</sys_recorded_at>
+        <sys_recorded_at>18e86df7dae0000001</sys_recorded_at>
         <sys_updated_by>jon.lind</sys_updated_by>
         <sys_updated_on>2024-03-28 21:02:57</sys_updated_on>
         <type>Component Attribute</type>
-        <update_guid>25ffff5caf51ce50630ab328879b7594</update_guid>
-        <update_guid_history>25ffff5caf51ce50630ab328879b7594:-2022379993</update_guid_history>
+        <update_guid>a5ffff5c3b51ce50994b104a749fe399</update_guid>
+        <update_guid_history>a5ffff5c3b51ce50994b104a749fe399:1078392162</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
         <sys_audit_delete/>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2024-05-15 20:08:07</sys_created_on>
+        <sys_created_on>2024-05-15 20:08:06</sys_created_on>
         <sys_db_object display_value="" name="sys_ux_lib_component_attr">sys_ux_lib_component_attr</sys_db_object>
-        <sys_id>4a2a51d3e90f46be9dd4624b842fee04</sys_id>
-        <sys_metadata>edcc37589751ce506c017f6de053af9e</sys_metadata>
+        <sys_id>4d86ecb64b1c401cb6c86699871ddbf9</sys_id>
+        <sys_metadata>a1cc37589751ce506c017f6de053afb3</sys_metadata>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>Countdown duration seconds</sys_name>
+        <sys_name>Pause between snap seconds</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_parent/>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
-        <sys_update_name>sys_ux_lib_component_attr_7bc6f1f028a6978f1367698c5798a732</sys_update_name>
-        <sys_update_version display_value="sys_ux_lib_component_attr_7bc6f1f028a6978f1367698c5798a732">65ffff5c9751ce506c017f6de053af94</sys_update_version>
+        <sys_update_name>sys_ux_lib_component_attr_8dc8c99093be8a270180a6d114abb756</sys_update_name>
+        <sys_update_version display_value="sys_ux_lib_component_attr_8dc8c99093be8a270180a6d114abb756">e5ffff5c9751ce506c017f6de053af99</sys_update_version>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2024-05-15 20:08:07</sys_updated_on>
+        <sys_updated_on>2024-05-15 20:08:06</sys_updated_on>
     </sys_metadata_delete>
 </record_update>

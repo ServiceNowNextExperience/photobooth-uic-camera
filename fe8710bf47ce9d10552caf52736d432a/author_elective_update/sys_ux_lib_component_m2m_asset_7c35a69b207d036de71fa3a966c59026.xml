@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_m2m_asset">
+    <sys_ux_lib_component_m2m_asset action="DELETE">
+        <asset display_value="@snc/photobooth-uic-camera/index">6a3946e76f429e1cfa6597d5d98a93bf</asset>
+        <component display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</component>
+        <sys_class_name>sys_ux_lib_component_m2m_asset</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 19:47:50</sys_created_on>
+        <sys_id>7c35a69b207d036de71fa3a966c59026</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_lib_component_m2m_asset_7c35a69b207d036de71fa3a966c59026</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 19:47:50</sys_updated_on>
+    </sys_ux_lib_component_m2m_asset>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
+        <file_path/>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
+        <name>sys_ux_lib_component_m2m_asset_7c35a69b207d036de71fa3a966c59026</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_m2m_asset"><sys_ux_lib_component_m2m_asset action="INSERT_OR_UPDATE"><asset display_value="@snc/photobooth-uic-camera/index">6a3946e76f429e1cfa6597d5d98a93bf</asset><component display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</component><sys_class_name>sys_ux_lib_component_m2m_asset</sys_class_name><sys_created_by>jon.lind</sys_created_by><sys_created_on>2024-05-15 19:47:50</sys_created_on><sys_id>7c35a69b207d036de71fa3a966c59026</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package><sys_policy>read</sys_policy><sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope><sys_update_name>sys_ux_lib_component_m2m_asset_7c35a69b207d036de71fa3a966c59026</sys_update_name><sys_updated_by>jon.lind</sys_updated_by><sys_updated_on>2024-05-15 19:47:50</sys_updated_on></sys_ux_lib_component_m2m_asset></record_update>]]></payload>
+        <payload_hash>1415318273</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>b2ef3f5c9751ce506c017f6de053afa9</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 19:47:50</sys_created_on>
+        <sys_id>8d1b76bbeb460a5036e7f734bad0cdd1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18f7dcbf9030000001</sys_recorded_at>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 19:47:50</sys_updated_on>
+        <type>UX Component Assets</type>
+        <update_guid>451b76bbee460a5001e91e0fef63909f</update_guid>
+        <update_guid_history>451b76bbee460a5001e91e0fef63909f:1415318273</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 20:08:04</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_lib_component_m2m_asset">sys_ux_lib_component_m2m_asset</sys_db_object>
+        <sys_id>3ce6e5a88377409aaf82c59186ae6cc4</sys_id>
+        <sys_metadata>7c35a69b207d036de71fa3a966c59026</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
+        <sys_update_name>sys_ux_lib_component_m2m_asset_7c35a69b207d036de71fa3a966c59026</sys_update_name>
+        <sys_update_version display_value="sys_ux_lib_component_m2m_asset_7c35a69b207d036de71fa3a966c59026">8d1b76bbeb460a5036e7f734bad0cdd1</sys_update_version>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 20:08:04</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

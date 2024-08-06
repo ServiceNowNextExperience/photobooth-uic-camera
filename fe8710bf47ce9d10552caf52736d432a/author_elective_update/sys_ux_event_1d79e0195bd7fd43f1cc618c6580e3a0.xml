@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
+    <sys_ux_event action="DELETE">
+        <description>Dispatched when the available cameras are updated.</description>
+        <event_name>PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED</event_name>
+        <explicit_api_name/>
+        <interfaces>[]</interfaces>
+        <label>Photobooth Available Cameras Updated</label>
+        <props>[
+    {
+        "description": "",
+        "fieldType": "string",
+        "label": "Selected camera device ID",
+        "name": "selectedCameraDeviceId",
+        "valueType": "string"
+    },
+    {
+        "description": "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+        "fieldType": "json",
+        "label": "Cameras",
+        "name": "cameras",
+        "typeMetadata": {
+            "schema": {
+                "items": [
+                    {
+                        "properties": {
+                            "deviceId": {
+                                "type": "string"
+                            },
+                            "groupId": {
+                                "type": "string"
+                            },
+                            "kind": {
+                                "type": "string"
+                            },
+                            "label": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ],
+                "type": "array"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+        "fieldType": "boolean",
+        "label": "Selected device ID was found",
+        "name": "selectedDeviceIdFound",
+        "valueType": "string"
+    },
+    {
+        "description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+        "fieldType": "string",
+        "label": "Actual camera device ID",
+        "name": "boundCameraDeviceId",
+        "valueType": "string"
+    }
+]</props>
+        <required_translations>[ {
+  "message" : "Actual camera device ID",
+  "comment" : ""
+}, {
+  "message" : "Cameras",
+  "comment" : ""
+}, {
+  "message" : "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+  "comment" : ""
+}, {
+  "message" : "Selected camera device ID",
+  "comment" : ""
+}, {
+  "message" : "Selected device ID was found",
+  "comment" : ""
+}, {
+  "message" : "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+  "comment" : ""
+}, {
+  "message" : "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+  "comment" : ""
+} ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <sys_class_name>sys_ux_event</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:12:34</sys_created_on>
+        <sys_id>1d79e0195bd7fd43f1cc618c6580e3a0</sys_id>
+        <sys_mod_count>476612</sys_mod_count>
+        <sys_name>Photobooth Available Cameras Updated</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_event_1d79e0195bd7fd43f1cc618c6580e3a0</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 19:47:48</sys_updated_on>
+    </sys_ux_event>
+    <sys_translated_text action="DELETE" query="documentkey=1d79e0195bd7fd43f1cc618c6580e3a0"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
+        <file_path/>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
+        <name>sys_ux_event_1d79e0195bd7fd43f1cc618c6580e3a0</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event"><sys_ux_event action="INSERT_OR_UPDATE"><description>Dispatched when the available cameras are updated.</description><event_name>PHOTOBOOTH_CAMERA#AVAILABLE_CAMERAS_UPDATED</event_name><explicit_api_name/><interfaces>[]</interfaces><label>Photobooth Available Cameras Updated</label><props>[
+    {
+        "description": "",
+        "fieldType": "string",
+        "label": "Selected camera device ID",
+        "name": "selectedCameraDeviceId",
+        "valueType": "string"
+    },
+    {
+        "description": "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+        "fieldType": "json",
+        "label": "Cameras",
+        "name": "cameras",
+        "typeMetadata": {
+            "schema": {
+                "items": [
+                    {
+                        "properties": {
+                            "deviceId": {
+                                "type": "string"
+                            },
+                            "groupId": {
+                                "type": "string"
+                            },
+                            "kind": {
+                                "type": "string"
+                            },
+                            "label": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ],
+                "type": "array"
+            }
+        },
+        "valueType": "string"
+    },
+    {
+        "description": "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+        "fieldType": "boolean",
+        "label": "Selected device ID was found",
+        "name": "selectedDeviceIdFound",
+        "valueType": "string"
+    },
+    {
+        "description": "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+        "fieldType": "string",
+        "label": "Actual camera device ID",
+        "name": "boundCameraDeviceId",
+        "valueType": "string"
+    }
+]</props><required_translations>[ {
+  "message" : "Actual camera device ID",
+  "comment" : ""
+}, {
+  "message" : "Cameras",
+  "comment" : ""
+}, {
+  "message" : "List of camera objects with the label, deviceId, id (same as deviceId), groupId and kind fields. [{deviceId, id, kind, groupId, kind}]. See https://webrtc.org/",
+  "comment" : ""
+}, {
+  "message" : "Selected camera device ID",
+  "comment" : ""
+}, {
+  "message" : "Selected device ID was found",
+  "comment" : ""
+}, {
+  "message" : "The Device ID of the camera that is actually being used. (May be different from the Selected Camera Device ID if that device could not be found but another camera was available.)",
+  "comment" : ""
+}, {
+  "message" : "Whether or not the Selected Camera Device ID was found and is in use. If 'false' check Actual Camera Device ID (boundCameraDeviceId) to see if another camera was selected instead.",
+  "comment" : ""
+} ]</required_translations><schema_version>1.0.0</schema_version><sys_class_name>sys_ux_event</sys_class_name><sys_created_by>jon.lind</sys_created_by><sys_created_on>2024-01-31 18:12:34</sys_created_on><sys_id>1d79e0195bd7fd43f1cc618c6580e3a0</sys_id><sys_mod_count>476612</sys_mod_count><sys_name>Photobooth Available Cameras Updated</sys_name><sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package><sys_policy/><sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope><sys_update_name>sys_ux_event_1d79e0195bd7fd43f1cc618c6580e3a0</sys_update_name><sys_updated_by>jon.lind</sys_updated_by><sys_updated_on>2024-05-15 19:47:48</sys_updated_on></sys_ux_event><sys_translated_text action="delete_multiple" query="documentkey=1d79e0195bd7fd43f1cc618c6580e3a0"/></record_update>]]></payload>
+        <payload_hash>564411308</payload_hash>
+        <record_name>Photobooth Available Cameras Updated</record_name>
+        <reverted_from/>
+        <source>b2ef3f5c9751ce506c017f6de053afa9</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 19:47:48</sys_created_on>
+        <sys_id>6c1b76bbeb460a5036e7f734bad0cdb9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18f7dcbf0800000001</sys_recorded_at>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 19:47:48</sys_updated_on>
+        <type>UX Event</type>
+        <update_guid>e01b76bb41460a50368aaf03992aeab9</update_guid>
+        <update_guid_history>e01b76bb41460a50368aaf03992aeab9:564411308,d9ffff5cab51ce50d0f09c7d8446a95f:-1204431156</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 20:07:54</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_event">sys_ux_event</sys_db_object>
+        <sys_id>4fe4cf19904d466d837c80b1be3a6871</sys_id>
+        <sys_metadata>1d79e0195bd7fd43f1cc618c6580e3a0</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Photobooth Available Cameras Updated</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
+        <sys_update_name>sys_ux_event_1d79e0195bd7fd43f1cc618c6580e3a0</sys_update_name>
+        <sys_update_version display_value="sys_ux_event_1d79e0195bd7fd43f1cc618c6580e3a0">6c1b76bbeb460a5036e7f734bad0cdb9</sys_update_version>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 20:07:54</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -13,7 +13,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>cameraDeviceId</column_label>
+        <column_label>Camera device ID</column_label>
         <comments/>
         <create_roles/>
         <default_value/>
@@ -35,7 +35,7 @@
         <help/>
         <hint/>
         <internal_type display_value="String">string</internal_type>
-        <label>Camera Device ID</label>
+        <label>Camera device ID</label>
         <mandatory>false</mandatory>
         <max_length>255</max_length>
         <model display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</model>
@@ -58,15 +58,15 @@
         <staged>false</staged>
         <sys_class_name>sys_ux_lib_component_attr</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2022-12-14 22:40:57</sys_created_on>
+        <sys_created_on>2024-01-31 18:12:24</sys_created_on>
         <sys_id>205f449cc7298ca0675bea1ca3f4a331</sys_id>
-        <sys_name>Camera Device ID</sys_name>
+        <sys_name>Camera device ID</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2022-12-14 22:40:57</sys_updated_on>
+        <sys_updated_on>2024-01-31 18:12:24</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -79,54 +79,130 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_ux_lib_component_attr>
-    <sys_update_version action="INSERT_OR_UPDATE">
+<sys_update_version action="INSERT_OR_UPDATE">
         <action>DELETE</action>
         <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
         <file_path/>
-        <instance_id>634887c3db11915c8aea21c4059619b9</instance_id>
-        <instance_name>tennis</instance_name>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
         <name>sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331</name>
-        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;&lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;
+    &lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;array&gt;false&lt;/array&gt;
+        &lt;attributes/&gt;
+        &lt;audit&gt;false&lt;/audit&gt;
+        &lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
 
 	// Add your code here
 	return '';  // return the calculated value
 
-})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;cameraDeviceId&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;cameraDeviceId&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;help/&gt;&lt;hint/&gt;&lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;&lt;label&gt;Camera Device ID&lt;/label&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;255&lt;/max_length&gt;&lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;&lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;&lt;model_table/&gt;&lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;&lt;next_element/&gt;&lt;order&gt;100&lt;/order&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;&lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-12-14 22:40:57&lt;/sys_created_on&gt;&lt;sys_id&gt;205f449cc7298ca0675bea1ca3f4a331&lt;/sys_id&gt;&lt;sys_name&gt;Camera Device ID&lt;/sys_name&gt;&lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-12-14 22:40:57&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_ux_lib_component_attr&gt;&lt;/record_update&gt;</payload>
-        <payload_hash>837563670</payload_hash>
-        <record_name>Camera Device ID</record_name>
+})(current);]]&gt;&lt;/calculation&gt;
+        &lt;choice/&gt;
+        &lt;choice_field/&gt;
+        &lt;choice_table/&gt;
+        &lt;column_label&gt;Camera device ID&lt;/column_label&gt;
+        &lt;comments/&gt;
+        &lt;create_roles/&gt;
+        &lt;default_value/&gt;
+        &lt;defaultsort/&gt;
+        &lt;delete_roles/&gt;
+        &lt;dependent/&gt;
+        &lt;dependent_on_field/&gt;
+        &lt;display&gt;false&lt;/display&gt;
+        &lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;
+        &lt;dynamic_creation_script/&gt;
+        &lt;dynamic_default_value/&gt;
+        &lt;dynamic_ref_qual/&gt;
+        &lt;element&gt;cameraDeviceId&lt;/element&gt;
+        &lt;element_reference&gt;false&lt;/element_reference&gt;
+        &lt;foreign_database/&gt;
+        &lt;formula/&gt;
+        &lt;function_definition/&gt;
+        &lt;function_field&gt;false&lt;/function_field&gt;
+        &lt;help/&gt;
+        &lt;hint/&gt;
+        &lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;
+        &lt;label&gt;Camera device ID&lt;/label&gt;
+        &lt;mandatory&gt;false&lt;/mandatory&gt;
+        &lt;max_length&gt;255&lt;/max_length&gt;
+        &lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;
+        &lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;
+        &lt;model_table/&gt;
+        &lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;
+        &lt;next_element/&gt;
+        &lt;order&gt;100&lt;/order&gt;
+        &lt;primary&gt;false&lt;/primary&gt;
+        &lt;read_only&gt;false&lt;/read_only&gt;
+        &lt;read_roles/&gt;
+        &lt;reference/&gt;
+        &lt;reference_cascade_rule/&gt;
+        &lt;reference_floats&gt;false&lt;/reference_floats&gt;
+        &lt;reference_key/&gt;
+        &lt;reference_qual/&gt;
+        &lt;reference_qual_condition/&gt;
+        &lt;reference_type/&gt;
+        &lt;spell_check&gt;false&lt;/spell_check&gt;
+        &lt;staged&gt;false&lt;/staged&gt;
+        &lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-01-31 18:12:24&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;205f449cc7298ca0675bea1ca3f4a331&lt;/sys_id&gt;
+        &lt;sys_name&gt;Camera device ID&lt;/sys_name&gt;
+        &lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-01-31 18:12:24&lt;/sys_updated_on&gt;
+        &lt;table_reference&gt;false&lt;/table_reference&gt;
+        &lt;text_index&gt;false&lt;/text_index&gt;
+        &lt;unique&gt;false&lt;/unique&gt;
+        &lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;
+        &lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;
+        &lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;
+        &lt;virtual&gt;false&lt;/virtual&gt;
+        &lt;virtual_type&gt;script&lt;/virtual_type&gt;
+        &lt;widget/&gt;
+        &lt;write_roles/&gt;
+        &lt;xml_view&gt;false&lt;/xml_view&gt;
+    &lt;/sys_ux_lib_component_attr&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-1239703164</payload_hash>
+        <record_name>Camera device ID</record_name>
         <reverted_from/>
-        <source>498fb97c8773915089790fe5dabb35e8</source>
-        <source_table>sys_update_set</source_table>
+        <source>34ffbf5c9751ce506c017f6de053afb7</source>
+        <source_table>sys_upgrade_history</source_table>
         <state>current</state>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2022-12-14 22:41:01</sys_created_on>
-        <sys_id>972b3f818737d15089790fe5dabb35b4</sys_id>
+        <sys_created_on>2024-03-28 21:02:57</sys_created_on>
+        <sys_id>5dffff5c9751ce506c017f6de053af89</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_recorded_at>18512cc5dcb0000001</sys_recorded_at>
+        <sys_recorded_at>18e86df7cec0000001</sys_recorded_at>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2022-12-14 22:41:01</sys_updated_on>
+        <sys_updated_on>2024-03-28 21:02:57</sys_updated_on>
         <type>Component Attribute</type>
-        <update_guid>df2b3f813a37d1504a577fe772926eb3</update_guid>
-        <update_guid_history>df2b3f813a37d1504a577fe772926eb3:837563670,cb2b3f814837d15025fe7b60c752c0ae:-1530324286,b9fa7b811337d15054971b1bb9c287c2:1529010484,79c773014237d150f9800015781d8eaa:837563670,65c773013337d15028b693a50c9823a5:-1530324286,6aa7ffcd9bf3d1501019decbfc2e3b05:-976397659,a877d38d36339550c277604651b7c417:837563670,a477d38d9e3395506799f7441f870412:-1530324286,0b475f85f6b3d150365cac4eb835d755:892789991,9440df85d4339550c88281b8d6a08e88:837563670,9040df85ad33955096002112fb0ebf83:-1530324286,8e205f85b6339550aa94583e58f4ce1a:1985917235,06ae47453d3395504c5ffd12caa72378:837563670,06ae4745e7339550d95b37fbe188a875:-1530324286,b1ae474536339550fc73c41084b48e71:837563670</update_guid_history>
+        <update_guid>1dffff5cc351ce507ab67ac69875be89</update_guid>
+        <update_guid_history>1dffff5cc351ce507ab67ac69875be89:-1239703164</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
         <sys_audit_delete/>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-26 16:19:00</sys_created_on>
+        <sys_created_on>2024-05-15 20:07:58</sys_created_on>
         <sys_db_object display_value="" name="sys_ux_lib_component_attr">sys_ux_lib_component_attr</sys_db_object>
-        <sys_id>9569dbcb4d9b462a9bbf772e18418471</sys_id>
-        <sys_metadata>205f449cc7298ca0675bea1ca3f4a331</sys_metadata>
+        <sys_id>014add39cc3f4af380377b19ac40f809</sys_id>
+        <sys_metadata>61cc37589751ce506c017f6de053af8f</sys_metadata>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>Camera Device ID</sys_name>
+        <sys_name>Camera device ID</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_parent/>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
         <sys_update_name>sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331</sys_update_name>
-        <sys_update_version display_value="sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331">972b3f818737d15089790fe5dabb35b4</sys_update_version>
+        <sys_update_version display_value="sys_ux_lib_component_attr_205f449cc7298ca0675bea1ca3f4a331">5dffff5c9751ce506c017f6de053af89</sys_update_version>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-26 16:19:00</sys_updated_on>
+        <sys_updated_on>2024-05-15 20:07:58</sys_updated_on>
     </sys_metadata_delete>
 </record_update>

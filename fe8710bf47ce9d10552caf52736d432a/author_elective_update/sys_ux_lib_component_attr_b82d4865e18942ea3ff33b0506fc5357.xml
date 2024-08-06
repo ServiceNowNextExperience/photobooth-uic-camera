@@ -13,7 +13,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>chin</column_label>
+        <column_label>Chin height pixels</column_label>
         <comments/>
         <create_roles/>
         <default_value>50</default_value>
@@ -35,7 +35,7 @@
         <help/>
         <hint/>
         <internal_type display_value="String">string</internal_type>
-        <label>Chin height in pixels</label>
+        <label>Chin height pixels</label>
         <mandatory>false</mandatory>
         <max_length>255</max_length>
         <model display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</model>
@@ -58,15 +58,15 @@
         <staged>false</staged>
         <sys_class_name>sys_ux_lib_component_attr</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-19 17:39:46</sys_created_on>
+        <sys_created_on>2024-01-31 18:12:28</sys_created_on>
         <sys_id>b82d4865e18942ea3ff33b0506fc5357</sys_id>
-        <sys_name>Chin height in pixels</sys_name>
+        <sys_name>Chin height pixels</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-19 17:39:46</sys_updated_on>
+        <sys_updated_on>2024-01-31 18:12:28</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -79,54 +79,130 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_ux_lib_component_attr>
-    <sys_update_version action="INSERT_OR_UPDATE">
+<sys_update_version action="INSERT_OR_UPDATE">
         <action>DELETE</action>
         <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
         <file_path/>
-        <instance_id>634887c3db11915c8aea21c4059619b9</instance_id>
-        <instance_name>tennis</instance_name>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
         <name>sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357</name>
-        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;&lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;
+    &lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;array&gt;false&lt;/array&gt;
+        &lt;attributes/&gt;
+        &lt;audit&gt;false&lt;/audit&gt;
+        &lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
 
 	// Add your code here
 	return '';  // return the calculated value
 
-})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;chin&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value&gt;50&lt;/default_value&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;chin&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;help/&gt;&lt;hint/&gt;&lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;&lt;label&gt;Chin height in pixels&lt;/label&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;255&lt;/max_length&gt;&lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;&lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;&lt;model_table/&gt;&lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;&lt;next_element/&gt;&lt;order&gt;100&lt;/order&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;&lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-01-19 17:39:46&lt;/sys_created_on&gt;&lt;sys_id&gt;b82d4865e18942ea3ff33b0506fc5357&lt;/sys_id&gt;&lt;sys_name&gt;Chin height in pixels&lt;/sys_name&gt;&lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-19 17:39:46&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_ux_lib_component_attr&gt;&lt;/record_update&gt;</payload>
-        <payload_hash>339065054</payload_hash>
-        <record_name>Chin height in pixels</record_name>
+})(current);]]&gt;&lt;/calculation&gt;
+        &lt;choice/&gt;
+        &lt;choice_field/&gt;
+        &lt;choice_table/&gt;
+        &lt;column_label&gt;Chin height pixels&lt;/column_label&gt;
+        &lt;comments/&gt;
+        &lt;create_roles/&gt;
+        &lt;default_value&gt;50&lt;/default_value&gt;
+        &lt;defaultsort/&gt;
+        &lt;delete_roles/&gt;
+        &lt;dependent/&gt;
+        &lt;dependent_on_field/&gt;
+        &lt;display&gt;false&lt;/display&gt;
+        &lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;
+        &lt;dynamic_creation_script/&gt;
+        &lt;dynamic_default_value/&gt;
+        &lt;dynamic_ref_qual/&gt;
+        &lt;element&gt;chin&lt;/element&gt;
+        &lt;element_reference&gt;false&lt;/element_reference&gt;
+        &lt;foreign_database/&gt;
+        &lt;formula/&gt;
+        &lt;function_definition/&gt;
+        &lt;function_field&gt;false&lt;/function_field&gt;
+        &lt;help/&gt;
+        &lt;hint/&gt;
+        &lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;
+        &lt;label&gt;Chin height pixels&lt;/label&gt;
+        &lt;mandatory&gt;false&lt;/mandatory&gt;
+        &lt;max_length&gt;255&lt;/max_length&gt;
+        &lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;
+        &lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;
+        &lt;model_table/&gt;
+        &lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;
+        &lt;next_element/&gt;
+        &lt;order&gt;100&lt;/order&gt;
+        &lt;primary&gt;false&lt;/primary&gt;
+        &lt;read_only&gt;false&lt;/read_only&gt;
+        &lt;read_roles/&gt;
+        &lt;reference/&gt;
+        &lt;reference_cascade_rule/&gt;
+        &lt;reference_floats&gt;false&lt;/reference_floats&gt;
+        &lt;reference_key/&gt;
+        &lt;reference_qual/&gt;
+        &lt;reference_qual_condition/&gt;
+        &lt;reference_type/&gt;
+        &lt;spell_check&gt;false&lt;/spell_check&gt;
+        &lt;staged&gt;false&lt;/staged&gt;
+        &lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-01-31 18:12:28&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;b82d4865e18942ea3ff33b0506fc5357&lt;/sys_id&gt;
+        &lt;sys_name&gt;Chin height pixels&lt;/sys_name&gt;
+        &lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-01-31 18:12:28&lt;/sys_updated_on&gt;
+        &lt;table_reference&gt;false&lt;/table_reference&gt;
+        &lt;text_index&gt;false&lt;/text_index&gt;
+        &lt;unique&gt;false&lt;/unique&gt;
+        &lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;
+        &lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;
+        &lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;
+        &lt;virtual&gt;false&lt;/virtual&gt;
+        &lt;virtual_type&gt;script&lt;/virtual_type&gt;
+        &lt;widget/&gt;
+        &lt;write_roles/&gt;
+        &lt;xml_view&gt;false&lt;/xml_view&gt;
+    &lt;/sys_ux_lib_component_attr&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>1670144146</payload_hash>
+        <record_name>Chin height pixels</record_name>
         <reverted_from/>
-        <source>4ca644f847206510552caf52736d43da</source>
-        <source_table>sys_update_set</source_table>
+        <source>34ffbf5c9751ce506c017f6de053afb7</source>
+        <source_table>sys_upgrade_history</source_table>
         <state>current</state>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-19 17:39:47</sys_created_on>
-        <sys_id>797f8874872cad5089790fe5dabb35a1</sys_id>
+        <sys_created_on>2024-03-28 21:02:57</sys_created_on>
+        <sys_id>61ffff5c9751ce506c017f6de053af9c</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_recorded_at>185cb1d842a0000001</sys_recorded_at>
+        <sys_recorded_at>18e86df7dcd0000001</sys_recorded_at>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-19 17:39:47</sys_updated_on>
+        <sys_updated_on>2024-03-28 21:02:57</sys_updated_on>
         <type>Component Attribute</type>
-        <update_guid>b17f8874a92cad50eb57ba58e5997da1</update_guid>
-        <update_guid_history>b17f8874a92cad50eb57ba58e5997da1:339065054,ad7f8874bd2cad5050b4f69adebf7a9b:-1793595357,d75fc474c92cad508f815f6c7059548b:1598117983,a13e84b0ad606510d01a33d3538a535b:339065054,ad3e84b08e606510a9a90f97fa953d55:-1793595357,ea1e04b068606510d6248ead71b3eb21:89937814,44c6447cf3e8ad500c097fd07bfc3fbc:339065054,c0c6447cf2e8ad50baebd9959149eb9e:-1793595357,9a96407c67e8ad506da5509e194bebe5:138605547,6c0198ac74ec6d50d0ee0a941948c34d:339065054,86419cac56ec6d50c105cfcdc4ee63f7:467648687,6c0198ac74ec6d50d0ee0a941948c34d:339065054,6c0198ac33ec6d500e58be008924874a:-1793595357,a40198ac1bec6d50a34c12f0d8954846:339065054</update_guid_history>
+        <update_guid>21ffff5cd751ce500bba1971f91a8a9c</update_guid>
+        <update_guid_history>21ffff5cd751ce500bba1971f91a8a9c:1670144146</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
         <sys_audit_delete/>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-26 16:19:12</sys_created_on>
+        <sys_created_on>2024-05-15 20:08:08</sys_created_on>
         <sys_db_object display_value="" name="sys_ux_lib_component_attr">sys_ux_lib_component_attr</sys_db_object>
-        <sys_id>2079432bdbe645c887d5709312aee240</sys_id>
-        <sys_metadata>b82d4865e18942ea3ff33b0506fc5357</sys_metadata>
+        <sys_id>51e4625c4ad34245b0da8a3def3891b9</sys_id>
+        <sys_metadata>fdcc37589751ce506c017f6de053afb6</sys_metadata>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>Chin height in pixels</sys_name>
+        <sys_name>Chin height pixels</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
         <sys_parent/>
         <sys_policy/>
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
         <sys_update_name>sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357</sys_update_name>
-        <sys_update_version display_value="sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357">797f8874872cad5089790fe5dabb35a1</sys_update_version>
+        <sys_update_version display_value="sys_ux_lib_component_attr_b82d4865e18942ea3ff33b0506fc5357">61ffff5c9751ce506c017f6de053af9c</sys_update_version>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-26 16:19:12</sys_updated_on>
+        <sys_updated_on>2024-05-15 20:08:08</sys_updated_on>
     </sys_metadata_delete>
 </record_update>

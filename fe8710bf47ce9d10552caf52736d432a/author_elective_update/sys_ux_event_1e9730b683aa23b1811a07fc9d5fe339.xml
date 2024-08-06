@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event">
+    <sys_ux_event action="DELETE">
+        <description>Dispatched when a photo is snapped.  Includes the imageData in the payload.</description>
+        <event_name>PHOTOBOOTH_CAMERA#SNAPPED</event_name>
+        <explicit_api_name/>
+        <interfaces>[]</interfaces>
+        <label>Photobooth Image Snapped</label>
+        <props>[
+    {
+        "description": "The image data from the camera after the snap is completed",
+        "fieldType": "string",
+        "label": "Image Data",
+        "name": "imageData",
+        "valueType": "string"
+    }
+]</props>
+        <required_translations>[ {
+  "message" : "Image Data",
+  "comment" : ""
+}, {
+  "message" : "The image data from the camera after the snap is completed",
+  "comment" : ""
+} ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <sys_class_name>sys_ux_event</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:12:33</sys_created_on>
+        <sys_id>1e9730b683aa23b1811a07fc9d5fe339</sys_id>
+        <sys_mod_count>476612</sys_mod_count>
+        <sys_name>Photobooth Image Snapped</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_event_1e9730b683aa23b1811a07fc9d5fe339</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 19:47:47</sys_updated_on>
+    </sys_ux_event>
+    <sys_translated_text action="DELETE" query="documentkey=1e9730b683aa23b1811a07fc9d5fe339"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
+        <file_path/>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
+        <name>sys_ux_event_1e9730b683aa23b1811a07fc9d5fe339</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_event"><sys_ux_event action="INSERT_OR_UPDATE"><description>Dispatched when a photo is snapped.  Includes the imageData in the payload.</description><event_name>PHOTOBOOTH_CAMERA#SNAPPED</event_name><explicit_api_name/><interfaces>[]</interfaces><label>Photobooth Image Snapped</label><props>[
+    {
+        "description": "The image data from the camera after the snap is completed",
+        "fieldType": "string",
+        "label": "Image Data",
+        "name": "imageData",
+        "valueType": "string"
+    }
+]</props><required_translations>[ {
+  "message" : "Image Data",
+  "comment" : ""
+}, {
+  "message" : "The image data from the camera after the snap is completed",
+  "comment" : ""
+} ]</required_translations><schema_version>1.0.0</schema_version><sys_class_name>sys_ux_event</sys_class_name><sys_created_by>jon.lind</sys_created_by><sys_created_on>2024-01-31 18:12:33</sys_created_on><sys_id>1e9730b683aa23b1811a07fc9d5fe339</sys_id><sys_mod_count>476612</sys_mod_count><sys_name>Photobooth Image Snapped</sys_name><sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package><sys_policy/><sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope><sys_update_name>sys_ux_event_1e9730b683aa23b1811a07fc9d5fe339</sys_update_name><sys_updated_by>jon.lind</sys_updated_by><sys_updated_on>2024-05-15 19:47:47</sys_updated_on></sys_ux_event><sys_translated_text action="delete_multiple" query="documentkey=1e9730b683aa23b1811a07fc9d5fe339"/></record_update>]]></payload>
+        <payload_hash>-2050947957</payload_hash>
+        <record_name>Photobooth Image Snapped</record_name>
+        <reverted_from/>
+        <source>b2ef3f5c9751ce506c017f6de053afa9</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 19:47:47</sys_created_on>
+        <sys_id>641b32f7fb024e10d84afe7405efdc98</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18f7dcbee4a0000001</sys_recorded_at>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 19:47:47</sys_updated_on>
+        <type>UX Event</type>
+        <update_guid>e81b32f73a024e107f31784d94193097</update_guid>
+        <update_guid_history>e81b32f73a024e107f31784d94193097:-2050947957,15ffff5c4d51ce50ad88181ee1374a62:-338122307</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 20:07:55</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_event">sys_ux_event</sys_db_object>
+        <sys_id>1de7813040f5468886d6c9d216507484</sys_id>
+        <sys_metadata>1e9730b683aa23b1811a07fc9d5fe339</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Photobooth Image Snapped</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
+        <sys_update_name>sys_ux_event_1e9730b683aa23b1811a07fc9d5fe339</sys_update_name>
+        <sys_update_version display_value="sys_ux_event_1e9730b683aa23b1811a07fc9d5fe339">641b32f7fb024e10d84afe7405efdc98</sys_update_version>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 20:07:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

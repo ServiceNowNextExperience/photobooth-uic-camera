@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_action">
+    <sys_ux_lib_component_action action="DELETE">
+        <description>Dispatched when a photo is snapped.  Includes the imageData in the payload.</description>
+        <name>PHOTOBOOTH_CAMERA#SNAPPED</name>
+        <publisher display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</publisher>
+        <sys_class_name>sys_ux_lib_component_action</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:12:30</sys_created_on>
+        <sys_id>78ded6f1b86fc5c4a851d607371f774c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PHOTOBOOTH_CAMERA#SNAPPED</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_lib_component_action_78ded6f1b86fc5c4a851d607371f774c</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-01-31 18:12:30</sys_updated_on>
+    </sys_ux_lib_component_action>
+    <sys_translated_text action="DELETE" query="documentkey=78ded6f1b86fc5c4a851d607371f774c"/>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
+        <file_path/>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
+        <name>sys_ux_lib_component_action_78ded6f1b86fc5c4a851d607371f774c</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_lib_component_action">
+    <sys_ux_lib_component_action action="INSERT_OR_UPDATE">
+        <description>Dispatched when a photo is snapped.  Includes the imageData in the payload.</description>
+        <name>PHOTOBOOTH_CAMERA#SNAPPED</name>
+        <publisher display_value="snc-photobooth-uic-camera">adc4e0f4fcc080687abfd4f5d3ed39fc</publisher>
+        <sys_class_name>sys_ux_lib_component_action</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-01-31 18:12:30</sys_created_on>
+        <sys_id>78ded6f1b86fc5c4a851d607371f774c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PHOTOBOOTH_CAMERA#SNAPPED</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_update_name>sys_ux_lib_component_action_78ded6f1b86fc5c4a851d607371f774c</sys_update_name>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-01-31 18:12:30</sys_updated_on>
+    </sys_ux_lib_component_action>
+    <sys_translated_text action="delete_multiple" query="documentkey=78ded6f1b86fc5c4a851d607371f774c"/>
+</record_update>]]></payload>
+        <payload_hash>-638363566</payload_hash>
+        <record_name>PHOTOBOOTH_CAMERA#SNAPPED</record_name>
+        <reverted_from/>
+        <source>34ffbf5c9751ce506c017f6de053afb7</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>current</state>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-03-28 21:02:57</sys_created_on>
+        <sys_id>5dffff5c9751ce506c017f6de053af7e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18e86df7c560000001</sys_recorded_at>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-03-28 21:02:57</sys_updated_on>
+        <type>Component Action</type>
+        <update_guid>1dffff5c4a51ce50224ed3fb5f6cf87e</update_guid>
+        <update_guid_history>1dffff5c4a51ce50224ed3fb5f6cf87e:-638363566</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jon.lind</sys_created_by>
+        <sys_created_on>2024-05-15 20:08:04</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_lib_component_action">sys_ux_lib_component_action</sys_db_object>
+        <sys_id>06480ded2df244208098696902ced440</sys_id>
+        <sys_metadata>78ded6f1b86fc5c4a851d607371f774c</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PHOTOBOOTH_CAMERA#SNAPPED</sys_name>
+        <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
+        <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
+        <sys_update_name>sys_ux_lib_component_action_78ded6f1b86fc5c4a851d607371f774c</sys_update_name>
+        <sys_update_version display_value="sys_ux_lib_component_action_78ded6f1b86fc5c4a851d607371f774c">5dffff5c9751ce506c017f6de053af7e</sys_update_version>
+        <sys_updated_by>jon.lind</sys_updated_by>
+        <sys_updated_on>2024-05-15 20:08:04</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

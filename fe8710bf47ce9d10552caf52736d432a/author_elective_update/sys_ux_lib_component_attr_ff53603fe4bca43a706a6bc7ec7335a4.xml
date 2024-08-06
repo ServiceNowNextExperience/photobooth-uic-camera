@@ -13,7 +13,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>fillStyle</column_label>
+        <column_label>Fill style of background</column_label>
         <comments/>
         <create_roles/>
         <default_value>lightgreen</default_value>
@@ -58,7 +58,7 @@
         <staged>false</staged>
         <sys_class_name>sys_ux_lib_component_attr</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-19 17:39:47</sys_created_on>
+        <sys_created_on>2024-01-31 18:12:29</sys_created_on>
         <sys_id>ff53603fe4bca43a706a6bc7ec7335a4</sys_id>
         <sys_name>Fill style of background</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
@@ -66,7 +66,7 @@
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_update_name>sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4</sys_update_name>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-19 17:39:47</sys_updated_on>
+        <sys_updated_on>2024-01-31 18:12:29</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -79,44 +79,120 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_ux_lib_component_attr>
-    <sys_update_version action="INSERT_OR_UPDATE">
+<sys_update_version action="INSERT_OR_UPDATE">
         <action>DELETE</action>
         <application display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</application>
         <file_path/>
-        <instance_id>634887c3db11915c8aea21c4059619b9</instance_id>
-        <instance_name>tennis</instance_name>
+        <instance_id>15b69fc31b60025419254089bd4bcb07</instance_id>
+        <instance_name>wiffleball</instance_name>
         <name>sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4</name>
-        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;&lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_lib_component_attr"&gt;
+    &lt;sys_ux_lib_component_attr action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;array&gt;false&lt;/array&gt;
+        &lt;attributes/&gt;
+        &lt;audit&gt;false&lt;/audit&gt;
+        &lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
 
 	// Add your code here
 	return '';  // return the calculated value
 
-})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;fillStyle&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value&gt;lightgreen&lt;/default_value&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;fillStyle&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;help/&gt;&lt;hint/&gt;&lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;&lt;label&gt;Fill style of background&lt;/label&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;255&lt;/max_length&gt;&lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;&lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;&lt;model_table/&gt;&lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;&lt;next_element/&gt;&lt;order&gt;100&lt;/order&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;&lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-01-19 17:39:47&lt;/sys_created_on&gt;&lt;sys_id&gt;ff53603fe4bca43a706a6bc7ec7335a4&lt;/sys_id&gt;&lt;sys_name&gt;Fill style of background&lt;/sys_name&gt;&lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-19 17:39:47&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_ux_lib_component_attr&gt;&lt;/record_update&gt;</payload>
-        <payload_hash>256367664</payload_hash>
+})(current);]]&gt;&lt;/calculation&gt;
+        &lt;choice/&gt;
+        &lt;choice_field/&gt;
+        &lt;choice_table/&gt;
+        &lt;column_label&gt;Fill style of background&lt;/column_label&gt;
+        &lt;comments/&gt;
+        &lt;create_roles/&gt;
+        &lt;default_value&gt;lightgreen&lt;/default_value&gt;
+        &lt;defaultsort/&gt;
+        &lt;delete_roles/&gt;
+        &lt;dependent/&gt;
+        &lt;dependent_on_field/&gt;
+        &lt;display&gt;false&lt;/display&gt;
+        &lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;
+        &lt;dynamic_creation_script/&gt;
+        &lt;dynamic_default_value/&gt;
+        &lt;dynamic_ref_qual/&gt;
+        &lt;element&gt;fillStyle&lt;/element&gt;
+        &lt;element_reference&gt;false&lt;/element_reference&gt;
+        &lt;foreign_database/&gt;
+        &lt;formula/&gt;
+        &lt;function_definition/&gt;
+        &lt;function_field&gt;false&lt;/function_field&gt;
+        &lt;help/&gt;
+        &lt;hint/&gt;
+        &lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;
+        &lt;label&gt;Fill style of background&lt;/label&gt;
+        &lt;mandatory&gt;false&lt;/mandatory&gt;
+        &lt;max_length&gt;255&lt;/max_length&gt;
+        &lt;model display_value="snc-photobooth-uic-camera"&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model&gt;
+        &lt;model_id&gt;adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/model_id&gt;
+        &lt;model_table/&gt;
+        &lt;name&gt;var__m_sys_ux_lib_component_attr_adc4e0f4fcc080687abfd4f5d3ed39fc&lt;/name&gt;
+        &lt;next_element/&gt;
+        &lt;order&gt;100&lt;/order&gt;
+        &lt;primary&gt;false&lt;/primary&gt;
+        &lt;read_only&gt;false&lt;/read_only&gt;
+        &lt;read_roles/&gt;
+        &lt;reference/&gt;
+        &lt;reference_cascade_rule/&gt;
+        &lt;reference_floats&gt;false&lt;/reference_floats&gt;
+        &lt;reference_key/&gt;
+        &lt;reference_qual/&gt;
+        &lt;reference_qual_condition/&gt;
+        &lt;reference_type/&gt;
+        &lt;spell_check&gt;false&lt;/spell_check&gt;
+        &lt;staged&gt;false&lt;/staged&gt;
+        &lt;sys_class_name&gt;sys_ux_lib_component_attr&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;jon.lind&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2024-01-31 18:12:29&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;ff53603fe4bca43a706a6bc7ec7335a4&lt;/sys_id&gt;
+        &lt;sys_name&gt;Fill style of background&lt;/sys_name&gt;
+        &lt;sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Photobooth UIC Camera"&gt;fe8710bf47ce9d10552caf52736d432a&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;jon.lind&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2024-01-31 18:12:29&lt;/sys_updated_on&gt;
+        &lt;table_reference&gt;false&lt;/table_reference&gt;
+        &lt;text_index&gt;false&lt;/text_index&gt;
+        &lt;unique&gt;false&lt;/unique&gt;
+        &lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;
+        &lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;
+        &lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;
+        &lt;virtual&gt;false&lt;/virtual&gt;
+        &lt;virtual_type&gt;script&lt;/virtual_type&gt;
+        &lt;widget/&gt;
+        &lt;write_roles/&gt;
+        &lt;xml_view&gt;false&lt;/xml_view&gt;
+    &lt;/sys_ux_lib_component_attr&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-1349561863</payload_hash>
         <record_name>Fill style of background</record_name>
         <reverted_from/>
-        <source>4ca644f847206510552caf52736d43da</source>
-        <source_table>sys_update_set</source_table>
+        <source>34ffbf5c9751ce506c017f6de053afb7</source>
+        <source_table>sys_upgrade_history</source_table>
         <state>current</state>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-19 17:39:48</sys_created_on>
-        <sys_id>4e7f48f047606510552caf52736d43a5</sys_id>
+        <sys_created_on>2024-03-28 21:02:57</sys_created_on>
+        <sys_id>e1ffff5c9751ce506c017f6de053afa6</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_recorded_at>185cb1d88530000001</sys_recorded_at>
+        <sys_recorded_at>18e86df7e470000001</sys_recorded_at>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-19 17:39:48</sys_updated_on>
+        <sys_updated_on>2024-03-28 21:02:57</sys_updated_on>
         <type>Component Attribute</type>
-        <update_guid>867f48f0ab60651027cf08ec414052a5</update_guid>
-        <update_guid_history>867f48f0ab60651027cf08ec414052a5:256367664,827f48f0b1606510035e86f21d35fba0:1072359325,e06f0874e92cad50f3bc7e994fcfd526:1043988588,1a3ec0343e2cad50eacb8b2ca678f057:256367664,de3ec0346a2cad504dede2826565572c:1072359325,ff1e04b008606510ac1494d9eceb868b:-46742528,54c608f865206510c2277258800bd08f:256367664,50c608f86a206510e92c43ef9767b38a:1072359325,6f96807cfae8ad50cc91c6944890fe5c:1618225019,b801dca824a0251074d6ead977c2372d:256367664,de41dcac2dec6d50c0cbfe6f5f131016:-740258007,b801dca824a0251074d6ead977c2372d:256367664,b801dca88fa02510185b26cd433e462a:1072359325,b001dca8fea02510dcdbdf22b9bc9b26:256367664</update_guid_history>
+        <update_guid>a1ffff5c5051ce506c3ffe17badbaea6</update_guid>
+        <update_guid_history>a1ffff5c5051ce506c3ffe17badbaea6:-1349561863</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
         <sys_audit_delete/>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>jon.lind</sys_created_by>
-        <sys_created_on>2023-01-26 16:19:16</sys_created_on>
+        <sys_created_on>2024-05-15 20:08:04</sys_created_on>
         <sys_db_object display_value="" name="sys_ux_lib_component_attr">sys_ux_lib_component_attr</sys_db_object>
-        <sys_id>03296aba4f8947f8800dc77142d33889</sys_id>
-        <sys_metadata>ff53603fe4bca43a706a6bc7ec7335a4</sys_metadata>
+        <sys_id>122c5811dd5c4d8497d86ac9c576b310</sys_id>
+        <sys_metadata>7dcc37589751ce506c017f6de053afc6</sys_metadata>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Fill style of background</sys_name>
         <sys_package display_value="Photobooth UIC Camera" source="x_snc_pb_camera">fe8710bf47ce9d10552caf52736d432a</sys_package>
@@ -125,8 +201,8 @@
         <sys_scope display_value="Photobooth UIC Camera">fe8710bf47ce9d10552caf52736d432a</sys_scope>
         <sys_scope_delete display_value="">7766113029a348f88c24056ea2b02310</sys_scope_delete>
         <sys_update_name>sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4</sys_update_name>
-        <sys_update_version display_value="sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4">4e7f48f047606510552caf52736d43a5</sys_update_version>
+        <sys_update_version display_value="sys_ux_lib_component_attr_ff53603fe4bca43a706a6bc7ec7335a4">e1ffff5c9751ce506c017f6de053afa6</sys_update_version>
         <sys_updated_by>jon.lind</sys_updated_by>
-        <sys_updated_on>2023-01-26 16:19:16</sys_updated_on>
+        <sys_updated_on>2024-05-15 20:08:04</sys_updated_on>
     </sys_metadata_delete>
 </record_update>
