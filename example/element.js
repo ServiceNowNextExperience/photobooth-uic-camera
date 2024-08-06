@@ -15,7 +15,7 @@ const initialState = {
 	pauseDurationSeconds: 1,
 	imageSize: { width: 800, height: 600 },
 	canvasConfig: { gap: 10, chin: 50, fillStyle: "lightgreen" },
-	watermarkImageUrl: "" /*"/@snc/photobooth-uic-camera/ServiceNow-Logo.png"*/,
+	watermarkImageUrl: "/@snc/photobooth-uic-camera/ServiceNow-Logo.png",
 	watermarkImageHeight: 50,
 	watermarkImagePosition: "bottom-right",
 	mainSnappedImg: "",
@@ -23,7 +23,7 @@ const initialState = {
 	cameras: [],
 	cameraDeviceId: "",
 	shutterSoundFile: "/@snc/photobooth-uic-camera/camera-click.wav",
-	numberOfSnaps: 1,
+	numberOfSnaps: 4,
 	watermarkEnabled: true,
 };
 
